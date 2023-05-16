@@ -1,0 +1,155 @@
+$color1:#524362; // main
+$color2:#AE95B3;
+$color3:#756E90;
+$color4:#936CA1; // medium
+$color5:#F4E7E0;
+$rainbow2-color1:#2A87B1; // main
+$rainbow2-color2:#5AA7C9;
+$rainbow2-color3:#09728F;
+$rainbow2-color4:#85BED3; // medium
+$rainbow2-color5:#FDFCEA;
+.chart-card {
+    // width: 40rem;
+    // display: inline-block;
+    height: 40rem;
+    margin: 0rem 2rem;
+    &--title {
+        height: 5rem;
+        font-size: 3rem;
+        line-height: 1.6;
+        font-weight: 500;
+        // width: 100%;
+        // background-color: blue;
+    }
+    &--chart {
+        height: 35rem;
+        width: 100%;
+        background-color: rgba($color: $card-background, $alpha: 1);
+        border-radius: 1rem;
+        box-shadow: 0 .5rem 1rem rgba(#000000, .3);
+    }
+    &--list-title {
+        display: flex;
+        justify-content: center;
+        align-items: end;
+        position: absolute;
+        top: 2rem;
+        left: 4%;
+        height: 3rem;
+        font-size: 2rem;
+        font-weight: 500;
+        color: #f1f1f1 // width: 100%;
+        // background-color: blue;
+    }
+    &--list-box {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: calc(100% - 5rem);
+        width: 100%;
+        padding: 0 4% 2rem 4%;
+        padding-top: 5rem;
+        .el-table-v2__main,
+        .el-table-v2__header,
+        .el-table-v2__header-wrapper,
+        .el-table-v2__header-cell {
+            // border-radius: 1rem;
+            color: #f2f2f2;
+            background-color: transparent !important;
+        }
+        .el-table-v2__row {
+            border-bottom: none;
+            &:hover {
+                background-color: rgba(#f2f2f2, 0.2);
+            }
+        }
+    }
+    &--list-tools {
+        position: absolute;
+        top: 1rem;
+        right: 4%;
+        height: 3rem;
+        font-size: 3rem;
+        color: $btn-green;
+        z-index: 10;
+        &:link,
+        &:visited {
+            transition: all .2s;
+        }
+        &:hover {
+            transform: translateY(-.2rem) scale(105%);
+        }
+        &:active {
+            transform: translateY(-.1rem);
+        }
+    }
+    &__rainbow {
+        height: 35rem;
+        width: 100%;
+        background-color: rgba($color: $card-background, $alpha: 1);
+        border-radius: 1rem;
+        background-repeat: no-repeat;
+        background-image: radial-gradient(closest-side, rgba($color1, 1), rgba($color1, 0)), radial-gradient(closest-side, rgba($color2, 1), rgba($color2, 0)), radial-gradient(closest-side, rgba($color3, 1), rgba($color3, 0)), radial-gradient(closest-side, rgba($color4, 1), rgba($color4, 0)), radial-gradient(closest-side, rgba($color5, 1), rgba($color5, 0)), ;
+        background-size: 150% 150%;
+        background-position: -12rem -12rem, 12rem -6rem, 2rem 2rem, -6rem 8rem, 10rem 10rem;
+        animation: 10s movement linear infinite;
+        box-shadow: 0 .5rem 1rem rgba(#000000, .3);
+        &::after {
+            content: '';
+            display: block;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            backdrop-filter: blur(1rem);
+            -webkit-backdrop-filter: blur(1rem);
+            border-radius: 1rem;
+            box-shadow: 0 .5rem 1rem rgba(#000000, .3);
+        }
+    }
+    &__rainbow_2 {
+        height: 50rem;
+        width: 100%;
+        background-color: rgba($color: $card-background, $alpha: 1);
+        border-radius: 1rem;
+        background-repeat: no-repeat;
+        background-image: radial-gradient(closest-side, rgba($rainbow2-color1, 1), rgba($rainbow2-color1, 0)), radial-gradient(closest-side, rgba($rainbow2-color2, 1), rgba($rainbow2-color2, 0)), radial-gradient(closest-side, rgba($rainbow2-color3, 1), rgba($rainbow2-color3, 0)), radial-gradient(closest-side, rgba($rainbow2-color4, 1), rgba($rainbow2-color4, 0)), radial-gradient(closest-side, rgba($rainbow2-color5, 1), rgba($rainbow2-color5, 0)), ;
+        background-size: 150% 150%;
+        background-position: -12rem -12rem, 12rem -6rem, 2rem 2rem, -6rem 8rem, 10rem 10rem;
+        animation: 10s movement linear infinite;
+        box-shadow: 0 .5rem 1rem rgba(#000000, .3);
+        &::after {
+            content: '';
+            display: block;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            backdrop-filter: blur(1rem);
+            -webkit-backdrop-filter: blur(1rem);
+            border-radius: 1rem;
+            box-shadow: 0 .5rem 1rem rgba(#000000, .3);
+        }
+    }
+    @keyframes movement {
+        0%,
+        100% {
+            background-size: 150% 150%;
+            background-position: -24rem -24rem, 24rem -12rem, 4rem 4rem, -12rem 16rem, 20rem 20rem;
+        }
+        25% {
+            background-size: 150% 150%;
+            background-position: -24rem 6rem, -22rem -15rem, 10rem 16rem, 8rem 14rem, 23rem -16rem;
+        }
+        50% {
+            background-size: 150% 150%;
+            background-position: 22rem 6rem, -20rem 15rem, 7rem 8rem, 16rem -20rem, -23rem -17rem;
+        }
+        75% {
+            background-size: 150% 150%;
+            background-position: 10rem -18rem, 19rem 18rem, 17rem 21rem, -20rem -16rem, -19rem 20rem;
+        }
+    }
+}

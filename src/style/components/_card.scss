@@ -1,0 +1,126 @@
+.card {
+    perspective: 150rem;
+    -moz-perspective: 150rem;
+    height: 50rem;
+    position: relative;
+    &__side {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        backface-visibility: hidden;
+        height: 50rem;
+        transition: all .8s ease;
+        border-radius: .3rem;
+        overflow: hidden;
+        box-shadow: 0 1.5rem 4rem rgba(black, .15);
+        &--front {
+            background-color: $card-cv-front;
+        }
+        &--back {
+            background-color: $login-main-color;
+            transform: rotateY(-180deg);
+            &-1 {
+                background-image: linear-gradient(to right bottom, $card-cv-back-dark, $card-cv-back-light);
+            }
+            &-2 {
+                background-image: linear-gradient(to right bottom, $card-nlp-back-dark, $card-nlp-back-light);
+            }
+            &-3 {
+                background-image: linear-gradient(to right bottom, $card-md-back-dark, $card-md-back-light);
+            }
+        }
+    }
+    &:hover &__side--front {
+        transform: rotateY(180deg);
+    }
+    &:hover &__side--back {
+        transform: rotateY(0);
+    }
+    //Front Side Styling
+    &__picture {
+        background-size: cover;
+        height: 23rem;
+        background-blend-mode: color;
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        &-1 {
+            background-image: linear-gradient(to right bottom, $card-cv-back-dark, $card-cv-back-light), url(../img/Top_Img.jpeg);
+        }
+        &-2 {
+            background-image: linear-gradient(to right bottom, $card-nlp-back-dark, $card-nlp-back-light), url(../img/Top-Img2.jpeg);
+        }
+        &-3 {
+            background-image: linear-gradient(to right bottom, $card-md-back-dark, $card-md-back-light), url(../img/city.jpg);
+        }
+    }
+    &__heading {
+        font-size: 2.8rem;
+        font-weight: 700;
+        width: 50%;
+        text-transform: uppercase;
+        color: $color-white;
+        position: absolute;
+        top: 13rem;
+        right: 2rem;
+    }
+    &__heading-span {
+        padding: 1rem 1.5rem;
+        -webkit-box-decoration-break: clone;
+        box-decoration-break: clone;
+        &-1 {
+            background-image: linear-gradient( to right bottom, rgba($card-cv-back-dark, .85), rgba($card-cv-back-light, .85));
+        }
+        &-2 {
+            background-image: linear-gradient( to right bottom, rgba($card-nlp-back-dark, .85), rgba($card-nlp-back-light, .85));
+        }
+        &-3 {
+            background-image: linear-gradient( to right bottom, rgba($card-md-back-dark, .85), rgba($card-md-back-light, .85));
+        }
+    }
+    &__details {
+        padding: 3rem;
+        ul {
+            list-style: none;
+            width: 80%;
+            margin: 0 auto;
+            li {
+                text-align: center;
+                font-size: 1.5rem;
+                padding: .8rem;
+                &:not(:last-child) {
+                    border-bottom: .1rem solid $card-cv-back-light;
+                }
+            }
+        }
+    }
+    &__cta {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 90%;
+        transform: translate(-50%, -50%);
+        &__color_select-1 {
+            color: $card-cv-back-dark
+        }
+        &__color_select-2 {
+            color: $card-nlp-back-dark
+        }
+        &__color_select-3 {
+            color: $card-md-back-dark
+        }
+    }
+    &__price-box {
+        text-align: center;
+        color: white;
+        margin-bottom: 8rem;
+    }
+    &__price-only {
+        font-size: 1.5rem;
+        text-transform: uppercase;
+    }
+    &__price-value {
+        font-size: 6rem;
+        font-weight: 100;
+    }
+}

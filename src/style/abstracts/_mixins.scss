@@ -1,0 +1,21 @@
+@mixin heading-primary-text($font-size, $font-weight, $letter-space, $animation-name) {
+    display: block;
+    font-size: $font-size;
+    font-weight: $font-weight;
+    letter-spacing: $letter-space;
+    animation: $animation-name 1s ease-out;
+}
+
+@mixin clearfix {
+    &::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+@mixin console-font {
+    font-size: $title-font-size;
+    font-weight: 700;
+    text-transform: uppercase;
+}

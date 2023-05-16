@@ -1,0 +1,109 @@
+.aside-tool {
+    position: absolute;
+    top: 0rem;
+    left: 0rem;
+    // .el-menu-item {
+    //     font-size: 1.5rem;
+    //     font-weight: 800;
+    // }
+    // .el-sub-menu__title {
+    //     font-size: 2rem;
+    // }
+    border-right-width: 0px !important;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    font-family: 'Times New Roman', Times, serif;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.tool {
+    height: 100%;
+    &--title {
+        height: 15vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 4vh;
+    }
+    &--list {
+        list-style: none;
+        height: 65vh;
+    }
+    &--list-item {
+        height: 12vh;
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 30% 70%;
+        &--active {
+            transform: scaleY(102%);
+            color: #6e5e8d;
+        }
+        &:hover {
+            transform: scaleY(102%);
+            color: #6e5e8d;
+        }
+        &--icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.3rem;
+        }
+        &--text {
+            font-size: 1.9rem;
+        }
+    }
+    &--sublist-item {
+        // height: 7vh;
+        width: 99%;
+        display: grid;
+        // padding-left: 3rem;
+        margin-bottom: 1.5rem;
+        // grid-template-columns: 100%;
+        grid-template-columns: 30% 50%;
+        &:hover {
+            transform: scaleY(102%);
+            color: #6e5e8d;
+        }
+        &--icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+        }
+        &--text {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+        }
+    }
+    &--bottom-back {
+        position: absolute;
+        bottom: 2rem;
+        left: 2rem;
+        font-size: 3rem;
+        display: flex;
+        justify-content: start;
+        &:hover {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            font-size: 3rem;
+            display: flex;
+            justify-content: start;
+            color: #6e5e8d;
+        }
+    }
+    .is-active {
+        color: #4d3a59 !important;
+    }
+    .el-sub-menu .el-menu-item {
+        min-width: 15rem;
+    }
+    .el-menu--inline .is-active:hover {
+        width: 15rem;
+        background-color: rgba(0, 0, 0, 0);
+    }
+}

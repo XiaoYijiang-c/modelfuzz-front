@@ -1,0 +1,54 @@
+.chart_visiable {
+    // width: 100%;
+    font-family: 'Times New Roman', Times, serif;
+    &--header {
+        display: grid;
+        grid-template-columns: 75% 25%;
+        // margin: 2rem;
+        &__left {
+            display: grid;
+            grid-template-columns: 30% auto 30%;
+            margin: 2rem;
+            padding: 0rem 4rem;
+        }
+        &__text {
+            font-size: 2rem;
+        }
+        &__search {
+            display: flex;
+            align-items: center;
+            &__button {
+                outline: .15rem solid #2B2A2F;
+                outline-offset: .7rem;
+                border-radius: 2rem;
+                font-size: 2rem;
+                line-height: 1;
+                // border: .1rem solid white;
+                margin-left: 1rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                &:hover {
+                    outline: .15rem solid white;
+                }
+            }
+        }
+    }
+    &--columns-1-2-1 {
+        display: grid;
+        grid-template-columns: 25% 50% 25%;
+    }
+    &--columns-1-2 {
+        display: grid;
+        grid-template-columns: 33% 67%;
+    }
+    &--columns-2-3 {
+        display: grid;
+        grid-template-columns: 40% 60%;
+        margin-top: 5rem;
+    }
+    &--columns-3 {
+        display: grid;
+        grid-template-columns: 33% 33% 33%;
+    }
+}

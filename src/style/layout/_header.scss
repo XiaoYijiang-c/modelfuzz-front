@@ -1,0 +1,56 @@
+.header {
+    position: relative;
+    width: 100%;
+    height: 95vh;
+    /* background-image: linear-gradient(to right bottom, rgba(51,132,243,0.5),rgba(255,255,255,0.2)),url(../img/city.jpg); */
+    &--gap {
+        margin-top: 10rem;
+    }
+    @mixin --img-wapper($path) {
+        background-image: linear-gradient(to right bottom, rgba($color-wapper-from, 0.7), rgba($color-wapper-to, 0.2)), url($path);
+        background-size: cover;
+        background-position: bottom;
+    }
+    &--img-city {
+        @include --img-wapper('../img/city.jpg')
+    }
+    &--img-black {
+        @include --img-wapper('../img/black.png')
+    }
+    &--img-clip-buttom {
+        clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%)
+    }
+    &--img-clip-top {
+        clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%)
+    }
+    &__logo {
+        height: 10rem;
+        /* height: 10rem; */
+        transition: all 0.2s;
+        &:hover {
+            transform: scale(110%, 110%);
+        }
+        &-box {
+            position: absolute;
+            top: 4rem;
+            right: 4rem;
+            animation: jumpOut 1s ease-in;
+        }
+    }
+    @mixin __main-box--top($top) {
+        position: absolute;
+        width: 100%;
+        top: $top;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    &__main-box--top45 {
+        @include __main-box--top(45%);
+    }
+    &__main-box--top60 {
+        @include __main-box--top(60%);
+    }
+    &__head-text {
+        color: rgba(255, 255, 255, 0.6);
+    }
+}

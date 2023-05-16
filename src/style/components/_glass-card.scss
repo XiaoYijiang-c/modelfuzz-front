@@ -1,0 +1,52 @@
+.glass-card {
+    border-radius: 1.5rem;
+    backdrop-filter: blur(1px);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .2);
+    margin: 0 3rem;
+    animation: flip 1s ease-out;
+    &__big-size {
+        width: 20%;
+        height: 45rem;
+    }
+    &__title {
+        font-size: 6rem;
+        font-weight: 700;
+        letter-spacing: .5rem;
+        color: rgba(255, 255, 255, 0.2);
+        position: absolute;
+        right: 1rem;
+        top: .5rem;
+    }
+    &__text {
+        font-size: 2.5rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.8);
+        margin: 7rem 0 1.5rem 0;
+    }
+    &--pink {
+        background-color: rgba(255, 98, 194, 0.2);
+    }
+    &--cyan {
+        background-color: rgba(8, 158, 255, 0.2);
+    }
+    &--purple {
+        background-color: rgba(95, 9, 255, 0.2);
+    }
+    &__btn-box {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        bottom: 3rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+        &__btn {
+            display: block;
+            width: 20rem;
+            border: 0.1rem solid rgba(255, 255, 255, 0.5);
+            font-size: 2rem;
+            color: white;
+        }
+    }
+}

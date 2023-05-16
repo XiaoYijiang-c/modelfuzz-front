@@ -1,0 +1,19 @@
+.dataset-evaluate {
+    height: 80vh;
+    // transform: translateY(-10vh);
+    margin-top: -10vh;
+    background-color: $background-color;
+    background-image: linear-gradient(to right bottom, rgba($color-wapper-from, 0.7), rgba($color-wapper-to, 0.2)), url(../img/city.jpg);
+    background-size: cover;
+    background-position: bottom;
+    clip-path: polygon(0 10vh, 100% 0, 100% 70vh, 0 100%);
+    &__img-box {
+        float: left;
+        width: 100%;
+        height: 20rem;
+        &__img {
+            float: left;
+            width: 50%;
+        }
+    }
+}

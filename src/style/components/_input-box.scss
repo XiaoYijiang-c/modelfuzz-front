@@ -1,0 +1,27 @@
+.input-box {
+    .input-label {
+        display: flex;
+        min-width: 10rem;
+        text-transform: capitalize;
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: #f2f2f2;
+    }
+    // z-index: 1000 !important;
+    display: flex;
+    flex-wrap: wrap;
+    // grid-template-columns: 40% 50%;
+    align-items: center;
+    // margin-left: 3rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    .input_self {
+        width: 80%;
+    }
+    .el-checkbox {
+        width: 100%;
+    }
+    .el-checkbox__input.is-checked+.el-checkbox__label {
+        color: #f2f2f2;
+    }
+}

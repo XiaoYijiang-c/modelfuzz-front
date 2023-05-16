@@ -1,0 +1,45 @@
+.statistic-card {
+    height: 100%;
+    // width: 100%;
+    background-color: rgb(48, 46, 53);
+    border-radius: 1rem;
+    margin: 0 .5rem;
+    box-shadow: 0 .5rem 1rem rgba(#000000, .3);
+    &--icon {
+        position: absolute;
+        top: 10%;
+        left: 10%;
+        font-size: 4rem;
+        &__green {
+            color: #9AD9A7;
+        }
+        &__purple {
+            color: #928BD7;
+        }
+        &__organge {
+            color: #E1A066;
+        }
+    }
+    &--text {
+        font-size: 1.6rem;
+        position: absolute;
+        height: 10%;
+        &__up {
+            top: 30%;
+            left: 10%;
+        }
+        &__down {
+            top: 70%;
+            left: 10%;
+        }
+    }
+    &--value {
+        position: absolute;
+        top: 40%;
+        left: 12%;
+        font-size: 4rem;
+        font-weight: 500;
+        height: 30%;
+        color: #f2f2f2;
+    }
+}

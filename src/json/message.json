@@ -1,0 +1,6 @@
+{
+    "warning": {
+        "errorPageClickReset": "This page have NOT formdata to reset!!",
+        "errorPageClickSubmit": "This page have NOT formdata to submit!!"
+    }
+}

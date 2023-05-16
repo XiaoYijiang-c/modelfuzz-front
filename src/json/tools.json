@@ -1,0 +1,22 @@
+{
+    "fatherTools": [{
+        "name": "Project-ID",
+        "index": "1",
+        "badge": false,
+        "childTools": [{
+                "name": "上传模型",
+                "index": "1-1",
+                "badge": true
+            },
+            {
+                "name": "监控面板",
+                "index": "1-2",
+                "badge": true
+            }
+        ]
+    }, {
+        "name": "Project-ID",
+        "index": "1-2",
+        "badge": true
+    }]
+}

@@ -1,0 +1,92 @@
+.left-img-card {
+    min-height: $img-size;
+    width: 100%;
+    background-color: $card-background;
+    border-radius: $border-radius;
+    animation: jumpOut .6s ease-in;
+    display: grid;
+    grid-template-columns: 30% 70%;
+    margin-top: 5rem;
+    box-shadow: 0 .5rem 1rem rgba(#000000, .3);
+    &--img-box {
+        // float: left;
+        min-height: $img-size;
+        max-width: $img-size;
+        background-color: $card-img-color;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-top-left-radius: $border-radius;
+        border-bottom-left-radius: $border-radius;
+        // border-radius: $border-radius;
+        // transform: scale(70%);
+        // transform: ;
+        img {
+            display: block;
+            pointer-events: none;
+            width: 100%;
+            // height: 25rem;
+            transform: scale(70%);
+        }
+    }
+    &--right-part {
+        min-height: $img-size;
+        width: 100%;
+        // transform: translateX(calc(#{$img-size} - (#{$img-size} * 13 / 10)));
+    }
+}
+
+.right-img-card {
+    height: $img-size;
+    width: 100%;
+    background-color: $card-background;
+    border-radius: $border-radius;
+    animation: jumpOut .6s ease-in;
+    &--img-box {
+        float: right;
+        height: $img-size;
+        width: $img-size;
+        background-color: $card-img-color;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: $border-radius;
+        transform: scale(70%) translateX(calc(#{$img-size} * 3 / 10));
+        // transform: ;
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            transform: scale(70%);
+        }
+    }
+    &--right-part {
+        height: $img-size;
+        width: 100%;
+        transform: translateX(calc(#{$img-size} * 1 / 10));
+    }
+    .el-form-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 33%;
+        margin: 0;
+        &__label {
+            @include console-font;
+        }
+        &__content {
+            margin-right: 4rem;
+        }
+    }
+    .el-checkbox-group {
+        display: grid;
+        grid-template-columns: 50% 50%;
+    }
+    .el-slider--with-input {
+        display: grid;
+        grid-template-columns: 70% 30%;
+    }
+    el-input {
+        border-color: pink;
+    }
+}

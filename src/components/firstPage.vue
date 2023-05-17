@@ -1,47 +1,66 @@
 <template>
-    <NavigationButton @login="emits('switchPage', 1)"></NavigationButton>
-    <div class="header header--img-city header--img-clip-buttom">
-        <div class="header__logo-box">
-            <img src="../img/logo.png" alt="logo" class="header__logo" >
-        </div>
-        <div class="header__main-box--top45">
-            <h1 class="heading-primary">
-                <span class="heading-primary__main">{{_languageJson['heading_main'] }}</span>
-                <span class="heading-primary__sub">{{_languageJson['heading_sub'] }}</span>
-                <router-link replace to="/testnnsvg"><a href="#" @click="checkLogin"><span class="btn btn--white">{{_languageJson['heading_btn']}}</span></a></router-link>
-            </h1>
-        </div>
-    </div>
-    
-    <div class="introduction u-wid-max">
-        <div class="u-center-text u-margin-bottom-big">
-            <h2 class="heading-secondary">
-                Exciting tours for fuzzing model
-            </h2>
-        </div>
-        <div class="row">
-            <div class="col-1-of-2">
-                <h3 class="heading-tertiary u-margin-bottom-small">hello h3</h3>
-                <p class="paragraph">
-                    hello p3 hello p3 hello p3 hello p3
-                </p>
-                <h3 class="heading-tertiary u-margin-bottom-small">hello h3</h3>
-                <p class="paragraph">
-                    hello p3 hello p3 hello p3 hello p3 hello p3 hello p3 hello p3
-                    hello p3 hello p3 hello p3 hello p3 hello p3 hello p3 hello p3
-                    hello p3 hello p3 hello p3 hello p3 hello p3 hello p3 hello p3
-                    hello p3 hello p3 hello p3 hello p3 hello p3 hello p3 hello p3
-                </p>
+    <div class="firstpage" style="scroll-snap-type: y mandatory;overflow: scroll;height: 100vh;overflow-x: hidden;">
+        <!-- <NavigationButton @login="emits('switchPage', 1)"></NavigationButton> -->
+        <div class="navigation">
+            <div class="navigation--logo">
+                <img src="../img/logo.png" alt="logo" class="navigation--logo__logo" >
             </div>
-            <div class="col-1-of-2">
-                <div class="composition">
-                    <img src="../img/city.jpg" alt="" class="composition__photo composition__photo--p1">
-                    <img src="../img/Top-Img2.jpeg" alt="" class="composition__photo composition__photo--p2">
-                    <img src="../img/Top_Img.jpeg" alt="" class="composition__photo composition__photo--p3">
+            <ul class="navigation--jump">
+                <li class="navigation--jump--item">模糊测试</li>
+                <li class="navigation--jump--item">数据集分析</li>
+                <li class="navigation--jump--item">模型鲁棒性分析</li>
+                <li class="navigation--jump--item">模型重训练</li>
+            </ul>
+            <ul class="navigation--user">
+                <li class="navigation--user--head">
+                    <router-link replace to="/login"><img src="../img/head.png" alt="logo" class="navigation--user--head__head" ></router-link>
+                </li>
+                <li class="navigation--jump--item">个人中心</li>
+                <li class="navigation--jump--item">消息</li>
+            </ul>
+        </div>
+        <div class="header header--img-city  u-scroll-snap-align">
+            <!-- <div class="header__logo-box">
+                <img src="../img/logo.png" alt="logo" class="header__logo" >
+            </div> -->
+            <div class="header__main-box--top45">
+                <h1 class="heading-primary">
+                    <span class="heading-primary__main">{{_languageJson['heading_main'] }}</span>
+                    <span class="heading-primary__sub">{{_languageJson['heading_sub'] }}</span>
+                    <router-link replace to="/testnnsvg"><a href="#" @click="checkLogin"><span class="btn btn--white">{{_languageJson['heading_btn']}}</span></a></router-link>
+                </h1>
+            </div>
+        </div>
+        
+        <div id="fuzz_page" class="introduction u-wid-max u-scroll-snap-align">
+            <div class="u-center-text u-margin-bottom-big">
+                <h2 class="heading-secondary">
+                    模糊测试
+                </h2>
+            </div>
+            <div class="row">
+                <div class="col-1-of-2">
+                    <h3 class="heading-tertiary u-margin-bottom-small">hello h3</h3>
+                    <p class="paragraph">
+                        hello p3 hello p3 hello p3 hello p3
+                    </p>
+                    <h3 class="heading-tertiary u-margin-bottom-small">hello h3</h3>
+                    <p class="paragraph">
+                        hello p3 hello p3 hello p3 hello p3 hello p3 hello p3 hello p3
+                        hello p3 hello p3 hello p3 hello p3 hello p3 hello p3 hello p3
+                        hello p3 hello p3 hello p3 hello p3 hello p3 hello p3 hello p3
+                        hello p3 hello p3 hello p3 hello p3 hello p3 hello p3 hello p3
+                    </p>
+                </div>
+                <div class="col-1-of-2">
+                    <div class="composition">
+                        <img src="../img/city.jpg" alt="" class="composition__photo composition__photo--p1">
+                        <img src="../img/Top-Img2.jpeg" alt="" class="composition__photo composition__photo--p2">
+                        <img src="../img/Top_Img.jpeg" alt="" class="composition__photo composition__photo--p3">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     <!-- <div class="dataset-evaluate u-wid-max">
         <div class="row">
             <div class="col-1-of-3">
@@ -69,8 +88,8 @@
             </span>
         </div>
     </div> -->
-    <div class="section_no_background u-wid-max">
-        <div class="u-center-text u-margin-bottom-big">
+    <div class="section_no_background u-wid-max u-scroll-snap-align">
+        <div class="u-center-text u-margin-bottom-medium">
             <h2 class="heading-secondary">
                 Exciting tours for fuzzing model
             </h2>
@@ -175,7 +194,7 @@
         </div>
     </div>
     
-    <footer class="footer">
+    <footer class="footer u-scroll-snap-align">
         <div class="footer__logo-box">
             <img src="../img/logo.png" alt="Logo" class="footer__logo">
         </div>
@@ -194,6 +213,7 @@
             </div>
         </div>
     </footer>
+    </div>
 </template>
 <script setup lang="ts">
 import axios from "axios"

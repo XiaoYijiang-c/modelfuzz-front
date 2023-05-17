@@ -1,4 +1,7 @@
 <template>
+    <div class="left_img">
+      <img src="../img/face_login_0.png" alt="face" class="left_img--img" >
+    </div>
     <section>
     <span class="backward" @click="emits('switchPage', 0)"><el-icon size="5rem" ><Back /></el-icon></span>
     <span></span>
@@ -266,7 +269,11 @@
     <span></span>
     <div class="signin" v-show="loginInOrUp">
       <div class="content" >
-        <h2>登录</h2>
+        <div class="head">
+          <img src="../img/user2.png" alt="logo" class="head__head" >
+        </div>
+        <h1>NEURAL SENTINEL</h1>
+        <!-- <h2>登录</h2> -->
         <div class="form">
           <div class="input-box">
             <input type="text"  v-model="username" required>
@@ -278,7 +285,7 @@
           </div>
           <div class="links">
             <a href="#">忘记密码</a>
-            <a @click="loginInOrUp=!loginInOrUp">注册</a>
+            <a @click="loginInOrUp=!loginInOrUp">注册账号</a>
           </div>
           <div class="input-box">
             <input type="submit" value="确认" @click="sendAxios('http://43.138.12.254:9000/login',consoleLogData)">
@@ -288,7 +295,10 @@
       
     </div>
     <div class="signin" v-show="!loginInOrUp">
-      <div class="content">
+      <div class="content" style="gap:3rem">
+        <div class="head">
+          <img src="../img/user2.png" alt="logo" class="head__head" >
+        </div>
         <h2>注册</h2>
         <div class="form">
           <div class="input-box">

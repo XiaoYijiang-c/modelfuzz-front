@@ -64,6 +64,8 @@ section span:hover {
 
 section .signin {
     position: absolute;
+    right: 10vw;
+    height: 80vh;
     width: 400px;
     background-color: #222;
     display: flex;
@@ -71,6 +73,7 @@ section .signin {
     align-items: center;
     padding: 40px;
     border-radius: 4px;
+    border: .1rem solid #374866;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
     z-index: 1000;
     animation: flip-once .5s ease-in;
@@ -84,7 +87,14 @@ section .signin .content {
     align-items: center;
     flex-direction: column;
     gap: 40px;
-    animation: jumpOut 1.5s ease-in;
+    animation: jumpOut 1s ease-in;
+}
+
+section .signin .content h1 {
+    font-size: 3em;
+    color: $login-main-color;
+    text-transform: uppercase;
+    margin-top: .5rem;
 }
 
 section .signin .content h2 {
@@ -180,4 +190,25 @@ section .signin .content .form .input-box i {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.left_img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    z-index: 100;
+    &--img {
+        height: 100%
+    }
+}
+
+.head {
+    border-radius: 50%;
+    // border: .1rem solid #f2f2f2;
+    height: 13vh;
+    &__head {
+        height: 100%;
+    }
 }

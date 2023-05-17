@@ -73,15 +73,19 @@ onMounted(() => {
 </script>
 <style scoped>
 .app {
+  height: 100vh;
+  width: 100vw;
   font-family: italic Georgia, serif;
   font-weight: 400;
   line-height: 1.7;
   color:#777;
-  padding: 3rem;
+  background-color: #273655;
+  overflow: hidden
+  /* padding: 3rem; */
 }
 
 .u-background-color-white{
-  background-color: #fff;
+  background-color: #273655 !important;
 }
 .u-background-color-black{
   background-color: #000;

@@ -1,6 +1,9 @@
 <template>
+    
     <el-scrollbar>
     <div class="userhub">
+        <router-view></router-view>
+
         <div class="userhub--header_image"></div>
         <div class="userhub--head_sculpture">
             <div class="userhub--head_sculpture--image">
@@ -10,7 +13,7 @@
                 <span class="userhub--head_sculpture--tools__uptool">
                     <span class="userhub--head_sculpture--tools__name">{{ name }} </span>
                 </span>
-                <div class="userhub--head_sculpture--tools__message">当前项目 {{ props.userMessage.projects_length }} 
+                <div class="userhub--head_sculpture--tools__message" @click="toPagePath('/testnnsvg')">当前项目
                     <span class="userhub--head_sculpture--tools__name btn" style="width: 20rem;" @click="emits('show','projectshub')">点击查看</span>
                     <span class="userhub--head_sculpture--tools__name btn" style="width: 20rem;" @click="logout">登出</span>
                 </div>
@@ -33,10 +36,17 @@ import { ref, Ref, onMounted } from 'vue'
 import type { Action } from 'element-plus'
 import axios from 'axios';
 import Cookies from 'js-cookie'
+import { useRouter } from "vue-router";
+const router = useRouter();
+const toPagePath = (url: string) => {
+    router.push({
+        path: url,
+    });
+}
 const emits = defineEmits(["show",'switchPage']);
 const name:Ref<string> = ref('肆夕')
 const titleList:Ref<string[]> = ref(['Student','SCU'])
-
+    
 interface Project {
     type: string;
     name: string;

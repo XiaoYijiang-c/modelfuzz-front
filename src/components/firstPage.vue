@@ -8,7 +8,7 @@
             <h1 class="heading-primary">
                 <span class="heading-primary__main">{{_languageJson['heading_main'] }}</span>
                 <span class="heading-primary__sub">{{_languageJson['heading_sub'] }}</span>
-                <a href="#" @click="checkLogin"><span class="btn btn--white">{{_languageJson['heading_btn']}}</span></a>
+                <router-link replace to="/testnnsvg"><a href="#" @click="checkLogin"><span class="btn btn--white">{{_languageJson['heading_btn']}}</span></a></router-link>
             </h1>
         </div>
     </div>

@@ -8,6 +8,7 @@ import "element-plus/theme-chalk/el-message.css";
 import "element-plus/theme-chalk/el-message-box.css";
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import VueAnimXyz from '@animxyz/vue3'
+import router from './router'
 import '@animxyz/core' // Import css here if you haven't elsewhere
 axios.defaults.baseURL = 'http://localhost:5000'
 let app = createApp(App)
@@ -16,4 +17,4 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 app.config.globalProperties.$axios = axios
 
-app.use(VueAxios, axios).use(VueAnimXyz).mount('#app')
+app.use(VueAxios, axios).use(VueAnimXyz).use(router).mount('#app')

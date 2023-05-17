@@ -1,5 +1,6 @@
 <template>
     <div @click="click">click</div>
+    <div @click="click_color">click_color</div>
 
   <div id="graph-container"></div>
    
@@ -9,11 +10,10 @@
 <script js setup>
 import { ref, onMounted,nextTick  } from 'vue'
 let dialogVisible = ref(false)
+let lenet = null
 function click() {
-    let lenet = LeNet();
-
-    nextTick(() => {
-        let architecture = [{
+    lenet = LeNet();
+    let architecture = [{
         filterHeight: 8,
         filterWidth: 8,
         layer: 0,
@@ -40,25 +40,28 @@ function click() {
     lenet.redistribute({
         'betweenLayers_': betweenLayers
     });
+        lenet.resize(500,500);
+
+}
+function click_color() {
+    lenet.style({
+        color1_: "#DEB98B",
+        color2_: "#292F49",
+        
     })
 }
-onMounted(() => {
-    
-})
-
 </script>
 
 <style type="text/css">
        
         #graph-container {
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            top: 10rem;
+            left: 10rem;
             position: absolute;
-            width: 100rem;
-            height: 100rem;
+            width: 50rem;
+            height: 50rem;
             z-index: -100;
+            background-color: pink;
         }
         
         

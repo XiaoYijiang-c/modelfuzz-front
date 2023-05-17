@@ -12,7 +12,7 @@ function LeNet() {
 
     var g = svg.append("g");
     svg.style("cursor", "move");
-    console.log('svg', svg, g)
+    console.log('g', g)
 
     var color1 = '#f2f2f2';
     var color2 = '#ffffff';
@@ -242,16 +242,16 @@ function LeNet() {
 
     function zoomed() { g.attr("transform", d3.event.transform); }
 
-    function resize() {
-        w = 800;
-        h = 900;
+    function resize(w_, h_) {
+        w = w_;
+        h = h_;
         console.log("wh", w, h)
         svg.attr("width", w).attr("height", h);
     }
 
     d3.select(window).on("resize", resize)
 
-    resize();
+    resize(500, 500);
 
 
     /////////////////////////////////////////////////////////////////////////////
@@ -262,6 +262,7 @@ function LeNet() {
         'redraw': redraw,
         'redistribute': redistribute,
         'style': style,
+        'resize': resize,
     }
 
 }

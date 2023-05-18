@@ -7,10 +7,10 @@
 
 <template>
   <div class="app" :class="{'u-background-color-white':switchPageArray[0],'u-background-color-black':switchPageArray[2],'u-padding-zero':switchPageArray[1]}">
-    <!-- <FirstPage v-if="switchPageArray[0]" @switchPage="switchPage" :loginMessage="loginMessage"  @setLogin="setLogin"/>
+    <FirstPage v-if="switchPageArray[0]" @switchPage="switchPage" :loginMessage="loginMessage"  @setLogin="setLogin"/>
     <skeleton v-else-if="switchPageArray[2]" @switchPage="switchPage" :loginMessage="loginMessage"/>
-    <LoginPage v-else-if="switchPageArray[1]" style="background-color: #000;padding: 0;"  @switchPage="switchPage" @setLogin="setLogin"></LoginPage> -->
-    <router-view></router-view>
+    <LoginPage v-else-if="switchPageArray[1]" style="background-color: #000;padding: 0;"  @switchPage="switchPage" @setLogin="setLogin"></LoginPage>
+    <!-- <router-view></router-view> -->
     </div>
 </template>
 

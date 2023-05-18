@@ -1,3 +1,9 @@
+@mixin --img-wapper($path) {
+    background-image: linear-gradient(to right bottom, rgba($color-wapper-from, 0.7), rgba($color-wapper-to, 0.2)), url($path);
+    background-size: cover;
+    background-position: center;
+}
+
 .section_no_background {
     height: 100vh;
     z-index: -100;

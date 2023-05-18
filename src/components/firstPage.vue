@@ -1,15 +1,23 @@
 <template>
-    <div class="firstpage" style="scroll-snap-type: y mandatory;overflow: scroll;height: 100vh;overflow-x: hidden;">
+    <div class="firstpage" style="scroll-snap-type: y mandatory;overflow: scroll;height: 100vh;overflow-x: hidden;" @scroll="touched">
         <!-- <NavigationButton @login="emits('switchPage', 1)"></NavigationButton> -->
-        <div class="navigation">
+        <div class="navigation" >
             <div class="navigation--logo">
                 <img src="../img/logo.png" alt="logo" class="navigation--logo__logo" >
             </div>
             <ul class="navigation--jump">
-                <li class="navigation--jump--item">模糊测试</li>
-                <li class="navigation--jump--item">数据集分析</li>
-                <li class="navigation--jump--item">模型鲁棒性分析</li>
-                <li class="navigation--jump--item">模型重训练</li>
+                <li class="navigation--jump--item" :class="{'navigation--jump--item__highlight':navigation_jump[0],'navigation--jump--item__eraserlight':!navigation_jump[0]}">
+                    <a href="#fuzz_page"> 人工智能模型模糊测试</a>
+                </li>
+                <li class="navigation--jump--item" :class="{'navigation--jump--item__highlight':navigation_jump[1],'navigation--jump--item__eraserlight':!navigation_jump[1]}">
+                    <a href="#dataset_evaluate">数据集评估</a>
+                </li>
+                <li class="navigation--jump--item" :class="{'navigation--jump--item__highlight':navigation_jump[2],'navigation--jump--item__eraserlight':!navigation_jump[2]}">
+                    <a href="#model_evaluate">模型鲁棒性评估</a>
+                </li>
+                <li class="navigation--jump--item" :class="{'navigation--jump--item__highlight':navigation_jump[3],'navigation--jump--item__eraserlight':!navigation_jump[3]}">
+                    <a href="#model_retrain">模型重训练</a>
+                </li>
             </ul>
             <ul class="navigation--user">
                 <li class="navigation--user--head">
@@ -19,7 +27,7 @@
                 <li class="navigation--jump--item">消息</li>
             </ul>
         </div>
-        <div class="header header--img-city  u-scroll-snap-align">
+        <div class="header header--img-neural  u-scroll-snap-align" >
             <!-- <div class="header__logo-box">
                 <img src="../img/logo.png" alt="logo" class="header__logo" >
             </div> -->
@@ -27,36 +35,33 @@
                 <h1 class="heading-primary">
                     <span class="heading-primary__main">{{_languageJson['heading_main'] }}</span>
                     <span class="heading-primary__sub">{{_languageJson['heading_sub'] }}</span>
-                    <router-link replace to="/testnnsvg"><a href="#" @click="checkLogin"><span class="btn btn--white">{{_languageJson['heading_btn']}}</span></a></router-link>
+                    <!-- <router-link replace to="/testnnsvg"><a href="#" @click="checkLogin"><span class="btn btn--white">{{_languageJson['heading_btn']}}</span></a></router-link> -->
+                    <a href="#" @click="checkLogin"><span class="btn btn--white">{{_languageJson['heading_btn']}}</span></a>
                 </h1>
             </div>
         </div>
         
-        <div id="fuzz_page" class="introduction u-wid-max u-scroll-snap-align">
-            <div class="u-center-text u-margin-bottom-big">
+        <div id="fuzz_page" ref="fuzz_page_0" class="introduction u-wid-max u-scroll-snap-align introduction__0" >
+            <div class="u-center-text u-margin-bottom-big" ref="fuzz_page">
                 <h2 class="heading-secondary">
-                    模糊测试
+                    人工智能模型模糊测试
                 </h2>
             </div>
             <div class="row">
                 <div class="col-1-of-2">
-                    <h3 class="heading-tertiary u-margin-bottom-small">hello h3</h3>
+                    <h3 class="heading-tertiary u-margin-bottom-small">
+                        人工智能模型模糊测试模块
+                    </h3>
                     <p class="paragraph">
-                        hello p3 hello p3 hello p3 hello p3
+                        该模块包含对不同的人工智能模型类别分别设计了计算机视觉，恶意代码和强化学习三个模糊测试器，目的是对于不同类别的模糊器设计不同的更高效的变异方案。在计算机视觉模块，本项目的变异通过添加噪声在拟合图片的清晰度，曝光度和黑点等情况。在恶意代码模块，本项目实现了一种新的基于数据结构敏感的变异方法，这样可以针对恶意代码检测模型样本实现更高效的变异。在强化学习模块，项目提出了一种基于梯度上升的变异方法，从而可以探索到更多的系统状态，更大可能的触发漏洞点。本模块通过兼容pytorch和tensorflow环境，兼容主流模型，提高项目完整性。本模块对模糊测试的同时，为其他模块的数据分析提供基础。
                     </p>
-                    <h3 class="heading-tertiary u-margin-bottom-small">hello h3</h3>
-                    <p class="paragraph">
-                        hello p3 hello p3 hello p3 hello p3 hello p3 hello p3 hello p3
-                        hello p3 hello p3 hello p3 hello p3 hello p3 hello p3 hello p3
-                        hello p3 hello p3 hello p3 hello p3 hello p3 hello p3 hello p3
-                        hello p3 hello p3 hello p3 hello p3 hello p3 hello p3 hello p3
-                    </p>
+                    
                 </div>
                 <div class="col-1-of-2">
                     <div class="composition">
-                        <img src="../img/city.jpg" alt="" class="composition__photo composition__photo--p1">
-                        <img src="../img/Top-Img2.jpeg" alt="" class="composition__photo composition__photo--p2">
-                        <img src="../img/Top_Img.jpeg" alt="" class="composition__photo composition__photo--p3">
+                        <img src="../img/qhxx.jpg" alt="" class="composition__photo composition__photo--p1">
+                        <img src="../img/mal.jpg" alt="" class="composition__photo composition__photo--p2">
+                        <img src="../img/eyes.jpeg" alt="" class="composition__photo composition__photo--p3">
                     </div>
                 </div>
             </div>
@@ -88,10 +93,10 @@
             </span>
         </div>
     </div> -->
-    <div class="section_no_background u-wid-max u-scroll-snap-align">
-        <div class="u-center-text u-margin-bottom-medium">
+    <!-- <div id="dataset_evaluate" ref="dataset_evaluate_0" class="section_no_background u-wid-max u-scroll-snap-align">
+        <div class="u-center-text u-margin-bottom-medium" ref="dataset_evaluate">
             <h2 class="heading-secondary">
-                Exciting tours for fuzzing model
+                数据集评估
             </h2>
         </div>
         <div class="row">
@@ -192,8 +197,66 @@
                 </div>
             </div>
         </div>
+    </div> -->
+    <div id="dataset_evaluate" ref="dataset_evaluate_0" class="introduction u-wid-max u-scroll-snap-align introduction__1" >
+            <div class="u-center-text u-margin-bottom-big" ref="dataset_evaluate">
+                <h2 class="heading-secondary">
+                    数据集评估
+                </h2>
+            </div>
+            <div class="row">
+                
+                <div class="col-1-of-2">
+                    <h3 class="heading-tertiary u-margin-bottom-small">数据集评估模块</h3>
+                    <p class="paragraph">
+                        该模块采用DBSCAN聚类方法对测试样本进行聚类，得到各个样本的分类，再从样本类别数量，是否有稀缺样本和样本分布均匀度三个维度来评判数据集质量，进行打分，使得研究人员可以更好的去修改自己的数据集，使数据集在模型训练时的表现其更高效。
+                    </p>
+                    
+                </div>
+            </div>
     </div>
-    
+    <div id="model_evaluate" ref="model_evaluate_0" class="introduction u-wid-max u-scroll-snap-align introduction__2" >
+            <div class="u-center-text u-margin-bottom-big" ref="model_evaluate">
+                <h2 class="heading-secondary">
+                    模型鲁棒性评估
+                </h2>
+            </div>
+            <div class="row">
+                <div class="col-1-of-2">
+                    <img src="../img/chatu_1.png" alt="" style="width:100%">
+                </div>
+                <div class="col-1-of-2">
+                    <h3 class="heading-tertiary u-margin-bottom-small">模型鲁棒性评估模块</h3>
+                    <p class="paragraph">
+                        我们从模型的准确率，精确率，召回率和F1值等方面对模型的鲁棒性进行完善的评估，并将测试结果返回给用户，使用户可以更好地了解自己模型的鲁棒性。
+                    </p>
+                    
+                </div>
+            </div>
+    </div>
+    <div id="model_retrain" ref="model_retrain_0" class="introduction u-wid-max u-scroll-snap-align introduction__3" >
+        <div class="u-center-text u-margin-bottom-big" ref="model_retrain">
+            <h2 class="heading-secondary">
+                模型重训练
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-1-of-2">
+                <h3 class="heading-tertiary u-margin-bottom-small">模型重训练模块</h3>
+                <p class="paragraph">
+                    我们从模型的准确率，精确率，召回率和F1值等方面对模型的鲁棒性进行完善的评估，并将测试结果返回给用户，使用户可以更好地了解自己模型的鲁棒性。
+                </p>
+                
+            </div>
+            <div class="col-1-of-2">
+                <div class="composition">
+                    <img src="../img/qhxx.jpg" alt="" class="composition__photo composition__photo--p1">
+                    <img src="../img/mal.jpg" alt="" class="composition__photo composition__photo--p2">
+                    <img src="../img/eyes.jpeg" alt="" class="composition__photo composition__photo--p3">
+                </div>
+            </div>
+        </div>
+    </div>
     <footer class="footer u-scroll-snap-align">
         <div class="footer__logo-box">
             <img src="../img/logo.png" alt="Logo" class="footer__logo">
@@ -217,7 +280,7 @@
 </template>
 <script setup lang="ts">
 import axios from "axios"
-import { ref,reactive } from 'vue'
+import { ref,reactive,onMounted,Ref} from 'vue'
 import languageJson from "../json/firstPageText.json"
 import Cookies from 'js-cookie'
 
@@ -313,6 +376,69 @@ const cardMAL = reactive({
 let cardList:any = ref([])
 cardList.value.push(cardCV,cardNLP,cardMAL)
 
+let navigation_jump: Ref<boolean[]> = ref([false, false, false, false])
+let fuzz_page = ref()
+let dataset_evaluate = ref()
+let model_evaluate = ref()
+let model_retrain = ref()
+function isElementInViewport(el:any) {
+  var rect = el.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+}
+
+function touched() {
+    console.log()
+    if (isElementInViewport(fuzz_page.value)) {
+        console.log('fuzz_page is in the viewport!');
+        navigation_jump.value[0] = true;
+        fuzz_page.value.focus();
+    } else {
+        navigation_jump.value[0] = false;
+    }
+    if (isElementInViewport(dataset_evaluate.value)) {
+        console.log('dataset_evaluate is in the viewport!');
+        navigation_jump.value[1] = true;
+    } else {
+        navigation_jump.value[1] = false;
+    } 
+    if (isElementInViewport(model_evaluate.value)) {
+        console.log('dataset_evaluate is in the viewport!');
+        navigation_jump.value[2] = true;
+    } else {
+        navigation_jump.value[2] = false;
+    } 
+    if (isElementInViewport(model_retrain.value)) {
+        console.log('dataset_evaluate is in the viewport!');
+        navigation_jump.value[3] = true;
+    } else {
+        navigation_jump.value[3] = false;
+    } 
+    
+}
+function animateScroll(element:any,speed:any) {
+    let rect = element.getBoundingClientRect();
+    console.log(rect)
+    //获取元素相对窗口的top值，此处应加上窗口本身的偏移
+    let top=window.pageYOffset+rect.top;
+    let currentTop=0;
+    let requestId=0;
+    //采用requestAnimationFrame，平滑动画
+    function step(timestamp:any) {
+      currentTop+=speed;
+      if(currentTop<=top){
+        window.scrollTo(0,currentTop);
+        requestId=window.requestAnimationFrame(step);
+      }else{
+        window.cancelAnimationFrame(requestId);
+      }
+    }
+    window.requestAnimationFrame(step);
+  }
 
 </script>
 <style src="../style/firstPage.scss" lang="scss">

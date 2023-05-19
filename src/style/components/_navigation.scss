@@ -90,6 +90,19 @@
             }
         }
     }
+    &--name {
+        display: flex;
+        align-items: center;
+        text-transform: uppercase;
+        font-size: 4vh;
+        font-weight: 900;
+        letter-spacing: .5rem;
+        margin-left: 3vw;
+        color: #93AAC9;
+    }
+    &__inside {
+        background-color: $console-dark;
+    }
 }
 
 @keyframes underline {

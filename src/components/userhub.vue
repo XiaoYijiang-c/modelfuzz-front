@@ -2,7 +2,6 @@
     
     <el-scrollbar>
     <div class="userhub">
-        <router-view></router-view>
 
         <div class="userhub--header_image"></div>
         <div class="userhub--head_sculpture">

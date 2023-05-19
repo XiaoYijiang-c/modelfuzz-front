@@ -1,5 +1,5 @@
 .single-page {
-    background-color: #3D3D3D;
+    background-color: $console-light;
     position: absolute;
     top: 0;
     left: 0;
@@ -9,8 +9,8 @@
     margin: 0;
     &--main-window {
         // background-color: white;
-        margin: 5vh 3%;
-        height: 90vh;
+        margin: 2vh 2vw;
+        height: 88vh;
         // background-image: url('../img/sky.jpg');
         // background-size: cover;
         // background-position: bottom;
@@ -22,14 +22,13 @@
     }
     &--background {
         // object-fit: cover;
-        height: 90vh;
+        height: 88vh;
         width: 100%;
-        background-color: #1F1E23;
-        border-radius: 2rem;
+        background-color: $console-light;
     }
     .console {
         position: absolute;
-        width: 85%;
+        width: 83%;
         right: 0;
         bottom: 0rem;
         top: 0rem;
@@ -47,6 +46,6 @@
     .aside-tool {
         width: 15%;
         height: 100%;
-        background-color: #242329;
+        background-color: $console-dark;
     }
 }

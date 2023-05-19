@@ -4,7 +4,7 @@
     
       <ul class="tool--list">
         <el-scrollbar>
-        <li class="tool--list-item"  @click="emits('show','dlfuzzpenel'),clearActiveList(),activeList._1_1=true">
+        <li class="tool--list-item"  @click="emits('show','dlfuzzpenel'),clearActiveList(),activeList._1=true" :class="{'tool--list-item--active':activeList._1}">
           <div class="tool--list-item--icon"><el-icon ><House/></el-icon></div>
           <span class="tool--list-item--text">
             {{ submenu_project.name }}
@@ -36,7 +36,7 @@
         
         
         
-        <li class="tool--list-item" @click="emits('show','activity')">
+        <li class="tool--list-item" @click="emits('show','activity'),clearActiveList(),activeList._2=true" :class="{'tool--list-item--active':activeList._2}">
           <div class="tool--list-item--icon"><el-icon><DataAnalysis /></el-icon></div>
           <span class="tool--list-item--text">
             统计数据
@@ -60,7 +60,7 @@
         </ul> -->
 
 
-        <li class="tool--list-item" @click="emits('show','projectshub')">
+        <li class="tool--list-item" @click="emits('show','projectshub'),clearActiveList(),activeList._3=true" :class="{'tool--list-item--active':activeList._3}">
           <div class="tool--list-item--icon"><el-icon><Grid /></el-icon></div>
           <span class="tool--list-item--text">
             {{ submenu_process.name }}
@@ -78,7 +78,7 @@
             <span class="tool--sublist-item--text" :class="{'tool--list-item--active':activeList._3_2}" @click="clearActiveList(),activeList._3_2=true">历史进程</span>
           </li>
         </ul> -->
-        <li class="tool--list-item" @click="emits('show','userhub')">
+        <li class="tool--list-item" @click="emits('show','userhub'),clearActiveList(),activeList._4=true" :class="{'tool--list-item--active':activeList._4}">
           <div class="tool--list-item--icon"><el-icon><Setting /></el-icon></div>
           <span class="tool--list-item--text">
             {{ submenu_personal.name }}
@@ -120,16 +120,10 @@ const props = defineProps({
 const isCollapse = ref(true)
 
 const activeList = reactive({
-  _1_1:false,
-  _1_2:false,
-  _1_3:false,
-  _2_1:false,
-  _2_2:false,
-  _2_3:false,
-  _3_1:false,
-  _3_2:false,
-  _4_1:true,
-  _4_2:false,
+  _1: false,
+  _2: false,
+  _3: false,
+  _4: true,
 })
 function clearActiveList() {
   for (let key in activeList) {

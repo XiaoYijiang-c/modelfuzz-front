@@ -58,14 +58,14 @@ const switchPage = (ID: number) => {
 
  
 onMounted(() => {
-  document.body.style.setProperty('--el-color-primary', '#4B4D52');
-  document.body.style.setProperty('--el-menu-active-color', '#4B4D52');
-  document.body.style.setProperty('--el-border-color-light', '#E1DaD9');//--el-menu-active-color
-  document.body.style.setProperty('--el-bg-color-overlay', '#1F1E23');//--el-menu-active-color
-  document.body.style.setProperty('--el-border-color-light', '#1F1E23');//--el-menu-active-color
-  // document.body.style.setProperty('--el-text-color-primary', '#f2f2f2');//--el-menu-active-color
-  document.body.style.setProperty('--el-color-success', '#6e5e8d');//--el-menu-active-color
-  // document.body.style.setProperty('--el-text-color-regular', '#f2f2f2');//--el-menu-active-color
+  // document.body.style.setProperty('--el-color-primary', '#4B4D52');
+  // document.body.style.setProperty('--el-menu-active-color', '#4B4D52');
+  // document.body.style.setProperty('--el-border-color-light', '#E1DaD9');//--el-menu-active-color
+  // document.body.style.setProperty('--el-bg-color-overlay', '#1F1E23');//--el-menu-active-color
+  // document.body.style.setProperty('--el-border-color-light', '#1F1E23');//--el-menu-active-color
+  // // document.body.style.setProperty('--el-text-color-primary', '#f2f2f2');//--el-menu-active-color
+  // document.body.style.setProperty('--el-color-success', '#6e5e8d');//--el-menu-active-color
+  // // document.body.style.setProperty('--el-text-color-regular', '#f2f2f2');//--el-menu-active-color
   
 })
 

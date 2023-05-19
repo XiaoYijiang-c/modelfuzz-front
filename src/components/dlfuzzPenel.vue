@@ -2,11 +2,11 @@
   <div class="form-with-guide" 
     v-if="formPartShow"
     >
-    <el-scrollbar>
+    
       <div class="form-with-guide--main-part">
     <div class="form-with-guide--main-part__left">
       <div class="form-with-guide--header ">
-        <el-dropdown >
+        <el-dropdown class="form-with-guide--header--dropdown">
             <span class="el-dropdown-link form-with-guide--header__text u-menu_list u-font-f2f2f2">
               <el-icon class="el-icon--right u-margin-right-1rem" v-if="props.currentProject.type === 'cv'"><Picture /></el-icon>
               <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="props.currentProject.type === 'mal'"><Platform /></el-icon>
@@ -37,162 +37,170 @@
           <div class="form-with-guide--header__search__button"><el-icon><Search /></el-icon></div></div>
       </div>
       <div 
+        class="form-with-guide--main-part__left--bottom"
+        style="display:flex;align-items: center;justify-content: center;"
         v-if="props.formPartLogin"
         >
         <el-empty :image-size="300" description="请选择一个项目" />
       </div>
-      <el-form 
-        :model="form" label-width="30%" 
-        ref="formdata" 
-        v-else
-      >
-      <h3 class="form-with-guide--main-part__left--title u-font-f2f2f2">Upload Files</h3>
-        <div class="uploadButton">
-          <!-- <div style="width: 15%"></div> -->
-          
-            <div class="single-card-two-button">
-              <p>Upload Source code</p>
-              <div class="single-card-two-button--icon-box">
-                <img src="../img/01fenzi4d3a59.png" alt="fenzi">
-              </div>
-              <div class="single-card-two-button--backgroud-layer"></div>
-              <el-upload ref="uploadCode" class="button-box" :limit="1" :on-exceed="handleExceedCode" :auto-upload="false"
-            :on-change="codeFileChange" :on-remove="codeFileRemove">
-                <template #trigger>
-                  <span class="single-card-two-button--button__left btn">Upload</span>
-                </template>
-                <span class="single-card-two-button--button__right btn">Example</span>
-              </el-upload>
-            </div>
-            
-              <!-- <el-card shadow="hover">上传模型源码</el-card> -->
-              <div class="single-card-two-button">
-              <p>Upload Model</p>
-              <div class="single-card-two-button--icon-box">
-                <img src="../img/07deeplearn4d3a59.png" alt="fenzi">
-              </div>
-              <div class="single-card-two-button--backgroud-layer"></div>
-              <el-upload ref="uploadModel" class="button-box" :limit="1" :on-exceed="handleExceedModel" :auto-upload="false"
-            :on-change="modelFileChange" :on-remove="modelFileRemove">
-                <template #trigger>
-                  <span class="single-card-two-button--button__left btn">Upload</span>
-                </template>
-                <span class="single-card-two-button--button__right btn">Example</span>
-              </el-upload>
-            </div>
-
-            <div class="single-card-two-button">
-              <p>Upload Seed</p>
-              <div class="single-card-two-button--icon-box">
-                <img src="../img/04fangshengxue4d3a59.png" alt="fenzi">
-              </div>
-              <div class="single-card-two-button--backgroud-layer"></div>
-              <el-upload ref="uploadSeed" class="button-box" :limit="1" :on-exceed="handleExceedSeed" :auto-upload="false"
-            :on-change="seedSetChange" :on-remove="seedSetRemove">
-                <template #trigger>
-                  <span class="single-card-two-button--button__left btn">Upload</span>
-                </template>
-                <span class="single-card-two-button--button__right btn">Example</span>
-              </el-upload>
-            </div>
-
-            <div class="single-card-two-button">
-              <p>Upload Preprocessing Function</p>
-              <div class="single-card-two-button--icon-box">
-                <img src="../img/08yunsuanzhongxing4d3a59.png" alt="fenzi">
-              </div>
-              <div class="single-card-two-button--backgroud-layer"></div>
-              <el-upload ref="uploadPreprocess" class="button-box" :limit="1" :on-exceed="handleExceedPreprocess" :auto-upload="false"
-            :on-change="preprocessingFunction" :on-remove="preprocessingRemove">
-                <template #trigger>
-                  <span class="single-card-two-button--button__left btn">Upload</span>
-                </template>
-                <span class="single-card-two-button--button__right btn">Example</span>
-              </el-upload>
-            </div>
-       
-        </div>
-        <div class="left-img-card">
-          <div class="left-img-card--img-box">
-            <img src="../img/0_setting.png" alt="fenzi">
-          </div>
-          <div class="left-img-card--right-part">
-            <div class="input-box u-margin-left-2rem">
-              <span class="input-label">Load Function Name</span>
-              <input type="text" autocomplete="off" name="search" class="input_self u-input-transparent" v-model="form.load_model_function" placeholder="Please input" @change="allSteps" />
-            </div>
-            <div class="input-box u-margin-left-2rem">
-              <span class="input-label">Preprocess Function Name</span>
-              <input type="text" autocomplete="off" name="search" class="input_self  u-input-transparent" v-model="form.preprocess_function" placeholder="Please input" @change="allSteps" />
-            </div>
-            <div class="input-box u-margin-left-2rem">
-              <span class="input-label">Deprocess Function Name</span>
-              <input type="text" autocomplete="off" name="search" class="input_self  u-input-transparent" v-model="form.deprocess_function" placeholder="Please input" @change="allSteps" />
-            </div>
-            <div class="input-box u-margin-left-2rem">
-              <span class="input-label">Layer name</span>
-              <input type="text" autocomplete="off" name="search" class="input_self u-input-transparent" v-model="form.layer_name" placeholder="Please input" @change="allSteps" />
-            </div>
-            <div class="input-box u-margin-left-2rem">
-              <span class="input-label">shape</span>
-              <input type="text" autocomplete="off" name="search" class="input_self  u-input-transparent" v-model="form.shape" placeholder="Please input" @change="allSteps" />
-            </div>
-            
-
-            
-            
-          </div>
-        </div>
-        <h3 class="form-with-guide--main-part__left--title u-font-f2f2f2">Fuzzing Strategy</h3>
-        <div id="1" style="display: grid;grid-template-columns: 48% auto 48%;">
-          <div class="background-image-card u-margin-top-medium">
-          <div class="background-image-card--img-box">
-            <img src="../img/6-nerual.png" alt="fenzi">
-          </div>
-          <div class="background-image-card--right-part">
-            <div class="input-box u-margin-left-2rem">
-              <span class="input-label">Neuron coverage strategy</span>
-              <el-checkbox-group v-model="form.type">
-                <el-checkbox label="Select neurons covered frequently" name="1" />
-                <el-checkbox label="Select neurons covered rarely" name="2" />
-                <el-checkbox label="Select neurons with top weights" name="3" />
-                <el-checkbox label="Select neurons near the activation threshold" name="4" />
-              </el-checkbox-group>
-            </div>
-            <div class="input-box u-margin-left-2rem">
-              <span class="input-label">Neuron activation threshold</span>
-              <div style="display:grid;grid-template-columns: 65% 5% 30%;width: 100%;"> 
-                <el-slider v-model="form.value" :max="thresholdValue.max" :step="thresholdValue.step" />
-                <div></div>
-                <input type="text" autocomplete="off" name="search" class="input_self u-input-transparent"  v-model="form.value" >
-              </div>
-            </div>
+      
+      <div class="form-with-guide--main-part__left--bottom"  v-else>
+        <el-scrollbar>
+          <el-form 
+            :model="form" label-width="30%" 
+            ref="formdata" 
+            style="padding:3rem;"
+          >
+          <h3 class="form-with-guide--main-part__left--title u-font-f2f2f2">Upload Files</h3>
+            <div class="uploadButton">
+              <!-- <div style="width: 15%"></div> -->
               
-            <div class="input-box u-margin-left-2rem">
-              <span class="input-label">Number of neurons covered</span>
-              <input type="text" autocomplete="off" name="search" class="input_self u-input-transparent" v-model="form.neuralNum" :min="1" :max="1000"  size="large" />
+                <div class="single-card-two-button">
+                  <p>Upload Source code</p>
+                  <div class="single-card-two-button--icon-box">
+                    <img src="../img/01fenzi4d3a59.png" alt="fenzi">
+                  </div>
+                  <div class="single-card-two-button--backgroud-layer"></div>
+                  <el-upload ref="uploadCode" class="button-box" :limit="1" :on-exceed="handleExceedCode" :auto-upload="false"
+                :on-change="codeFileChange" :on-remove="codeFileRemove">
+                    <template #trigger>
+                      <span class="single-card-two-button--button__left btn">Upload</span>
+                    </template>
+                    <span class="single-card-two-button--button__right btn">Example</span>
+                  </el-upload>
+                </div>
+                
+                  <!-- <el-card shadow="hover">上传模型源码</el-card> -->
+                  <div class="single-card-two-button">
+                  <p>Upload Model</p>
+                  <div class="single-card-two-button--icon-box">
+                    <img src="../img/07deeplearn4d3a59.png" alt="fenzi">
+                  </div>
+                  <div class="single-card-two-button--backgroud-layer"></div>
+                  <el-upload ref="uploadModel" class="button-box" :limit="1" :on-exceed="handleExceedModel" :auto-upload="false"
+                :on-change="modelFileChange" :on-remove="modelFileRemove">
+                    <template #trigger>
+                      <span class="single-card-two-button--button__left btn">Upload</span>
+                    </template>
+                    <span class="single-card-two-button--button__right btn">Example</span>
+                  </el-upload>
+                </div>
+
+                <div class="single-card-two-button">
+                  <p>Upload Seed</p>
+                  <div class="single-card-two-button--icon-box">
+                    <img src="../img/04fangshengxue4d3a59.png" alt="fenzi">
+                  </div>
+                  <div class="single-card-two-button--backgroud-layer"></div>
+                  <el-upload ref="uploadSeed" class="button-box" :limit="1" :on-exceed="handleExceedSeed" :auto-upload="false"
+                :on-change="seedSetChange" :on-remove="seedSetRemove">
+                    <template #trigger>
+                      <span class="single-card-two-button--button__left btn">Upload</span>
+                    </template>
+                    <span class="single-card-two-button--button__right btn">Example</span>
+                  </el-upload>
+                </div>
+
+                <div class="single-card-two-button">
+                  <p>Upload Preprocessing Function</p>
+                  <div class="single-card-two-button--icon-box">
+                    <img src="../img/08yunsuanzhongxing4d3a59.png" alt="fenzi">
+                  </div>
+                  <div class="single-card-two-button--backgroud-layer"></div>
+                  <el-upload ref="uploadPreprocess" class="button-box" :limit="1" :on-exceed="handleExceedPreprocess" :auto-upload="false"
+                :on-change="preprocessingFunction" :on-remove="preprocessingRemove">
+                    <template #trigger>
+                      <span class="single-card-two-button--button__left btn">Upload</span>
+                    </template>
+                    <span class="single-card-two-button--button__right btn">Example</span>
+                  </el-upload>
+                </div>
+          
+            </div>
+            <div class="left-img-card">
+              <div class="left-img-card--img-box">
+                <img src="../img/0_setting.png" alt="fenzi">
+              </div>
+              <div class="left-img-card--right-part">
+                <div class="input-box u-margin-left-2rem">
+                  <span class="input-label">Load Function Name</span>
+                  <input type="text" autocomplete="off" name="search" class="input_self u-input-transparent" v-model="form.load_model_function" placeholder="Please input" @change="allSteps" />
+                </div>
+                <div class="input-box u-margin-left-2rem">
+                  <span class="input-label">Preprocess Function Name</span>
+                  <input type="text" autocomplete="off" name="search" class="input_self  u-input-transparent" v-model="form.preprocess_function" placeholder="Please input" @change="allSteps" />
+                </div>
+                <div class="input-box u-margin-left-2rem">
+                  <span class="input-label">Deprocess Function Name</span>
+                  <input type="text" autocomplete="off" name="search" class="input_self  u-input-transparent" v-model="form.deprocess_function" placeholder="Please input" @change="allSteps" />
+                </div>
+                <div class="input-box u-margin-left-2rem">
+                  <span class="input-label">Layer name</span>
+                  <input type="text" autocomplete="off" name="search" class="input_self u-input-transparent" v-model="form.layer_name" placeholder="Please input" @change="allSteps" />
+                </div>
+                <div class="input-box u-margin-left-2rem">
+                  <span class="input-label">shape</span>
+                  <input type="text" autocomplete="off" name="search" class="input_self  u-input-transparent" v-model="form.shape" placeholder="Please input" @change="allSteps" />
+                </div>
+                
+
+                
+                
+              </div>
+            </div>
+            <h3 class="form-with-guide--main-part__left--title u-font-f2f2f2">Fuzzing Strategy</h3>
+            <div id="1" style="display: grid;grid-template-columns: 48% auto 48%;">
+              <div class="background-image-card u-margin-top-medium">
+              <div class="background-image-card--img-box">
+                <img src="../img/6-nerual.png" alt="fenzi">
+              </div>
+              <div class="background-image-card--right-part">
+                <div class="input-box u-margin-left-2rem">
+                  <span class="input-label">Neuron coverage strategy</span>
+                  <el-checkbox-group v-model="form.type">
+                    <el-checkbox label="Select neurons covered frequently" name="1" />
+                    <el-checkbox label="Select neurons covered rarely" name="2" />
+                    <el-checkbox label="Select neurons with top weights" name="3" />
+                    <el-checkbox label="Select neurons near the activation threshold" name="4" />
+                  </el-checkbox-group>
+                </div>
+                <div class="input-box u-margin-left-2rem">
+                  <span class="input-label">Neuron activation threshold</span>
+                  <div style="display:grid;grid-template-columns: 65% 5% 30%;width: 100%;"> 
+                    <el-slider v-model="form.value" :max="thresholdValue.max" :step="thresholdValue.step" />
+                    <div></div>
+                    <input type="text" autocomplete="off" name="search" class="input_self u-input-transparent"  v-model="form.value" >
+                  </div>
+                </div>
+                  
+                <div class="input-box u-margin-left-2rem">
+                  <span class="input-label">Number of neurons covered</span>
+                  <input type="text" autocomplete="off" name="search" class="input_self u-input-transparent" v-model="form.neuralNum" :min="1" :max="1000"  size="large" />
+                </div>
+              </div>
+            </div>
+            <div></div>
+            <div class="background-image-card u-margin-top-medium">
+              <div class="background-image-card--img-box">
+                <img src="../img/6-nerual.png" alt="fenzi">
+              </div>
+              <div class="background-image-card--right-part">
+                <div class="input-box u-margin-left-2rem">
+                  <span class="input-label">Variation times per seed</span>
+                  <input type="text" autocomplete="off" name="search" class="input_self u-input-transparent " v-model="form.seedNum" :min="1" :max="1000"  size="large" />
+                </div>
+                
+              </div>
             </div>
           </div>
-        </div>
-        <div></div>
-        <div class="background-image-card u-margin-top-medium">
-          <div class="background-image-card--img-box">
-            <img src="../img/6-nerual.png" alt="fenzi">
-          </div>
-          <div class="background-image-card--right-part">
-            <div class="input-box u-margin-left-2rem">
-              <span class="input-label">Variation times per seed</span>
-              <input type="text" autocomplete="off" name="search" class="input_self u-input-transparent " v-model="form.seedNum" :min="1" :max="1000"  size="large" />
-            </div>
+          <slot name="Submit_button"></slot>
+          <!-- <Header-tag :topList="['submit']"></Header-tag> -->
             
-          </div>
-        </div>
+            
+          </el-form>
+        </el-scrollbar>
       </div>
-      <slot name="Submit_button"></slot>
-      <!-- <Header-tag :topList="['submit']"></Header-tag> -->
-        
-        
-      </el-form>
+    
     </div>
     <div class="form-with-guide--main-part__right">
       <div style="height: 300px;position:sticky;top:2rem">
@@ -225,7 +233,7 @@
       </div>
     </div>
       </div>
-   </el-scrollbar>
+   
   </div>
 </template>
 <script lang="ts" setup>

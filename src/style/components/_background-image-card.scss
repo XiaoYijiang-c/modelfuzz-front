@@ -36,4 +36,13 @@
             // transform: scale(70%);
         }
     }
+    .el-checkbox__label {
+        color: #f2f2f2 !important;
+    }
+    .el-slider__bar {
+        background-color: #8fbc8f;
+    }
+    .el-checkbox__input.is-checked .el-checkbox__inner {
+        background-color: #8fbc8f;
+    }
 }

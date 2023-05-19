@@ -1,7 +1,10 @@
 <template>
   <div class="single-page">
-    <div class="color-page">
-
+    <div class="navigation navigation__inside">
+      <span class="navigation--name">nerual sentinel</span>
+      <div class="navigation--logo">
+        <img src="../img/logo.png" alt="logo" class="navigation--logo__logo" >
+      </div>
     </div>
     <div class="single-page--main-window">
       <!-- <video class="single-page--video-background" id="bgVid" playsinline="true" autoplay="true" muted="true" loop="true">

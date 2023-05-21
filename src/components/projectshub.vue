@@ -1,7 +1,37 @@
 <template>
     <el-scrollbar>
     <div class="userhub">
+        <span class="userhub--title">
+            <h2>项目列表</h2>
+        </span>
         <div class="userhub--projectlist">
+            <span class="userhub--projectlist--item" v-for="item in currentprojectlist" :key="item.name">
+                <span class="userhub--projectlist--item--icon"><el-icon v-if="item.type =='cv'"><Picture /></el-icon></span>
+                <span class="userhub--projectlist--item--text">
+                    {{ item.name }}
+                    <span class="userhub--projectlist--item--text--icon-box">
+                        <el-icon class="userhub--projectlist--item--text--icon-box__icon"><DeleteFilled /></el-icon>
+                        <el-icon class="userhub--projectlist--item--text--icon-box__icon" style="transform: rotate(90deg);"><MoreFilled /></el-icon>
+                    </span>
+                </span>
+
+            </span>
+            
+            <!-- <span class="userhub--projectlist--item">
+                <span class="userhub--projectlist--item--icon"><el-icon><Picture /></el-icon></span>
+                <span class="userhub--projectlist--item--text">new-projects</span>
+            </span>
+            <span class="userhub--projectlist--item">
+                <span class="userhub--projectlist--item--icon"><el-icon><Picture /></el-icon></span>
+                <span class="userhub--projectlist--item--text">new-projects</span>
+            </span> -->
+        </div>
+        <div class="userhub--footer">
+            <span class="userhub--footer__left" @click="testlastpage">上一页</span>
+            <span class="userhub--footer__mid">{{currentpage}}/{{ totalPage }}</span>
+            <span class="userhub--footer__right"  @click="testnextpage">下一页</span>
+        </div>
+        <!-- <div class="userhub--projectlist">
             <div style="height: 10rem;"></div>
             <div class="chart-card" style="height:50rem">
                 <div class="chart-card__rainbow_2"></div>
@@ -15,9 +45,9 @@
                                     <el-icon v-if="item.type === 'cv' "><Picture /></el-icon>
                                     <el-icon v-else-if="item.type === 'mal' "><Platform /></el-icon>
                                 </span>
-                                <!-- <span class="project-list--item--gap"></span> -->
+                                
                                 <span class="project-list--item--name">{{ item.name }}</span>
-                                <!-- <span class="project-list--item--gap"></span> -->
+                                
                                 <div class="project-list--item--icon-box">
                                     <span class="project-list--item--delete" @click="open(item)">
                                         <el-icon> <Delete /></el-icon>
@@ -31,7 +61,7 @@
                     </el-scrollbar>
                 </div>  
             </div>
-        </div>
+        </div> -->
         <el-dialog v-model="add_project" title="Shipping address" :modal="false" center>
             <el-form>
                 <el-form-item label="project name" >
@@ -49,7 +79,7 @@
             </el-button>
         </span>
         </template>
-    </el-dialog>
+        </el-dialog>
     </div>
     </el-scrollbar>
     
@@ -63,7 +93,87 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import type { Action } from 'element-plus'
 const emits = defineEmits(["set_projects"]);
 const name:Ref<string> = ref('肆夕')
-const titleList:Ref<string[]> = ref(['Student','SCU'])
+const titleList: Ref<string[]> = ref(['Student', 'SCU'])
+const testprojectlist = [{
+    name: 'new-project', type: 'cv'
+},{
+    name: 'new-project', type: 'cv'
+},{
+    name: 'new-project', type: 'cv'
+},{
+    name: 'new-project', type: 'cv'
+},{
+    name: 'new-project', type: 'cv'
+},{
+    name: 'new-project', type: 'cv'
+},{
+    name: 'new-project', type: 'cv'
+},{
+    name: 'new-project', type: 'cv'
+},{
+    name: 'new-project', type: 'cv'
+},{
+    name: 'new-project', type: 'cv'
+},{
+    name: 'new-project', type: 'cv'
+},{
+    name: 'new-project', type: 'cv'
+},{
+    name: 'new-project', type: 'cv'
+},{
+    name: 'new-project', type: 'cv'
+},{
+    name: 'new-project', type: 'cv'
+},{
+    name: 'new-project', type: 'cv'
+},{
+    name: 'new-project', type: 'cv'
+},{
+    name: 'new-project', type: 'cv'
+},{
+    name: 'new-project', type: 'cv'
+},{
+    name: 'new-project', type: 'cv'
+},{
+    name: 'new-project', type: 'cv'
+    }]
+let currentprojectlist:Ref<testProject[]> = ref([])
+const currentpage:Ref<number> = ref(1)
+const testcursor = ref(11)
+const totalPage:Ref<number> = ref(Math.ceil(testprojectlist.length / 12));
+totalPage.value = totalPage.value == 0 ? 1 : totalPage.value;
+console.log(totalPage)
+function getCurrentPageData() {
+    let begin = (currentpage.value - 1) * 12;
+    let end = currentpage.value * 12;
+    currentprojectlist.value = testprojectlist.slice(
+        begin,
+        end
+    );
+}
+getCurrentPageData()
+function testnextpage() {
+    if (currentpage.value === totalPage.value) {
+        alert('已经是最后一页了')
+        return false
+      } else {
+        currentpage.value++
+        getCurrentPageData()
+      }
+}
+function testlastpage() {
+    if (currentpage.value === 1) {
+        alert('已经是第一页了')
+        return false
+      } else {
+        currentpage.value--
+        getCurrentPageData()
+      }
+}
+interface testProject {
+    type: string;
+    name: string;
+}
 interface Project {
     type: string;
     name: string;

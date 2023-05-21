@@ -1,11 +1,10 @@
 <template>
-   <el-scrollbar>
     <div class="chart_visiable">
         <div class="chart_visiable--header">
             <!-- <h3 class="chart_visiable--header__text">Project-ID</h3> -->
             <div class="chart_visiable--header__left">
-                <el-dropdown >
-                <span class="el-dropdown-link chart_visiable--header__text u-menu_list">
+                <el-dropdown class="chart_visiable--header__left--dropdown">
+                <span class="el-dropdown-link chart_visiable--header__text u-menu_list u-font-f2f2f2">
                     <el-icon class="el-icon--right u-margin-right-1rem" v-if="props.currentProject.type === 'cv'"><Picture /></el-icon>
                     <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="props.currentProject.type === 'mal'"><Platform /></el-icon>
                     {{ props.currentProject.name }}<el-icon class="el-icon--right u-margin-left-1rem"><arrow-down /></el-icon>
@@ -33,125 +32,125 @@
             </div>
           </div>
           
-            <div style="display: flex; align-items: center;">
-              <div class="color-ball u-small-ball"></div>
-              <div class="color-ball u-small-ball"></div>
-              <div class="color-ball u-small-ball"></div>
-            </div>
+            
         </div>
         <div 
+            class="chart_visiable--bottom" 
+            style="display:flex;align-items: center;justify-content: center;"
             v-if="props.formPartLogin"
             >
             <el-empty :image-size="300" description="请选择一个项目" />
           </div>
-        <div v-else>
-        <div class="chart_visiable--columns-2-3" > 
-            <div class="chart-card">
-                <div class="chart-card__rainbow"></div>
-                <div class="chart-card--list-title">Result</div>
-                <div class="chart-card--list-box" ref="ref_4">
-                  <!-- <div class="chart-card--list-box--title">res</div> -->
-                  <el-auto-resizer>
-                    <template #default="{ height, width }">
-                      <el-table-v2
-                        :columns="columns"
-                        :data="tabledata"
-                        :width="width"
-                        :height="height"
-                        @scroll="loadList"
-                        fixed
-                      />
-                    </template>
-                  </el-auto-resizer>
-                </div>  
-            </div>
-            <div class="chart-card" >
-                <!-- <div class="chart-card--title">main</div> -->
-              
-              <div ref="ref_5" class="chart-card--chart " >
-                <!-- <div class="chart-card--list-title">Result </div> -->
-                <div class="chart_visiable--columns-3 chart-card--list-box" style="height: 100%;">
-                  <div class="statistic-card">
-                    <div class="statistic-card--icon statistic-card--icon__green"><el-icon ><Platform /></el-icon></div>
-                    <span class="statistic-card--text statistic-card--text__up">Perturb adversial per round</span>
-                    <span class="statistic-card--value">{{ perturbAdversial }}</span>
-                    <span class="statistic-card--text statistic-card--text__down">than last round
-                      <span v-if="Number(perturbAdversialRate)>=0" style="color:green">{{ perturbAdversialRate }}%
-                        <el-icon ><CaretTop /></el-icon>
-                      </span>
-                      <span v-else style="color:red">{{ perturbAdversialRate }}%
-                        <el-icon ><CaretBottom /></el-icon>
-                      </span>
-                    </span>
-                  </div>
-                  <div class="statistic-card">
-                    <div class="statistic-card--icon statistic-card--icon__purple"><el-icon><BellFilled /></el-icon></div>
-                    <span class="statistic-card--text statistic-card--text__up">Time cost per round</span>
-                    <span class="statistic-card--value">{{ usedTime }} S</span>
-                    <span class="statistic-card--text statistic-card--text__down">than last round
-                      <span v-if="Number(usedTimeRate)>=0" style="color:green">{{ usedTimeRate }}%
-                        <el-icon ><CaretTop /></el-icon>
-                      </span>
-                      <span v-else style="color:red">{{ usedTimeRate }}%
-                        <el-icon ><CaretBottom /></el-icon>
-                      </span>
-                    </span>
-                  </div>
-                  <div class="statistic-card">
-                    <div class="statistic-card--icon statistic-card--icon__organge"><el-icon><MagicStick /></el-icon></div>
-                    <span class="statistic-card--text statistic-card--text__up">L2 norm per round</span>
-                    <span class="statistic-card--value">{{ L2Norm }}</span>
-                    <span class="statistic-card--text statistic-card--text__down">than last round
-                      <span v-if="Number(L2NormRate)>=0" style="color:green">{{ L2NormRate }}%
-                        <el-icon ><CaretTop /></el-icon>
-                      </span>
-                      <span v-else style="color:red">{{ L2NormRate }}%
-                        <el-icon ><CaretBottom /></el-icon>
-                      </span>
-                    </span>
-                  </div>
+        <div v-else class="chart_visiable--bottom">
+          <el-scrollbar>
+            <div class="chart_visiable--columns-2-3" > 
+                <div class="chart-card">
+                    <div class="chart-card__rainbow"></div>
+                    <div class="chart-card--list-title">Result</div>
+                    <div class="chart-card--list-box" ref="ref_4">
+                      <!-- <div class="chart-card--list-box--title">res</div> -->
+                      <el-auto-resizer>
+                        <template #default="{ height, width }">
+                          <el-table-v2
+                            :columns="columns"
+                            :data="tabledata"
+                            :width="width"
+                            :height="height"
+                            @scroll="loadList"
+                            fixed
+                          />
+                          
+                        </template>
+                      </el-auto-resizer>
+                    </div>  
                 </div>
-              </div>      
-            </div>
-            <!-- <div class="chart-card" >
-                <div class="chart-card--title">Neuron</div>
-                    <div ref="ref_6" class="chart-card--chart"></div>      
-            </div> -->
-            <!-- <DlfuzzImage ref="dlfuzzImage"></DlfuzzImage> -->
-        </div>
-        <div class="chart_visiable--columns-1-2"> 
-            <div class="chart-card" >
-                <div class="chart-card--title"></div>
-                <div class="chart-card--list-title u-fontsize-3rem">Neuron Coverage </div>
-                <div ref="ref_1"  class="chart-card--chart">
+                <div class="chart-card" >
+                    <!-- <div class="chart-card--title">main</div> -->
                   
-                </div>      
+                  <div ref="ref_5" class="chart-card--chart " >
+                    <!-- <div class="chart-card--list-title">Result </div> -->
+                    <div class="chart_visiable--columns-3 chart-card--list-box" style="height: 100%;">
+                      <div class="statistic-card">
+                        <div class="statistic-card--icon statistic-card--icon__green"><el-icon ><Platform /></el-icon></div>
+                        <span class="statistic-card--text statistic-card--text__up">Perturb adversial per round</span>
+                        <span class="statistic-card--value">{{ perturbAdversial }}</span>
+                        <span class="statistic-card--text statistic-card--text__down">than last round
+                          <span v-if="Number(perturbAdversialRate)>=0" style="color:green">{{ perturbAdversialRate }}%
+                            <el-icon ><CaretTop /></el-icon>
+                          </span>
+                          <span v-else style="color:red">{{ perturbAdversialRate }}%
+                            <el-icon ><CaretBottom /></el-icon>
+                          </span>
+                        </span>
+                      </div>
+                      <div class="statistic-card">
+                        <div class="statistic-card--icon statistic-card--icon__purple"><el-icon><BellFilled /></el-icon></div>
+                        <span class="statistic-card--text statistic-card--text__up">Time cost per round</span>
+                        <span class="statistic-card--value">{{ usedTime }} S</span>
+                        <span class="statistic-card--text statistic-card--text__down">than last round
+                          <span v-if="Number(usedTimeRate)>=0" style="color:green">{{ usedTimeRate }}%
+                            <el-icon ><CaretTop /></el-icon>
+                          </span>
+                          <span v-else style="color:red">{{ usedTimeRate }}%
+                            <el-icon ><CaretBottom /></el-icon>
+                          </span>
+                        </span>
+                      </div>
+                      <div class="statistic-card">
+                        <div class="statistic-card--icon statistic-card--icon__organge"><el-icon><MagicStick /></el-icon></div>
+                        <span class="statistic-card--text statistic-card--text__up">L2 norm per round</span>
+                        <span class="statistic-card--value">{{ L2Norm }}</span>
+                        <span class="statistic-card--text statistic-card--text__down">than last round
+                          <span v-if="Number(L2NormRate)>=0" style="color:green">{{ L2NormRate }}%
+                            <el-icon ><CaretTop /></el-icon>
+                          </span>
+                          <span v-else style="color:red">{{ L2NormRate }}%
+                            <el-icon ><CaretBottom /></el-icon>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>      
+                </div>
+                <!-- <div class="chart-card" >
+                    <div class="chart-card--title">Neuron</div>
+                        <div ref="ref_6" class="chart-card--chart"></div>      
+                </div> -->
+                <!-- <DlfuzzImage ref="dlfuzzImage"></DlfuzzImage> -->
             </div>
-            <div class="chart-card" >
-                <div class="chart-card--title"></div>
-                <div class="chart-card--list-title u-fontsize-3rem">Neuron Coverage </div>
-                <div ref="ref_2" class="chart-card--chart"></div>      
+            <div class="chart_visiable--columns-1-2"> 
+                <div class="chart-card" >
+                    <div class="chart-card--title"></div>
+                    <div class="chart-card--list-title u-fontsize-3rem">Neuron Coverage </div>
+                    <div ref="ref_1"  class="chart-card--chart">
+                      
+                    </div>      
+                </div>
+                <div class="chart-card" >
+                    <div class="chart-card--title"></div>
+                    <div class="chart-card--list-title u-fontsize-3rem">Neuron Coverage </div>
+                    <div ref="ref_2" class="chart-card--chart"></div>      
+                </div>
+                <!-- <div class="chart-card" >
+                    <div class="chart-card--title">Neuron</div>
+                        <div ref="ref_3" class="chart-card--chart"></div>      
+                </div> -->
+                <!-- <DlfuzzImage ref="dlfuzzImage"></DlfuzzImage> -->
             </div>
-            <!-- <div class="chart-card" >
-                <div class="chart-card--title">Neuron</div>
-                    <div ref="ref_3" class="chart-card--chart"></div>      
-            </div> -->
-            <!-- <DlfuzzImage ref="dlfuzzImage"></DlfuzzImage> -->
-        </div>
-        <div class="chart_visiable--columns-1-2"> 
-            <div class="chart-card" >
-    
-            </div>
+            <div class="chart_visiable--columns-1-2"> 
+                <div class="chart-card" >
+        
+                </div>
 
-            <!-- <div class="chart-card" >
-                <div class="chart-card--title">Neuron</div>
-                    <div ref="ref_3" class="chart-card--chart"></div>      
-            </div> -->
-            <!-- <DlfuzzImage ref="dlfuzzImage"></DlfuzzImage> -->
-        </div>
+                <!-- <div class="chart-card" >
+                    <div class="chart-card--title">Neuron</div>
+                        <div ref="ref_3" class="chart-card--chart"></div>      
+                </div> -->
+                <!-- <DlfuzzImage ref="dlfuzzImage"></DlfuzzImage> -->
+            </div>
+          </el-scrollbar>
       </div>
     </div>
-</el-scrollbar>
 </template>
 <script lang="ts" setup>
 import axios from "axios";

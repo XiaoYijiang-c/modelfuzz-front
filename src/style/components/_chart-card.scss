@@ -63,6 +63,10 @@ $rainbow2-color5:#FDFCEA;
                 background-color: rgba(#f2f2f2, 0.2);
             }
         }
+        .el-table-v2__empty {
+            display: none;
+            // height: 60% !important;
+        }
     }
     &--list-tools {
         position: absolute;

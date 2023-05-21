@@ -1,15 +1,38 @@
 .chart_visiable {
     // width: 100%;
     font-family: 'Times New Roman', Times, serif;
+    height: 88vh;
     &--header {
         display: grid;
-        grid-template-columns: 75% 25%;
         // margin: 2rem;
         &__left {
+            height: 7vh;
             display: grid;
             grid-template-columns: 30% auto 30%;
-            margin: 2rem;
-            padding: 0rem 4rem;
+            padding: 1vh 2rem 1vh 2rem;
+            margin-bottom: 2vh;
+            background-color: $console-dark;
+            &--dropdown {
+                display: flex;
+                align-items: center;
+            }
+            .el-dropdown-menu.el-dropdown-menu--default {
+                background-color: $console-light;
+            }
+            .el-dropdown-menu {
+                background-color: $console-light !important;
+                // height: 10rem;
+                width: 20rem;
+                // border-color: ##1F1E23 !important;
+                li {
+                    font-size: 1.5rem;
+                    color: gray;
+                }
+                li:hover {
+                    background-color: $console-light !important;
+                    color: #f2f2f2 !important;
+                }
+            }
         }
         &__text {
             font-size: 2rem;
@@ -33,6 +56,10 @@
                 }
             }
         }
+    }
+    &--bottom {
+        height: 79vh;
+        background-color: $console-dark;
     }
     &--columns-1-2-1 {
         display: grid;

@@ -60,6 +60,8 @@ function LeNet() {
         lenet.fc_links = lenet.fc_layers.map(fc => { return [Object.assign({ 'id': 'link_' + fc['layer'] + '_0', 'i': 0, 'prevSize': 10 }, fc), Object.assign({ 'id': 'link_' + fc['layer'] + '_1', 'i': 1, 'prevSize': 10 }, fc)] });
         lenet.fc_links = flatten(lenet.fc_links);
 
+        console.log("lenet.fc_layers", lenet.fc_layers)
+
         // hacks
         if (lenet.rects.length > 0 && lenet.fc_layers.length > 0) {
             lenet.fc_links[0]['prevSize'] = 0;
@@ -118,7 +120,8 @@ function LeNet() {
             .text(d => (showLabels ? d.op : ""))
             .attr("class", "text")
             .attr("dy", ".35em")
-            .style("font-size", "16px")
+            .style("font-size", "8px")
+            .style("fill", "#f2f2f2")
             .attr("font-family", "sans-serif");
 
         info = g.selectAll(".info")
@@ -128,7 +131,8 @@ function LeNet() {
             .text(d => (showLabels ? d.text : ""))
             .attr("class", "info")
             .attr("dy", "-0.3em")
-            .style("font-size", "16px")
+            .style("font-size", "8px")
+            .style("fill", "#f2f2f2")
             .attr("font-family", "sans-serif");
 
         style();
@@ -146,7 +150,8 @@ function LeNet() {
         layer_widths = architecture.map((layer, i) => (layer['numberOfSquares'] - 1) * betweenSquares + layer['squareWidth']);
         layer_widths = layer_widths.concat(lenet.fc_layers.map((layer, i) => layer['size'])).concat([0]);
 
-        largest_layer_width = Math.max(...layer_widths);
+        // largest_layer_width = Math.max(...layer_widths);
+        largest_layer_width = layer_widths.reduce((a, b) => a + b) / layer_widths.length;
 
         layer_x_offsets = layer_widths.reduce((offsets, layer_width, i) => offsets.concat([offsets.last() + layer_width + (betweenLayers[i] || betweenLayersDefault)]), [0]).concat([0]);
         layer_y_offsets = layer_widths.map(layer_width => (largest_layer_width - layer_width) / 2).concat([0]);
@@ -184,7 +189,7 @@ function LeNet() {
             .attr("x2", d => layer_x_offsets[d.layer] + (d.i ? 0 : d.size) + screen_center_x)
             .attr("y2", d => layer_y_offsets[d.layer] + (d.i ? 0 : d.size) + screen_center_y)
             .style('opacity', d => +(d.layer > 0));
-
+        console.log('save text', layer_y_offsets, screen_center_y, largest_layer_width)
         text.attr('x', d => (layer_x_offsets[d.layer] + layer_widths[d.layer] + layer_x_offsets[d.layer + 1] + layer_widths[d.layer + 1] / 2) / 2 + screen_center_x - 15)
             .attr('y', d => layer_y_offsets[0] + screen_center_y + largest_layer_width)
             .style('opacity', d => +(d.layer + 1 < architecture.length || architecture2.length > 0));
@@ -251,7 +256,7 @@ function LeNet() {
 
     d3.select(window).on("resize", resize)
 
-    resize(500, 500);
+    resize(1000, 500);
 
 
     /////////////////////////////////////////////////////////////////////////////

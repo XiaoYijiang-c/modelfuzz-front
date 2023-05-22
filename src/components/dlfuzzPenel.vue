@@ -41,7 +41,10 @@
         style="display:flex;align-items: center;justify-content: center;"
         v-if="props.formPartLogin"
         >
-        <el-empty :image-size="300" description="请选择一个项目" />
+        <div>
+              <img src="../img/empty.png" alt="">
+               <div style="font-size: 2rem;color: #f2f2f2;">请选择一个项目</div>
+            </div>
       </div>
       
       <div class="form-with-guide--main-part__left--bottom"  v-else>

@@ -60,10 +60,31 @@
     &--bottom {
         height: 79vh;
         background-color: $console-dark;
+        &__fullscreen {
+            position: fixed;
+            left: -17vw;
+            top: 0vh;
+            height: 88vh;
+            width: 97vw;
+            background-color: $console-dark;
+        }
+    }
+    &--fullscreenbutton {
+        position: absolute;
+        left: 1.5rem;
+        top: -3.5rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 2.5rem;
+        color: #f2f2f2;
     }
     &--columns-1-2-1 {
         display: grid;
         grid-template-columns: 25% 50% 25%;
+    }
+    &--columns-1 {
+        display: grid;
+        grid-template-columns: 100%;
     }
     &--columns-1-2 {
         display: grid;

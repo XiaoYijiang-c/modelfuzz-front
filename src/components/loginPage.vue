@@ -3,12 +3,13 @@
       <img src="../img/face_login_0.png" alt="face" class="left_img--img" >
     </div>
     <section>
+    
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
     <span class="backward" @click="emits('switchPage', 0)"><el-icon size="5rem" ><Back /></el-icon></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
     <span></span>
     <span></span>
     <span></span>

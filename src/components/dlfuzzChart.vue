@@ -28,7 +28,7 @@
                 v-model="input2"
                 class="input_self u-input-dark"
             />
-            <div class="chart_visiable--header__search__button "><el-icon><Search /></el-icon></div>
+            <div class="chart_visiable--header__search__button " @click="loadChart"><el-icon><Search /></el-icon></div>
             </div>
           </div>
           
@@ -36,13 +36,17 @@
         </div>
         <div 
             class="chart_visiable--bottom" 
-            style="display:flex;align-items: center;justify-content: center;"
+            style="display:flex;align-items: center;justify-content: center;flex-wrap: wrap;"
             v-if="props.formPartLogin"
             >
-            <el-empty :image-size="300" description="请选择一个项目" />
+            <div>
+              <img src="../img/empty.png" alt="">
+               <div style="font-size: 2rem;color: #f2f2f2;">请选择一个项目</div>
+            </div>
           </div>
-        <div v-else class="chart_visiable--bottom">
+        <div v-else :class="{'chart_visiable--bottom': !fullscreenboolean, 'chart_visiable--bottom__fullscreen':fullscreenboolean}">
           <el-scrollbar>
+            <el-icon class="chart_visiable--fullscreenbutton" @click="fullscreen"><FullScreen /></el-icon>
             <div class="chart_visiable--columns-2-3" > 
                 <div class="chart-card">
                     <div class="chart-card__rainbow"></div>
@@ -118,18 +122,19 @@
                 </div> -->
                 <!-- <DlfuzzImage ref="dlfuzzImage"></DlfuzzImage> -->
             </div>
+            <div class="chart_visiable--columns-1"><nnsvg></nnsvg></div> 
             <div class="chart_visiable--columns-1-2"> 
                 <div class="chart-card" >
                     <div class="chart-card--title"></div>
                     <div class="chart-card--list-title u-fontsize-3rem">Neuron Coverage </div>
-                    <div ref="ref_1"  class="chart-card--chart">
+                    <div ref="ref_1"  class="chart-card--chart chart-card--chart--square">
                       
                     </div>      
                 </div>
                 <div class="chart-card" >
                     <div class="chart-card--title"></div>
                     <div class="chart-card--list-title u-fontsize-3rem">Neuron Coverage </div>
-                    <div ref="ref_2" class="chart-card--chart"></div>      
+                    <div ref="ref_2" class="chart-card--chart chart-card--chart--rectangle"></div>      
                 </div>
                 <!-- <div class="chart-card" >
                     <div class="chart-card--title">Neuron</div>
@@ -168,9 +173,12 @@ import Cookies from 'js-cookie'
 
 
 //test
-let test1 = () => {
-  console.log('scroll')
+let fullscreen = async () => {
+  fullscreenboolean.value = !fullscreenboolean.value
+
+  
 }
+const fullscreenboolean:Ref<boolean> = ref(false)
 const generateColumns = (length = 10, prefix = 'column-', props?: any) =>
   Array.from({ length }).map((_, columnIndex) => ({
     ...props,
@@ -381,6 +389,7 @@ function loadList() {
   // console.log(ref_4.value.children[0].children[0].children[0].children[0].children[0].children[0].children)
 }
 
+
 let testlist = generateData(columns, 2000)
 // let ll = 0
 let timer: any = null
@@ -394,6 +403,7 @@ let L2Norm:Ref<string> = ref('0')
 let L2NormBefore:Ref<string> = ref('0')
 let L2NormRate:Ref<string> = ref('0')
 async function loadChart() {
+  
   console.log("testlist",testlist)
   let ref_1WH =await getRefCurrentWH(ref_1)
   myEcharts1 = echarts.init(ref_1.value,'',ref_1WH);
@@ -401,6 +411,7 @@ async function loadChart() {
   let ref_2WH =await getRefCurrentWH(ref_2)
   myEcharts2 = echarts.init(ref_2.value,'',ref_2WH);
   myEcharts2.setOption(option);
+  
   let formDataObject = new FormData();
   let userID: any = Cookies.get('userID')
   if (userID) {

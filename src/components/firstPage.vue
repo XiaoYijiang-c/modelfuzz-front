@@ -21,10 +21,10 @@
             </ul>
             <ul class="navigation--user">
                 <li class="navigation--user--head">
-                    <router-link replace to="/login"><img src="../img/head.png" alt="logo" class="navigation--user--head__head" ></router-link>
+                    <router-link replace to="/login" @click="emits('switchPage', 1)"><img src="../img/head.png" alt="logo" class="navigation--user--head__head" ></router-link>
                 </li>
-                <li class="navigation--jump--item">个人中心</li>
-                <li class="navigation--jump--item">消息</li>
+                <li class="navigation--jump--item" @click="checkLogin">个人中心</li>
+                <li class="navigation--jump--item" @click="checkLogin">消息</li>
             </ul>
         </div>
         <div class="header header--img-neural  u-scroll-snap-align" >

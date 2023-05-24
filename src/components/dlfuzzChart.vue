@@ -7,14 +7,18 @@
                 <span class="el-dropdown-link chart_visiable--header__text u-menu_list u-font-f2f2f2">
                     <el-icon class="el-icon--right u-margin-right-1rem" v-if="props.currentProject.type === 'cv'"><Picture /></el-icon>
                     <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="props.currentProject.type === 'mal'"><Platform /></el-icon>
+                    <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="props.currentProject.type === 'eval'"><DataAnalysis /></el-icon>
                     {{ props.currentProject.name }}<el-icon class="el-icon--right u-margin-left-1rem"><arrow-down /></el-icon>
                 </span>
                 <template #dropdown>
                 <el-dropdown-menu>
                         <div class="u-menu_list" v-for="item in props.projectList" :key="item.id">
                         <el-dropdown-item @click="emits('changeProject',item),emits('chooseProject'),emits('setProjectID',item.id)">{{ item.name }} 
-                            <div  v-if="item.type === 'cv'" class="u-flex-center "><el-icon color="#f2f2f2"><Picture /></el-icon></div>
-                        <div v-else-if="item.type === 'mal'" class="u-flex-center "><el-icon  color="#f2f2f2"><Platform /></el-icon></div></el-dropdown-item>
+                          <div  v-if="item.type === 'cv'" class="u-flex-center "><el-icon color="#f2f2f2"><Picture /></el-icon></div>
+                          <div v-else-if="item.type === 'mal'" class="u-flex-center "><el-icon  color="#f2f2f2"><Platform /></el-icon></div>
+                          <div v-else-if="item.type === 'eval'" class="u-flex-center "><el-icon  color="#f2f2f2"><DataAnalysis /></el-icon></div>
+                      </el-dropdown-item>
+                        
                         </div>
                 </el-dropdown-menu>
                 </template>

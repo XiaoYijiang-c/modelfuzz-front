@@ -1,46 +1,15 @@
 <template>
-    <div class="form-with-guide" v-if="formPartShow">
-      <el-scrollbar>
-        <div class="form-with-guide--main-part">
-      <div class="form-with-guide--main-part__left">
-        <div class="form-with-guide--header ">
-          <el-dropdown >
-              <span class="el-dropdown-link form-with-guide--header__text u-menu_list u-font-f2f2f2">
-                <el-icon class="el-icon--right u-margin-right-1rem" v-if="props.currentProject.type === 'cv'"><Picture /></el-icon>
-                <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="props.currentProject.type === 'mal'"><Platform /></el-icon>
-                {{ props.currentProject.name }}<el-icon class="el-icon--right u-margin-left-1rem"><arrow-down /></el-icon>
-              </span>
-              <template #dropdown>
-                <el-dropdown-menu>
-                      <div class="u-menu_list" v-for="item in projectList" :key="item.id">
-                        
-                        <el-dropdown-item @click="emits('changeProject',item),emits('chooseProject')">{{ item.name }} 
-                          <div  v-if="item.type === 'cv'" class="u-flex-center "><el-icon color="#f2f2f2"><Picture /></el-icon></div>
-                        <div v-else-if="item.type === 'mal'" class="u-flex-center "><el-icon  color="#f2f2f2"><Platform /></el-icon></div></el-dropdown-item>
-                      </div>
-                 
-                  
-                </el-dropdown-menu>
-              </template>
-            </el-dropdown>
-          <div></div>
-          <div class="form-with-guide--header__search">
-            <input
-            autocomplete="off"
-              type="text"
-              name="search"
-              v-model="input2"
-              class="input_self u-input-dark"
-            />
-            <div class="form-with-guide--header__search__button"><el-icon><Search /></el-icon></div></div>
-        </div>
-        <h3 class="form-with-guide--main-part__left--title u-font-f2f2f2">Upload Files</h3>
-        <el-form :model="form" label-width="30%" ref="formdata" >
+
+      <div class="form-with-guide--main-part__left--bottom"  >
+        <el-scrollbar>
+        
+        <el-form :model="form" label-width="30%" ref="formdata" style="padding:3rem;">
+          <h3 class="form-with-guide--main-part__left--title u-font-f2f2f2">上传模型和数据集</h3>
           <div class="uploadButton">
             <!-- <div style="width: 15%"></div> -->
             
               <div class="single-card-two-button">
-                <p>Upload Source code</p>
+                <p>上传模型结构源码</p>
                 <div class="single-card-two-button--icon-box">
                   <img src="../img/01fenzi4d3a59.png" alt="fenzi">
                 </div>
@@ -48,15 +17,15 @@
                 <el-upload ref="uploadCode" class="button-box" :limit="1" :on-exceed="handleExceedCode" :auto-upload="false"
               :on-change="codeFileChange" :on-remove="codeFileRemove">
                   <template #trigger>
-                    <span class="single-card-two-button--button__left btn">Upload</span>
+                    <span class="single-card-two-button--button__left btn">选择文件</span>
                   </template>
-                  <span class="single-card-two-button--button__right btn">Example</span>
+                  <span class="single-card-two-button--button__right btn">模版</span>
                 </el-upload>
               </div>
               
                 <!-- <el-card shadow="hover">上传模型源码</el-card> -->
                 <div class="single-card-two-button">
-                <p>Upload Model</p>
+                <p>上传待测模型</p>
                 <div class="single-card-two-button--icon-box">
                   <img src="../img/07deeplearn4d3a59.png" alt="fenzi">
                 </div>
@@ -64,14 +33,14 @@
                 <el-upload ref="uploadModel" class="button-box" :limit="1" :on-exceed="handleExceedModel" :auto-upload="false"
               :on-change="modelFileChange" :on-remove="modelFileRemove">
                   <template #trigger>
-                    <span class="single-card-two-button--button__left btn">Upload</span>
+                    <span class="single-card-two-button--button__left btn">选择文件</span>
                   </template>
-                  <span class="single-card-two-button--button__right btn">Example</span>
+                  <span class="single-card-two-button--button__right btn">模版</span>
                 </el-upload>
               </div>
   
               <div class="single-card-two-button">
-                <p>Upload Seed</p>
+                <p>上传待测数据集</p>
                 <div class="single-card-two-button--icon-box">
                   <img src="../img/04fangshengxue4d3a59.png" alt="fenzi">
                 </div>
@@ -79,14 +48,14 @@
                 <el-upload ref="uploadSeed" class="button-box" :limit="1" :on-exceed="handleExceedSeed" :auto-upload="false"
               :on-change="seedSetChange" :on-remove="seedSetRemove">
                   <template #trigger>
-                    <span class="single-card-two-button--button__left btn">Upload</span>
+                    <span class="single-card-two-button--button__left btn">选择文件</span>
                   </template>
-                  <span class="single-card-two-button--button__right btn">Example</span>
+                  <span class="single-card-two-button--button__right btn">模版</span>
                 </el-upload>
               </div>
   
               <div class="single-card-two-button">
-                <p>Upload Preprocessing Function</p>
+                <p>上传预处理文件</p>
                 <div class="single-card-two-button--icon-box">
                   <img src="../img/08yunsuanzhongxing4d3a59.png" alt="fenzi">
                 </div>
@@ -94,9 +63,9 @@
                 <el-upload ref="uploadPreprocess" class="button-box" :limit="1" :on-exceed="handleExceedPreprocess" :auto-upload="false"
               :on-change="preprocessingFunction" :on-remove="preprocessingRemove">
                   <template #trigger>
-                    <span class="single-card-two-button--button__left btn">Upload</span>
+                    <span class="single-card-two-button--button__left btn">选择文件</span>
                   </template>
-                  <span class="single-card-two-button--button__right btn">Example</span>
+                  <span class="single-card-two-button--button__right btn">模版</span>
                 </el-upload>
               </div>
          
@@ -107,11 +76,11 @@
             </div>
             <div class="left-img-card--right-part">
               <div class="input-box u-margin-left-2rem">
-                <span class="input-label">Load Function Name</span>
+                <span class="input-label">模型函数名</span>
                 <input type="text" autocomplete="off" name="search" class="input_self u-input-transparent" v-model="form.load_model_function" placeholder="Please input" @change="allSteps" />
               </div>
               <div class="input-box u-margin-left-2rem">
-                <span class="input-label">Preprocess Function Name</span>
+                <span class="input-label">预处理函数名</span>
                 <input type="text" autocomplete="off" name="search" class="input_self  u-input-transparent" v-model="form.preprocess_function" placeholder="Please input" @change="allSteps" />
               </div>
               <!-- <div class="input-box u-margin-left-2rem">
@@ -123,20 +92,22 @@
                 <input type="text" autocomplete="off" name="search" class="input_self u-input-transparent" v-model="form.layer_name" placeholder="Please input" @change="allSteps" />
               </div> -->
               <div class="input-box u-margin-left-2rem">
-                <span class="input-label">shape</span>
+                <span class="input-label">输入维度</span>
                 <input type="text" autocomplete="off" name="search" class="input_self  u-input-transparent" v-model="form.shape" placeholder="Please input" @change="allSteps" />
               </div>
             </div>
           </div>
         <slot name="Submit_button"></slot>
         </el-form>
+      </el-scrollbar>
       </div>
-      <div class="form-with-guide--main-part__right">
+      
+      <!-- <div class="form-with-guide--main-part__right">
         <div style="height: 300px;position:sticky;top:2rem">
           <el-steps direction="vertical" :active="activeStep" finish-status="success">
             <el-step title="Step 1"  style="background-color: transparent;">
              <template v-slot:description>
-                <span  class="step-text">hello</span>
+                <span  class="step-text">上传待测模型和数据集</span>
              </template>
              <template v-slot:title>
                 <span  class="step-title">Step 1</span>
@@ -144,7 +115,7 @@
             </el-step>
             <el-step title="Step 2"  style="background-color: transparent;">
              <template v-slot:description>
-                <span class="step-text">hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello </span>
+                <span class="step-text">提供模型基础信息</span>
              </template>
              <template v-slot:title>
                 <span  class="step-title">Step 2</span>
@@ -152,7 +123,7 @@
             </el-step>
             <el-step title="Step 3"  style="background-color: transparent;">
              <template v-slot:description>
-                <span class="step-text">hello</span>
+                <span class="step-text">点击上传</span>
              </template>
              <template v-slot:title>
                 <span  class="step-title">Step 3</span>
@@ -160,10 +131,8 @@
             </el-step>
           </el-steps>
         </div>
-      </div>
-        </div>
-     </el-scrollbar>
-    </div>
+      </div> -->
+
   </template>
   <script lang="ts" setup>
   import { reactive ,Ref} from "vue";
@@ -171,7 +140,7 @@
   import { genFileId, FormInstance } from "element-plus";
   import type { UploadInstance, UploadProps, UploadRawFile } from "element-plus";
   import { Edit, Picture, Upload } from '@element-plus/icons-vue'
-  const input2 = ref('')
+  
   const activeNames = ref(['1'])
   const handleChange = (val: string[]) => {
     console.log(val)
@@ -184,9 +153,11 @@
 // type Type_List = 'cv' | 'mal'
 const props = defineProps<{
   currentProject: Project,
-  projectList:Project[]
+  projectList: Project[],
+  formPartLogin: boolean,
+  currentProjectId:string
 }>();
-  const emits = defineEmits(["changeProject",'chooseProject']);
+  const emits = defineEmits(["setstep"]);
   interface Form {
     type: String[];
     value: Number;
@@ -397,40 +368,53 @@ const props = defineProps<{
    * function loadFilesMessage():boolean {}
    */
   
-  const activeStep: Ref<number> = ref(0)
-  const loadFiles: boolean[] = [false, false, false, false]
-  function allSteps() {
-    activeStep.value = 0;
-    let stepList:boolean[] = [false,false]
-    stepList[0] = confirmLoadFiles();
-    stepList[1] = loadFilesMessage();
-    for (let item in stepList) {
-      if (stepList[item]) activeStep.value ++;
-      else return;
+   const activeStep: Ref<number> = ref(0)
+const loadFiles: boolean[] = [false, false, false, false]
+function allSteps() {
+  activeStep.value = 0;
+  let stepList:boolean[] = [false,false]
+  stepList[0] = confirmLoadFiles();
+  stepList[1] = loadFilesMessage();
+  for (let item in stepList) {
+    if (stepList[item]) {
+      activeStep.value ++
+      emits('setstep',activeStep.value,stepMessage)
     }
-    
-  }
-  function confirmLoadFiles():boolean {
-    let flag:boolean = true
-    loadFiles.forEach((item: boolean) => {
-      item ? 1 : flag = false;
-    })
-    return flag
+    else return;
   }
   
-  function loadFilesMessage():boolean {
-    const keyList = ['load_model_function', 'layer_name', 'shape','preprocess_function','deprocess_function']
-    for (let key in form){
-      if (keyList.includes(key)) {
-        if (form[key] === '') return false
-      }
+}
+function confirmLoadFiles():boolean {
+  let flag:boolean = true
+  loadFiles.forEach((item: boolean) => {
+    item ? 1 : flag = false;
+  })
+  return flag
+}
+
+function loadFilesMessage():boolean {
+  const keyList = ['load_model_function', 'layer_name', 'shape','preprocess_function','deprocess_function']
+  for (let key in form){
+    if (keyList.includes(key)) {
+      if (form[key] === '') return false
     }
-    return true
   }
-  /**
-   * submit form module
-   */
-  
+  return true
+}
+/**
+ * submit form module
+ */
+const stepMessage = [{
+  title: 'step 1',
+  message:'上传待测模型和数据集'
+}, {
+  title: 'step 2',
+  message:'提供模型基础信息'
+},{
+  title: 'step 3',
+  message:'提交'
+}]
+emits('setstep',activeStep.value,stepMessage)
   
   
   const resetFormWapper = () => {

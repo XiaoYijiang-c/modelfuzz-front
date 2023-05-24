@@ -11,7 +11,7 @@
             
             <div class="userhub--head_sculpture--tools">
                <span class="userhub--head_sculpture--tools__uptool">
-                   <span class="userhub--head_sculpture--tools__uptool--item"><p>1</p><h3>项目数</h3></span>
+                   <span class="userhub--head_sculpture--tools__uptool--item"><p>{{ props.userMessage.projects_length }}</p><h3>项目数</h3></span>
                    <span class="userhub--head_sculpture--tools__uptool--item"><p>1</p><h3>产生结果</h3></span>
                    <span class="userhub--head_sculpture--tools__uptool--item"><p>1</p><h3>新消息</h3></span>
                 </span>

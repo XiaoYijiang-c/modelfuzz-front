@@ -3,14 +3,15 @@
     <div class="userhub">
         <span class="userhub--title">
             <h2>项目列表</h2>
+            <el-icon style="position: absolute;right:4rem;top:2rem;font-size:3rem;color: #f2f2f2;" @click="add_project=true"><Plus /></el-icon>
         </span>
         <div class="userhub--projectlist">
             <span class="userhub--projectlist--item" v-for="item in currentprojectlist" :key="item.name">
-                <span class="userhub--projectlist--item--icon"><el-icon v-if="item.type =='cv'"><Picture /></el-icon></span>
+                <span class="userhub--projectlist--item--icon"><el-icon v-if="item.type =='cv'"><Picture /></el-icon><el-icon v-else-if="item.type =='mal'"><Platform /></el-icon ><el-icon v-else-if="item.type =='eval'"><DataAnalysis /></el-icon></span>
                 <span class="userhub--projectlist--item--text">
                     {{ item.name }}
                     <span class="userhub--projectlist--item--text--icon-box">
-                        <el-icon class="userhub--projectlist--item--text--icon-box__icon"><DeleteFilled /></el-icon>
+                        <el-icon class="userhub--projectlist--item--text--icon-box__icon" @click="open(item)"><DeleteFilled /></el-icon>
                         <el-icon class="userhub--projectlist--item--text--icon-box__icon" style="transform: rotate(90deg);"><MoreFilled /></el-icon>
                     </span>
                 </span>
@@ -74,7 +75,7 @@
         <template #footer>
         <span class="dialog-footer">
             <el-button @click="add_project = false">Cancel</el-button>
-            <el-button type="primary" @click="send_add_project">
+            <el-button type="primary" @click="send_add_project(),add_project = false">
             Confirm
             </el-button>
         </span>
@@ -91,62 +92,23 @@ import axios from "axios"
 import Cookies from 'js-cookie'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import type { Action } from 'element-plus'
+const props = defineProps<{
+    userMessage: LoginMessage,
+}>();
 const emits = defineEmits(["set_projects"]);
 const name:Ref<string> = ref('肆夕')
 const titleList: Ref<string[]> = ref(['Student', 'SCU'])
-const testprojectlist = [{
-    name: 'new-project', type: 'cv'
-},{
-    name: 'new-project', type: 'cv'
-},{
-    name: 'new-project', type: 'cv'
-},{
-    name: 'new-project', type: 'cv'
-},{
-    name: 'new-project', type: 'cv'
-},{
-    name: 'new-project', type: 'cv'
-},{
-    name: 'new-project', type: 'cv'
-},{
-    name: 'new-project', type: 'cv'
-},{
-    name: 'new-project', type: 'cv'
-},{
-    name: 'new-project', type: 'cv'
-},{
-    name: 'new-project', type: 'cv'
-},{
-    name: 'new-project', type: 'cv'
-},{
-    name: 'new-project', type: 'cv'
-},{
-    name: 'new-project', type: 'cv'
-},{
-    name: 'new-project', type: 'cv'
-},{
-    name: 'new-project', type: 'cv'
-},{
-    name: 'new-project', type: 'cv'
-},{
-    name: 'new-project', type: 'cv'
-},{
-    name: 'new-project', type: 'cv'
-},{
-    name: 'new-project', type: 'cv'
-},{
-    name: 'new-project', type: 'cv'
-    }]
-let currentprojectlist:Ref<testProject[]> = ref([])
+const testprojectlist:Ref<Project[]> = ref(props.userMessage.projects)
+let currentprojectlist:Ref<Project[]> = ref([])
 const currentpage:Ref<number> = ref(1)
 const testcursor = ref(11)
-const totalPage:Ref<number> = ref(Math.ceil(testprojectlist.length / 12));
+const totalPage:Ref<number> = ref(Math.ceil(testprojectlist.value.length / 12));
 totalPage.value = totalPage.value == 0 ? 1 : totalPage.value;
 console.log(totalPage)
 function getCurrentPageData() {
     let begin = (currentpage.value - 1) * 12;
     let end = currentpage.value * 12;
-    currentprojectlist.value = testprojectlist.slice(
+    currentprojectlist.value = testprojectlist.value.slice(
         begin,
         end
     );
@@ -154,7 +116,7 @@ function getCurrentPageData() {
 getCurrentPageData()
 function testnextpage() {
     if (currentpage.value === totalPage.value) {
-        alert('已经是最后一页了')
+        console.log('已经是最后一页了')
         return false
       } else {
         currentpage.value++
@@ -163,7 +125,7 @@ function testnextpage() {
 }
 function testlastpage() {
     if (currentpage.value === 1) {
-        alert('已经是第一页了')
+        console.log('已经是第一页了')
         return false
       } else {
         currentpage.value--
@@ -194,9 +156,7 @@ interface AddProjectForm {
     name: string;
     type: string;
 }
-const props = defineProps<{
-    userMessage: LoginMessage,
-}>();
+
 const add_project = ref(false)
 const add_form:AddProjectForm = reactive({
     name: '',
@@ -207,8 +167,11 @@ const options = [{
     label: 'computer vision',
 },{
     value: 'mal',
-    label: 'mal',
-    }]
+    label: 'Malware Detection',
+},{
+    value: 'eval',
+    label: 'Dataset Evaluate',
+}]
 const handleChange = (value:string) => {
   console.log(value)
 }
@@ -223,7 +186,10 @@ async function send_add_project() {
     await axios.post('http://43.138.12.254:9000/add_project', formDataObject).then((res) => {
         console.log(res.data)
         if (res.data.flag == true) {
-            emits('set_projects',res.data.projects)
+            emits('set_projects', res.data.projects)
+            testprojectlist.value = res.data.projects
+            getCurrentPageData()
+
         }
     }).catch((err) => {
         console.warn(err);
@@ -238,7 +204,10 @@ async function send_delete_project(item:Project) {
     formDataObject.append('project_name', item.name);
     await axios.post('http://43.138.12.254:9000/delete_project', formDataObject).then((res) => {
         console.log(res.data)
-        emits('set_projects',res.data.projects)
+        emits('set_projects', res.data.projects)
+        testprojectlist.value = res.data.projects
+        getCurrentPageData()
+
     }).catch((err) => {
         console.warn(err);
     });

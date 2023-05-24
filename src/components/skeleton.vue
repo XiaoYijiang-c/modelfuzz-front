@@ -2,45 +2,98 @@
   <div class="single-page">
     <div class="navigation navigation__inside">
       <span class="navigation--name">nerual sentinel</span>
-      <div class="navigation--logo">
+      <div class="navigation--logo" @click="show('datasetEvaluate')">
         <img src="../img/logo.png" alt="logo" class="navigation--logo__logo" >
       </div>
     </div>
     <div class="single-page--main-window">
-      <!-- <video class="single-page--video-background" id="bgVid" playsinline="true" autoplay="true" muted="true" loop="true">
-        <source src="../assets/video/V-137734-D7688E81.mp4" type="video/mp4">
-      </video> -->
       <div class="single-page--background"></div>
-      <!-- <div class="head-tool"> -->
-        
-      <!-- </div> -->
       <div class="aside-tool">
-        <AsideTools @show="show" :newNumber="numberCount.dlfuzz" :openASide="openASide" @switchPage="emits('switchPage', 0)"></AsideTools>
+        <AsideTools @show="show" @switchpenal="switchpenal" :newNumber="numberCount.dlfuzz" :openASide="openASide" @switchPage="emits('switchPage', 0)"></AsideTools>
       </div>
       <div class="console">
-        <!-- <Introduction ref="introduction" v-show="mainListShow.introduction"></Introduction> -->
         <Userhub v-show="mainListShow.userhub" :userMessage="props.loginMessage" @show="show"  @switchPage="emits('switchPage', 0)"></Userhub>
         <projectshub v-show="mainListShow.projectshub" :userMessage="props.loginMessage" @set_projects="set_projects"></projectshub>
-        <DlfuzzPenel ref="dlfuzzPenel" v-show="mainListShow.dlfuzzpenel" :currentProject="currentProject" :projectList="projectList" @changeProject="changeProject" @chooseProject="choose_project" :formPartLogin="formPartLogin" :currentProjectId="current_project_id" @setProjectID="setProjectID">
-          <template v-slot:Submit_button>
-            <HeaderTag v-show="mainListShow.dlfuzzpenel" :topList="topList" @changeOpenASide="changeOpenASide" @headFunction="headFunction" >
-          </HeaderTag>
-          </template>
-        </DlfuzzPenel>
-        <DatasetEvaluate ref="datasetEvaluate" v-show="mainListShow.datasetEvaluate" :currentProject="currentProject" :projectList="projectList" @changeProject="changeProject" @chooseProject="choose_project" :formPartLogin="formPartLogin" :currentProjectId="current_project_id" @setProjectID="setProjectID">
-          <template v-slot:Submit_button>
-            <HeaderTag v-show="mainListShow.datasetEvaluate" :topList="topList" @changeOpenASide="changeOpenASide" @headFunction="headFunction" >
-          </HeaderTag>
-          </template>
-        </DatasetEvaluate>
-        <!-- <DlfuzzImage ref="dlfuzzImage" v-show="mainListShow.dlfuzzImage" @changenum="changeDlfuzzNumber">
-        </DlfuzzImage> -->
         <DlfuzzChart ref="dlfuzzChart" v-show="mainListShow.dlfuzzImage" :currentProject="currentProject" :projectList="projectList" @changeProject="changeProject" @sendAxios="sendAxios" @chooseProject="choose_project" :formPartLogin="formPartLogin" :currentProjectId="current_project_id" @setProjectID="setProjectID">
         </DlfuzzChart>
+
+        <div class="form-with-guide" v-if="mainListShow.penel">
+          <div class="form-with-guide--main-part">
+            <div class="form-with-guide--main-part__left">
+              <div class="form-with-guide--header ">
+              <el-dropdown class="form-with-guide--header--dropdown">
+                <span class="el-dropdown-link form-with-guide--header__text u-menu_list u-font-f2f2f2">
+                  <el-icon class="el-icon--right u-margin-right-1rem" v-if="currentProject.type === 'cv'"><Picture /></el-icon>
+                  <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="currentProject.type === 'mal'"><Platform /></el-icon>
+                  <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="currentProject.type === 'eval'"><DataAnalysis /></el-icon>
+                  {{ currentProject.name }}<el-icon class="el-icon--right u-margin-left-1rem"><arrow-down /></el-icon>
+                </span>
+                <template #dropdown>
+                  <el-dropdown-menu>
+                        <div class="u-menu_list" v-for="item in projectList" :key="item.id">
+                          
+                          <el-dropdown-item @click="changeProject(item),choose_project(),switchpenal()">{{ item.name }} 
+                            <div  v-if="item.type === 'cv'" class="u-flex-center "><el-icon color="#f2f2f2"><Picture /></el-icon></div>
+                            <div v-else-if="item.type === 'mal'" class="u-flex-center "><el-icon  color="#f2f2f2"><Platform /></el-icon></div>
+                            <div v-else-if="item.type === 'eval'" class="u-flex-center "><el-icon  color="#f2f2f2"><DataAnalysis /></el-icon></div>
+                        </el-dropdown-item>
+                        </div>
+                  
+                    
+                  </el-dropdown-menu>
+                </template>
+              </el-dropdown>
+              <div></div>
+              <div class="form-with-guide--header__search">
+                <input
+                autocomplete="off"
+                  type="text"
+                  name="search"
+                  v-model="input2"
+                  class="input_self u-input-dark"
+                />
+                <div class="form-with-guide--header__search__button"><el-icon><Search /></el-icon></div></div>
+              </div>
+              <DlfuzzPenel ref="dlfuzzPenel" v-if="mainListShow.dlfuzzpenel"  :currentProjectId="current_project_id"  @setstep="setStep">
+                <template v-slot:Submit_button>
+                  <HeaderTag v-show="mainListShow.dlfuzzpenel" :topList="topList" @changeOpenASide="changeOpenASide" @headFunction="headFunction" ></HeaderTag>
+                </template>
+              </DlfuzzPenel>
+              <DatasetEvaluate ref="datasetEvaluate" v-show="mainListShow.datasetEvaluate"  :currentProjectId="current_project_id"  @setstep="setStep">
+                <template v-slot:Submit_button>
+                  <HeaderTag v-show="mainListShow.datasetEvaluate" :topList="topList" @changeOpenASide="changeOpenASide" @headFunction="headFunction" ></HeaderTag>
+                </template>
+              </DatasetEvaluate>
+              <Malfuzz ref="malfuzz" v-if="mainListShow.malfuzz"  :currentProjectId="current_project_id"  @setstep="setStep">
+                <template v-slot:Submit_button>
+                  <HeaderTag v-show="mainListShow.malfuzz" :topList="topList" @changeOpenASide="changeOpenASide" @headFunction="malheadFunction" ></HeaderTag>
+                </template>
+              </Malfuzz>
+              <Emptypenal ref="emptypenal" v-if="mainListShow.emptypenal"  :currentProjectId="current_project_id"  @setstep="setStep">
+                <template v-slot:Submit_button>
+                  <HeaderTag v-show="mainListShow.emptypenal" :topList="topList" @changeOpenASide="changeOpenASide" @headFunction="malheadFunction" ></HeaderTag>
+                </template>
+              </Emptypenal>
+            </div>
+            <div class="form-with-guide--main-part__right">
+              <div style="height: 300px;position:sticky;top:2rem">
+                <el-steps direction="vertical" :active="activeStep" finish-status="success">
+                  <el-step :title="item.title"  style="background-color: transparent;" v-for="item in stepMessage" :key="item.title">
+                    <template v-slot:description>
+                        <span  class="step-text">{{ item.message }}</span>
+                    </template>
+                    <template v-slot:title>
+                        <span  class="step-title">{{ item.title }}</span>
+                    </template>
+                  </el-step>
+                  
+                </el-steps>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    
-    
   </div>
 </template>
 
@@ -62,9 +115,11 @@ import { Obj } from "@popperjs/core";
 //   penel = dlfuzzPenel;
 //   console.log("onMounted penel",penel)
 // })
+const input2 = ref('')
 const current_project_id: Ref<string> = ref('')
 function setProjectID(item:string) {
   current_project_id.value = item
+  
 }
 interface Project {
     type: string;
@@ -90,7 +145,7 @@ function set_projects(projects:Project[]) {
 const projectSubmitState:Ref<boolean> = ref(false)
 
 const currentProject: Ref<Project> = ref({
-  type: 'cv',
+  type: '',
   name: '选择你的项目',
   id:'-1'
 })
@@ -141,11 +196,20 @@ let penel = ref()
 const dlfuzzPenel = ref();
 const datasetEvaluate = ref();
 const introduction = ref();
+const malfuzz = ref();
+const emptypenal = ref();
 const dlfuzzImage = ref();
 const dlfuzzChart = ref();
 const headFunction = (tag: string) => {
   if (tag.toUpperCase() == "SUBMIT") {
-    submit()
+    submit('http://43.138.12.254:9000/dlfuzz/submit')
+  } else if (tag.toUpperCase() == "RESET") {
+    clearForm()
+  }
+}
+const malheadFunction = (tag: string) => {
+  if (tag.toUpperCase() == "SUBMIT") {
+    submit('http://43.138.12.254:9000/mal/main')
   } else if (tag.toUpperCase() == "RESET") {
     clearForm()
   }
@@ -168,7 +232,7 @@ const clearForm = () => {
   }
 }
 // 提交表单函数(需要子组件有submitFormWapper函数)
-const submit = async () => {
+const submit = async (url:string) => {
   try {
     let formdataObject = new FormData();
     formdataObject = await penel.value.submitFormWapper();
@@ -176,7 +240,7 @@ const submit = async () => {
       console.log(key);
       console.log(value);
     });
-    sendAxios( 'http://43.138.12.254:9000/dlfuzz/submit','POST',handleSubmit,formdataObject)
+    sendAxios(url,'POST',handleSubmit,formdataObject)
   } catch (error) {
     warningMessage(messageText.warning.errorPageClickSubmit)
   }
@@ -241,64 +305,98 @@ const download = (url: string) => {
 // 控制中心部分显示的结构
 const mainListShow = reactive({
   userhub: true,
+  penel:false,
   projectshub: false,
   datasetEvaluate: false,
+  malfuzz:false,
+  emptypenal:false,
   dlfuzzpenel: false,
   dlfuzzImage: false
 });
 // 控制中心部分显示的函数(tools.vue控制)
 const show = (item: string) => {
-  console.log("show", item);
   if (item == "userhub") {
     closeAllShow()
     mainListShow.userhub = true
-    penel = introduction;
   }
   else if (item == "projectshub") {
     closeAllShow()
     mainListShow.projectshub = true
-    penel = introduction;
   }
   else if (item === "dlfuzzpenel") {
     closeAllShow()
     mainListShow.dlfuzzpenel = true;
+    mainListShow.penel = true;
     penel = dlfuzzPenel;
-    penel.value.formPartShow = true;
   }
   else if (item === "datasetEvaluate") {
     closeAllShow()
     mainListShow.datasetEvaluate = true;
+    mainListShow.penel = true;
     penel = datasetEvaluate;
-    penel.value.formPartShow = true;
+  }
+  else if (item === "malfuzz") {
+    closeAllShow()
+    mainListShow.malfuzz = true;
+    mainListShow.penel = true;
+    penel = malfuzz;
+  }
+  else if (item === "emptypenal") {
+    closeAllShow()
+    mainListShow.emptypenal = true;
+    mainListShow.penel = true;
   }
   else if (item === "activity") {
     closeAllShow()
     mainListShow.dlfuzzImage = true;
-    // penel.value.formPartShow = false;
+    mainListShow.penel = true;
     penel = dlfuzzChart;
-    penel.value.formPartShow = true;
     if (projectSubmitState.value) {
       penel.value.loadChart()
     }
-    console.log(item);
-    console.log("penel", penel.value);
-
   }
 };
 
 const closeAllShow = () => {
   mainListShow.userhub = false;
+  mainListShow.penel = false;
   mainListShow.projectshub = false;
   mainListShow.dlfuzzpenel = false;
+  mainListShow.malfuzz = false;
+  mainListShow.emptypenal = false;
   mainListShow.dlfuzzImage = false;
   mainListShow.datasetEvaluate = false;
 }
 const formPartLogin = ref(true)
 function choose_project() {
-  formPartLogin.value = false
+  formPartLogin.value = false;
+
+}
+function switchpenal() {
+  if (currentProject.value.id == '-1') {
+    console.log('currentProject.value',currentProject.value)
+    show('emptypenal')
+  } else {
+    if (currentProject.value.type == 'cv') {
+      show('dlfuzzpenel')
+    } else if (currentProject.value.type == 'mal') {
+      show('malfuzz')
+    } else if (currentProject.value.type == 'eval') {
+      show('datasetEvaluate')
+    }
+  }
 }
 
-
+interface StepMessage{
+  title: string;
+  message: string;
+}
+const activeStep: Ref<number> = ref(0);
+const stepMessage: Ref<StepMessage[]> = ref([]);
+function setStep(stepcurrent: number, stepmessage: StepMessage[]) {
+  activeStep.value = stepcurrent;
+  stepMessage.value = stepmessage
+}
 </script>
 
 

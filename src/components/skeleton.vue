@@ -14,10 +14,11 @@
       <div class="console">
         <Userhub v-show="mainListShow.userhub" :userMessage="props.loginMessage" @show="show"  @switchPage="emits('switchPage', 0)"></Userhub>
         <projectshub v-show="mainListShow.projectshub" :userMessage="props.loginMessage" @set_projects="set_projects"></projectshub>
+
         <DlfuzzChart ref="dlfuzzChart" v-show="mainListShow.dlfuzzImage" :currentProject="currentProject" :projectList="projectList" @changeProject="changeProject" @sendAxios="sendAxios" @chooseProject="choose_project" :formPartLogin="formPartLogin" :currentProjectId="current_project_id" @setProjectID="setProjectID">
         </DlfuzzChart>
 
-        <div class="form-with-guide" v-if="mainListShow.penel">
+        <div class="form-with-guide" v-show="mainListShow.penel">
           <div class="form-with-guide--main-part">
             <div class="form-with-guide--main-part__left">
               <div class="form-with-guide--header ">
@@ -32,7 +33,7 @@
                   <el-dropdown-menu>
                         <div class="u-menu_list" v-for="item in projectList" :key="item.id">
                           
-                          <el-dropdown-item @click="changeProject(item),choose_project(),switchpenal()">{{ item.name }} 
+                          <el-dropdown-item @click="changeProject(item),choose_project(),switchpenal(),setProjectID(item.id)">{{ item.name }} 
                             <div  v-if="item.type === 'cv'" class="u-flex-center "><el-icon color="#f2f2f2"><Picture /></el-icon></div>
                             <div v-else-if="item.type === 'mal'" class="u-flex-center "><el-icon  color="#f2f2f2"><Platform /></el-icon></div>
                             <div v-else-if="item.type === 'eval'" class="u-flex-center "><el-icon  color="#f2f2f2"><DataAnalysis /></el-icon></div>
@@ -54,7 +55,7 @@
                 />
                 <div class="form-with-guide--header__search__button"><el-icon><Search /></el-icon></div></div>
               </div>
-              <DlfuzzPenel ref="dlfuzzPenel" v-if="mainListShow.dlfuzzpenel"  :currentProjectId="current_project_id"  @setstep="setStep">
+              <DlfuzzPenel ref="dlfuzzPenel" v-show="mainListShow.dlfuzzpenel"  :currentProjectId="current_project_id"  @setstep="setStep">
                 <template v-slot:Submit_button>
                   <HeaderTag v-show="mainListShow.dlfuzzpenel" :topList="topList" @changeOpenASide="changeOpenASide" @headFunction="headFunction" ></HeaderTag>
                 </template>
@@ -64,12 +65,12 @@
                   <HeaderTag v-show="mainListShow.datasetEvaluate" :topList="topList" @changeOpenASide="changeOpenASide" @headFunction="headFunction" ></HeaderTag>
                 </template>
               </DatasetEvaluate>
-              <Malfuzz ref="malfuzz" v-if="mainListShow.malfuzz"  :currentProjectId="current_project_id"  @setstep="setStep">
+              <Malfuzz ref="malfuzz" v-show="mainListShow.malfuzz"  :currentProjectId="current_project_id"  @setstep="setStep">
                 <template v-slot:Submit_button>
                   <HeaderTag v-show="mainListShow.malfuzz" :topList="topList" @changeOpenASide="changeOpenASide" @headFunction="malheadFunction" ></HeaderTag>
                 </template>
               </Malfuzz>
-              <Emptypenal ref="emptypenal" v-if="mainListShow.emptypenal"  :currentProjectId="current_project_id"  @setstep="setStep">
+              <Emptypenal ref="emptypenal" v-show="mainListShow.emptypenal"  :currentProjectId="current_project_id"  @setstep="setStep">
                 <template v-slot:Submit_button>
                   <HeaderTag v-show="mainListShow.emptypenal" :topList="topList" @changeOpenASide="changeOpenASide" @headFunction="malheadFunction" ></HeaderTag>
                 </template>
@@ -352,7 +353,8 @@ const show = (item: string) => {
     mainListShow.penel = true;
     penel = dlfuzzChart;
     if (projectSubmitState.value) {
-      penel.value.loadChart()
+      console.log('start.......')
+      dlfuzzChart.value.loadChart()
     }
   }
 };

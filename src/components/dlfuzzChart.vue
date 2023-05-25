@@ -126,7 +126,7 @@
                 </div> -->
                 <!-- <DlfuzzImage ref="dlfuzzImage"></DlfuzzImage> -->
             </div>
-            <div class="chart_visiable--columns-1"><nnsvg></nnsvg></div> 
+            <div class="chart_visiable--columns-1"><nnsvg ref="nnsvg_ref"></nnsvg></div> 
             <div class="chart_visiable--columns-1-2"> 
                 <div class="chart-card" >
                     <div class="chart-card--title"></div>
@@ -175,7 +175,7 @@ import { ref, reactive,nextTick,Ref,h } from "vue";
 import * as echarts from "echarts";
 import Cookies from 'js-cookie'
 
-
+const nnsvg_ref = ref()
 //test
 let fullscreen = async () => {
   fullscreenboolean.value = !fullscreenboolean.value
@@ -415,7 +415,7 @@ async function loadChart() {
   let ref_2WH =await getRefCurrentWH(ref_2)
   myEcharts2 = echarts.init(ref_2.value,'',ref_2WH);
   myEcharts2.setOption(option);
-  
+  nnsvg_ref.value.init()
   let formDataObject = new FormData();
   let userID: any = Cookies.get('userID')
   if (userID) {
@@ -432,6 +432,10 @@ async function loadChart() {
         let dataList = []
         let normdataList = []
         let perturbdataList = []
+        let dataMap = {
+          nodes: response.data.nodes,
+          edges:response.data.lines
+        }
         for (let i = 0; i < response.data.neuronsPercentageList.length; i++){
           let data = {
             value:[i.toString(),response.data.neuronsPercentageList[i]]
@@ -446,7 +450,8 @@ async function loadChart() {
           }
           perturbdataList.push(perturbdata)
         }
-        console.log(dataList,normdataList,perturbdataList)
+        console.log(dataList, normdataList, perturbdataList)
+        nnsvg_ref.value.build_graph(dataMap)
         myEcharts2.setOption({
             legend: {
               data: ['Neuron Coverage', 'L2norm', 'Perturb Adversial']

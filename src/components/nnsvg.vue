@@ -1,21 +1,37 @@
 <template>
-    <div @click="click">click</div>
-    <div @click="click_color">click_color</div>
-
   <div class="u-flex-center_"><div id="graph-container"></div></div>
-   
-    
 </template>
 
-<script ts setup>
+<script lang="js" setup>
 import { ref, onMounted,nextTick  } from 'vue'
 import { Graph } from '../js/graph'
+import { LeNet } from '../js/LeNet'
 let dialogVisible = ref(false)
-let lenet = null
-
-
+let lenet= null
 
 const data = {
+    edges: [
+        ['input_1', 'block1_conv1'],
+        ['block1_conv1', 'block1_pool1'],
+        ['block1_pool1', 'block2_conv1'],
+        ['block2_conv1', 'block2_pool1'],
+        ['block2_pool1', 'flatten'],
+        ['flatten', 'before_softmax'],
+        ['before_softmax', 'predictions']
+    ],
+     nodes: {
+        flatten: { output_shape: [null, 588] },
+        block2_conv1: { output_shape: [null, 14, 14, 12] },
+        input_1: { output_shape: [null, 28, 28, 1] },
+        predictions: { output_shape: [null, 10] },
+        before_softmax:{ output_shape: [null, 10] },
+        block1_pool1: { output_shape: [null, 14, 14, 4] },
+        block2_pool1: { output_shape: [null, 7, 7, 12]},
+        block1_conv1: { output_shape: [null, 28, 28, 4] }
+    }
+}
+
+const data1 = {
     nodes: {
         block2_pool1: { output_shape: [null, 7, 7, 12] },
         before_softmax: { output_shape: [null, 10] },
@@ -35,26 +51,25 @@ const data = {
         ['flatten', 'before_softmax'],
         ['before_softmax', 'predictions']
     ]
-};
-
-const graph = new Graph(data.nodes, data.edges);
-if (!graph.hasBranches()) {
-  graph.bfs((item) => {
-    if(item)
-      graph.buildLineArchitecture(item)
-    else
-      throw new Error('Name not found')
-  }, 'input_1')
-  console.log(graph.getArchitecture());
-  
-} else {
-  console.log('G');
-  
-}
-
-
-function click() {
+}; 
+function init() {
     lenet = LeNet();
+}
+function build_graph(data) {
+    
+    const graph = new Graph(data.nodes, data.edges);
+    if (!graph.hasBranches()) {
+        graph.bfs((item) => {
+            if(item)
+                graph.buildLineArchitecture(item)
+            else
+                throw new Error('Name not found')
+        }, 'input_1')
+        console.log(graph.getArchitecture());
+    } else {
+        console.log('G');
+    
+    }
     let architecture = [{
         filterHeight: 8,
         filterWidth: 8,
@@ -90,6 +105,11 @@ function click_color() {
         
     })
 }
+
+defineExpose({
+    build_graph,
+    init
+})
 </script>
 
 <style type="text/css">

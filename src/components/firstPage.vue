@@ -272,7 +272,7 @@
                 </ul>
             </div>
             <div class="col-1-of-2">
-                <p class="footer__copyright">SCU <a href="#" class="footer__link">Luojiale</a> build this web.\nCopyright@ by LuoJiale. Email:879373096@qq.com. You are 100% allowed to use this webpage for both personal and commercial use. </p>
+                <p class="footer__copyright"><a href="#" class="footer__link">Luojiale</a> build this web.\nCopyright@ by LuoJiale. Email:879373096@qq.com. You are 100% allowed to use this webpage for both personal and commercial use. </p>
             </div>
         </div>
     </footer>

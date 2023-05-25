@@ -159,45 +159,6 @@
 </div>
     
 
-    <!-- <div class="form-with-guide--main-part__right">
-      <div style="height: 300px;position:sticky;top:2rem">
-        <el-steps direction="vertical" :active="activeStep" finish-status="success">
-          <el-step title="Step 1"  style="background-color: transparent;">
-           <template v-slot:description>
-              <span  class="step-text">Upload the models and seeds to be tested</span>
-           </template>
-           <template v-slot:title>
-              <span  class="step-title">Step 1</span>
-           </template>
-          </el-step>
-          <el-step title="Step 2"  style="background-color: transparent;">
-           <template v-slot:description>
-              <span class="step-text">Provide basic information about the model</span>
-           </template>
-           <template v-slot:title>
-              <span  class="step-title">Step 2</span>
-           </template>
-          </el-step>
-          <el-step title="Step 3"  style="background-color: transparent;">
-           <template v-slot:description>
-              <span class="step-text">Check Fuzz parameters</span>
-           </template>
-           <template v-slot:title>
-              <span  class="step-title">Step 3</span>
-           </template>
-          </el-step>
-          <el-step title="Step 3"  style="background-color: transparent;">
-           <template v-slot:description>
-              <span class="step-text">Submit immediately</span>
-           </template>
-           <template v-slot:title>
-              <span  class="step-title">Step 4</span>
-           </template>
-          </el-step>
-        </el-steps>
-      </div>
-    </div> -->
-
 </template>
 <script lang="ts" setup>
 import { reactive ,Ref} from "vue";

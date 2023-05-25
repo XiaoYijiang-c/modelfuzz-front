@@ -36,15 +36,15 @@ export class Graph {
 
     private make_architecture_item() {
         this.nodes.forEach((value, key) => {
-            if (value['output_shape'].length == 4) {
+            if (value['output_shape'].length == 3) {
                 let architecture: Architecture = {
-                    filterHeight: value['output_shape'][2] / 8,
-                    filterWidth: value['output_shape'][2] / 8,
+                    filterHeight: value['output_shape'][1] / 8,
+                    filterWidth: value['output_shape'][1] / 8,
                     layer: 0,
-                    numberOfSquares: value['output_shape'][3],
+                    numberOfSquares: value['output_shape'][2],
                     op: key,
-                    squareHeight: value['output_shape'][2],
-                    squareWidth: value['output_shape'][1],
+                    squareHeight: value['output_shape'][1],
+                    squareWidth: value['output_shape'][0],
                 }
                 this.architectures.set(key, architecture)
             }
@@ -120,7 +120,7 @@ export class Graph {
         } else {
             let item = this.nodes.get(name)
             if (item)
-                this.architecture2.push(item['output_shape'][1])
+                this.architecture2.push(item['output_shape'][0])
             else
                 throw new Error('Name not found')
         }

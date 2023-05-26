@@ -425,6 +425,8 @@ emits('setstep',activeStep.value,stepMessage)
     submitFormWapper,
     resetFormWapper,
     formPartShow,
+    activeStep,
+  stepMessage
   });
   </script>
   

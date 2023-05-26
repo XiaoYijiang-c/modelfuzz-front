@@ -305,6 +305,8 @@ defineExpose({
   form,
   submitFormWapper,
   resetFormWapper,
+  activeStep,
+  stepMessage
 });
   </script>
   

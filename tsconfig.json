@@ -10,6 +10,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
+    "allowJs": true,
     "lib": [
       "ESNext",
       "DOM"
@@ -23,6 +24,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "src/**/*.json",
+    "src/**/*.js",
   ],
   "references": [
     {

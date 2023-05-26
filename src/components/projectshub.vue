@@ -8,7 +8,7 @@
         <div class="userhub--projectlist">
             <span class="userhub--projectlist--item" v-for="item in currentprojectlist" :key="item.name">
                 <span class="userhub--projectlist--item--icon"><el-icon v-if="item.type =='cv'"><Picture /></el-icon><el-icon v-else-if="item.type =='mal'"><Platform /></el-icon ><el-icon v-else-if="item.type =='eval'"><DataAnalysis /></el-icon></span>
-                <span class="userhub--projectlist--item--text">
+                <span class="userhub--projectlist--item--text" @click="emits('switch_to_penel',item)">
                     {{ item.name }}
                     <span class="userhub--projectlist--item--text--icon-box">
                         <el-icon class="userhub--projectlist--item--text--icon-box__icon" @click="open(item)"><DeleteFilled /></el-icon>
@@ -95,7 +95,7 @@ import type { Action } from 'element-plus'
 const props = defineProps<{
     userMessage: LoginMessage,
 }>();
-const emits = defineEmits(["set_projects"]);
+const emits = defineEmits(["set_projects","switch_to_penel"]);
 const name:Ref<string> = ref('肆夕')
 const titleList: Ref<string[]> = ref(['Student', 'SCU'])
 const testprojectlist:Ref<Project[]> = ref(props.userMessage.projects)
@@ -112,6 +112,7 @@ function getCurrentPageData() {
         begin,
         end
     );
+    console.log(currentprojectlist.value)
 }
 getCurrentPageData()
 function testnextpage() {
@@ -224,6 +225,11 @@ const open = (item:Project) => {
     },
   })
 }
+
+defineExpose({
+    testprojectlist,
+    getCurrentPageData
+})
 </script>
 
 <style src="../style/skeleton.scss" lang="scss">

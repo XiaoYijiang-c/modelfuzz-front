@@ -164,7 +164,11 @@ function openSubmenus(item:ToolOpenSetting) {
   item.status= !item.status
 }
 
-const emits = defineEmits(["show","switchPage","switchpenal"]);
+const emits = defineEmits(["show", "switchPage", "switchpenal"]);
+defineExpose({
+  clearActiveList,
+  activeList
+})
 </script>
 <style src="../style/skeleton.scss" lang="scss">
 

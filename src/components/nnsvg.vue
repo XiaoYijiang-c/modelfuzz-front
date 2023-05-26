@@ -2,14 +2,13 @@
   <div class="u-flex-center_"><div id="graph-container"></div></div>
 </template>
 
-<script lang="js" setup>
+<script  setup>
 import { ref, onMounted,nextTick  } from 'vue'
 import { Graph } from '../js/graph'
-import { LeNet } from '../js/LeNet'
 let dialogVisible = ref(false)
-let lenet= null
+let lenet = null
 
-const data = {
+const data  = {
     edges: [
         ['input_1', 'block1_conv1'],
         ['block1_conv1', 'block1_pool1'],
@@ -31,7 +30,7 @@ const data = {
     }
 }
 
-const data1 = {
+const data1  = {
     nodes: {
         block2_pool1: { output_shape: [null, 7, 7, 12] },
         before_softmax: { output_shape: [null, 10] },

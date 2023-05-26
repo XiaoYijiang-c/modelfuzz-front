@@ -8,12 +8,12 @@
       ref="formdata" 
       style="padding:3rem;"
     >
-    <h3 class="form-with-guide--main-part__left--title u-font-f2f2f2">Upload Computer Vision Model</h3>
+    <h3 class="form-with-guide--main-part__left--title u-font-f2f2f2">上传计算机视觉模型</h3>
       <div class="uploadButton">
         <!-- <div style="width: 15%"></div> -->
         
           <div class="single-card-two-button">
-            <p>Upload Source code</p>
+            <p>上传模型源代码</p>
             <div class="single-card-two-button--icon-box">
               <img src="../img/01fenzi4d3a59.png" alt="fenzi">
             </div>
@@ -29,7 +29,7 @@
           
             <!-- <el-card shadow="hover">上传模型源码</el-card> -->
             <div class="single-card-two-button">
-            <p>Upload Model</p>
+            <p>上传模型</p>
             <div class="single-card-two-button--icon-box">
               <img src="../img/07deeplearn4d3a59.png" alt="fenzi">
             </div>
@@ -44,7 +44,7 @@
           </div>
 
           <div class="single-card-two-button">
-            <p>Upload Seed</p>
+            <p>上传种子集</p>
             <div class="single-card-two-button--icon-box">
               <img src="../img/04fangshengxue4d3a59.png" alt="fenzi">
             </div>
@@ -59,7 +59,7 @@
           </div>
 
           <div class="single-card-two-button">
-            <p>Upload Preprocessing Function</p>
+            <p>上传预处理文件</p>
             <div class="single-card-two-button--icon-box">
               <img src="../img/08yunsuanzhongxing4d3a59.png" alt="fenzi">
             </div>
@@ -113,7 +113,7 @@
         </div>
         <div class="background-image-card--right-part">
           <div class="input-box u-margin-left-2rem">
-            <span class="input-label">Neuron coverage strategy</span>
+            <span class="input-label">神经元覆盖策略</span>
             <el-checkbox-group v-model="form.type">
               <el-checkbox label="Select neurons covered frequently" name="1" />
               <el-checkbox label="Select neurons covered rarely" name="2" />
@@ -122,7 +122,7 @@
             </el-checkbox-group>
           </div>
           <div class="input-box u-margin-left-2rem">
-            <span class="input-label">Neuron activation threshold</span>
+            <span class="input-label">神经元激活阈值</span>
             <div style="display:grid;grid-template-columns: 65% 5% 30%;width: 100%;"> 
               <el-slider v-model="form.value" :max="thresholdValue.max" :step="thresholdValue.step" />
               <div></div>
@@ -131,7 +131,7 @@
           </div>
             
           <div class="input-box u-margin-left-2rem">
-            <span class="input-label">Number of neurons covered</span>
+            <span class="input-label">神经元覆盖数</span>
             <input type="text" autocomplete="off" name="search" class="input_self u-input-transparent" v-model="form.neuralNum" :min="1" :max="1000"  size="large" />
           </div>
         </div>
@@ -143,7 +143,7 @@
         </div>
         <div class="background-image-card--right-part">
           <div class="input-box u-margin-left-2rem">
-            <span class="input-label">Variation times per seed</span>
+            <span class="input-label">每个种子的迭代次数</span>
             <input type="text" autocomplete="off" name="search" class="input_self u-input-transparent " v-model="form.seedNum" :min="1" :max="1000"  size="large" />
           </div>
           
@@ -156,6 +156,7 @@
       
     </el-form>
   </el-scrollbar>
+  
 </div>
     
 
@@ -167,6 +168,7 @@ import { genFileId, FormInstance } from "element-plus";
 import type { UploadInstance, UploadProps, UploadRawFile } from "element-plus";
 import Cookies from 'js-cookie'
 import { Edit, Picture, Upload } from '@element-plus/icons-vue'
+import axios from "axios";
 
 const input2 = ref('')
 const activeNames = ref(['1'])
@@ -323,7 +325,38 @@ const seedSetRemove = () => {
 const preprocessingRemove = () => {
   loadFiles[3] = false
 };
-
+function load_data(url: string,currentProjectId:string) {
+  console.log('loaddata');
+  let formDataObject = new FormData();
+  formDataObject.append("project_id", currentProjectId);
+  axios.post(url, formDataObject).then((res) => {
+    console.log(res.data)
+    let formBak: Form = res.data;
+    form.neuralNum = Number(formBak.neuralNum);
+    form.value = Number(formBak.value);
+    console.log("form.value",form.value)
+    let list:string[] = []
+    for (let item of formBak.type) {
+        if (item == "0") {
+          list.push("Select neurons covered frequently");
+        } else if (item == "1") {
+          list.push("Select neurons covered rarely");
+        } else if (item == "2") {
+          list.push("Select neurons with top weights");
+        } else if (item == "3") {
+          list.push("Select neurons near the activation threshold");
+        }
+    }
+    form.type = list;
+    
+    form.seedNum = Number(formBak.seedNum);
+    form.load_model_function = formBak.load_model_function;
+    form.layer_name = formBak.layer_name;
+    form.shape = formBak.shape;
+    form.preprocess_function = formBak.preprocess_function;
+    form.deprocess_function = formBak.deprocess_function;
+  })
+}
 // 发送表单
 const submitForm = async (formEl: FormInstance | undefined) => {
   let formDataObject = new FormData();
@@ -445,13 +478,15 @@ const stepMessage = [{
   title: 'step 4',
   message:'提交'
 }]
-emits('setstep',activeStep.value,stepMessage)
 
 
 defineExpose({
   form,
   submitFormWapper,
   resetFormWapper,
+  activeStep,
+  stepMessage,
+  load_data
 });
 </script>
 

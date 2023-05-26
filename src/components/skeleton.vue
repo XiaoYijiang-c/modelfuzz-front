@@ -9,11 +9,11 @@
     <div class="single-page--main-window">
       <div class="single-page--background"></div>
       <div class="aside-tool">
-        <AsideTools @show="show" @switchpenal="switchpenal" :newNumber="numberCount.dlfuzz" :openASide="openASide" @switchPage="emits('switchPage', 0)"></AsideTools>
+        <AsideTools ref="asidetools" @show="show" @switchpenal="switchpenal" :newNumber="numberCount.dlfuzz" :openASide="openASide" @switchPage="emits('switchPage', 0)"></AsideTools>
       </div>
       <div class="console">
         <Userhub v-show="mainListShow.userhub" :userMessage="props.loginMessage" @show="show"  @switchPage="emits('switchPage', 0)"></Userhub>
-        <projectshub v-show="mainListShow.projectshub" :userMessage="props.loginMessage" @set_projects="set_projects"></projectshub>
+        <projectshub ref="projecthub" v-show="mainListShow.projectshub" :userMessage="props.loginMessage" @set_projects="set_projects" @switch_to_penel="switch_to_penel"> </projectshub>
 
         <DlfuzzChart ref="dlfuzzChart" v-show="mainListShow.dlfuzzImage" :currentProject="currentProject" :projectList="projectList" @changeProject="changeProject" @sendAxios="sendAxios" @chooseProject="choose_project" :formPartLogin="formPartLogin" :currentProjectId="current_project_id" @setProjectID="setProjectID">
         </DlfuzzChart>
@@ -33,7 +33,7 @@
                   <el-dropdown-menu>
                         <div class="u-menu_list" v-for="item in projectList" :key="item.id">
                           
-                          <el-dropdown-item @click="changeProject(item),choose_project(),switchpenal(),setProjectID(item.id)">{{ item.name }} 
+                          <el-dropdown-item @click="changeProject(item),choose_project(),setProjectID(item.id),switchpenal()">{{ item.name }} 
                             <div  v-if="item.type === 'cv'" class="u-flex-center "><el-icon color="#f2f2f2"><Picture /></el-icon></div>
                             <div v-else-if="item.type === 'mal'" class="u-flex-center "><el-icon  color="#f2f2f2"><Platform /></el-icon></div>
                             <div v-else-if="item.type === 'eval'" class="u-flex-center "><el-icon  color="#f2f2f2"><DataAnalysis /></el-icon></div>
@@ -96,6 +96,24 @@
       </div>
     </div>
   </div>
+  <el-dialog v-model="add_project" title="Shipping address" :modal="false" center>
+    <el-form>
+        <el-form-item label="project name" >
+            <el-input v-model="add_form.name" placeholder="Please input" />
+        </el-form-item>
+        <el-form-item label="project type" >
+            <el-cascader v-model="add_form.type" :options="options" />
+        </el-form-item>
+    </el-form>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="add_project = false">Cancel</el-button>
+        <el-button type="primary" @click="send_add_project(),add_project = false">
+        Confirm
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
 
 <script lang="ts" setup>
@@ -237,10 +255,6 @@ const submit = async (url:string) => {
   try {
     let formdataObject = new FormData();
     formdataObject = await penel.value.submitFormWapper();
-    formdataObject.forEach((value, key) => {
-      console.log(key);
-      console.log(value);
-    });
     sendAxios(url,'POST',handleSubmit,formdataObject)
   } catch (error) {
     warningMessage(messageText.warning.errorPageClickSubmit)
@@ -265,9 +279,19 @@ const sendAxios = (url: string, type:string, callback:Function,formdataObject?: 
 
   return res;
 }
-const handleSubmit = (data:Object|string) => {
-  if (data == 'success') {
+const handleSubmit = (data:any) => {
+  if (data.flag == 'success') {
     projectSubmitState.value = true
+    console.log("data.project", data.project)
+    let project: Project = {
+      id:data.project[0],
+      type:data.project[2],
+      name:data.project[1]
+    }
+    changeProject(project);
+    choose_project();
+    setProjectID(project.id);
+    switchpenal()
       ElMessage({
         message: h('p', null, [
           h('i', { style: 'color: teal' }, 'Fuzz Started Successfully'),
@@ -276,7 +300,10 @@ const handleSubmit = (data:Object|string) => {
         duration: 5000
       })
       // download('/upload/status')
-    } else {
+  } else if (data == 'have project') {
+    add_project.value = true
+   }
+  else {
     projectSubmitState.value = false
       ElMessage({
         message: h('p', null, [
@@ -378,13 +405,21 @@ function switchpenal() {
   if (currentProject.value.id == '-1') {
     console.log('currentProject.value',currentProject.value)
     show('emptypenal')
+    setStep(emptypenal.value.activeStep,emptypenal.value.stepMessage)
+
   } else {
     if (currentProject.value.type == 'cv') {
       show('dlfuzzpenel')
+      setStep(dlfuzzPenel.value.activeStep, dlfuzzPenel.value.stepMessage)
+      dlfuzzPenel.value.load_data('http://43.138.12.254:9000/dlfuzz/getdata',currentProject.value.id)
+
     } else if (currentProject.value.type == 'mal') {
       show('malfuzz')
+      setStep(malfuzz.value.activeStep,malfuzz.value.stepMessage)
+
     } else if (currentProject.value.type == 'eval') {
       show('datasetEvaluate')
+      setStep(datasetEvaluate.value.activeStep,datasetEvaluate.value.stepMessage)
     }
   }
 }
@@ -398,6 +433,67 @@ const stepMessage: Ref<StepMessage[]> = ref([]);
 function setStep(stepcurrent: number, stepmessage: StepMessage[]) {
   activeStep.value = stepcurrent;
   stepMessage.value = stepmessage
+}
+
+
+interface AddProjectForm {
+    name: string;
+    type: string;
+}
+
+const add_project = ref(false)
+const add_form:AddProjectForm = reactive({
+    name: '',
+    type:''
+})
+const options = [{
+    value: 'cv',
+    label: 'computer vision',
+},{
+    value: 'mal',
+    label: 'Malware Detection',
+},{
+    value: 'eval',
+    label: 'Dataset Evaluate',
+}]
+const projecthub = ref()
+async function send_add_project() {
+    let formDataObject = new FormData();
+  let userID: any = props.loginMessage.userID;
+    if (userID) {
+        formDataObject.append('userID', userID);
+    } else { return }
+    formDataObject.append('project_name', add_form.name);
+    formDataObject.append('project_type', add_form.type);
+    await axios.post('http://43.138.12.254:9000/add_project', formDataObject).then(async (res) => {
+        console.log(res.data)
+        if (res.data.flag == true) {
+            set_projects(res.data.projects)
+          projecthub.value.testprojectlist = res.data.projects
+          projecthub.value.getCurrentPageData()
+          let formDataObject2 = new FormData();
+          for (let item of res.data.projects) {
+            if (item.name == add_form.name) {
+              formDataObject2 = await penel.value.submitFormWapper();
+              formDataObject2.delete('project_id')
+              formDataObject2.append('project_id', item.id);
+              sendAxios("http://43.138.12.254:9000/dlfuzz/submit",'POST',handleSubmit,formDataObject2)
+            }
+          }
+        }
+    }).catch((err) => {
+        console.warn(err);
+    });
+}
+const asidetools = ref()
+function switch_to_penel(item: Project) {
+  changeProject(item);
+  choose_project();
+  setProjectID(item.id);
+  switchpenal();
+  asidetools.value.clearActiveList();
+  asidetools.value.activeList._1=true;
+
 }
 </script>
 

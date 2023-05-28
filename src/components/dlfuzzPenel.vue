@@ -80,23 +80,23 @@
         </div>
         <div class="left-img-card--right-part">
           <div class="input-box u-margin-left-2rem">
-            <span class="input-label">Load Function Name</span>
+            <span class="input-label">加载模型函数</span>
             <input type="text" autocomplete="off" name="search" class="input_self u-input-transparent" v-model="form.load_model_function" placeholder="Please input" @change="allSteps" />
           </div>
           <div class="input-box u-margin-left-2rem">
-            <span class="input-label">Preprocess Function Name</span>
+            <span class="input-label">预处理函数名</span>
             <input type="text" autocomplete="off" name="search" class="input_self  u-input-transparent" v-model="form.preprocess_function" placeholder="Please input" @change="allSteps" />
           </div>
           <div class="input-box u-margin-left-2rem">
-            <span class="input-label">Deprocess Function Name</span>
+            <span class="input-label">图像解码函数名</span>
             <input type="text" autocomplete="off" name="search" class="input_self  u-input-transparent" v-model="form.deprocess_function" placeholder="Please input" @change="allSteps" />
           </div>
           <div class="input-box u-margin-left-2rem">
-            <span class="input-label">Layer name</span>
+            <span class="input-label">模糊测试激活选择层名</span>
             <input type="text" autocomplete="off" name="search" class="input_self u-input-transparent" v-model="form.layer_name" placeholder="Please input" @change="allSteps" />
           </div>
           <div class="input-box u-margin-left-2rem">
-            <span class="input-label">shape</span>
+            <span class="input-label">输入样本向量维度</span>
             <input type="text" autocomplete="off" name="search" class="input_self  u-input-transparent" v-model="form.shape" placeholder="Please input" @change="allSteps" />
           </div>
           

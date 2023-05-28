@@ -1,5 +1,5 @@
 <template>
-  <div class="u-flex-center_"><div id="graph-container"></div></div>
+  <div class="u-flex-center_"><div class="graph-container" :id="graph_container"></div></div>
 </template>
 
 <script  setup>
@@ -7,7 +7,7 @@ import { ref, onMounted,nextTick  } from 'vue'
 import { Graph } from '../js/graph'
 let dialogVisible = ref(false)
 let lenet = null
-
+const graph_container = ref('')
 const data  = {
     edges: [
         ['input_1', 'block1_conv1'],
@@ -51,11 +51,18 @@ const data1  = {
         ['before_softmax', 'predictions']
     ]
 }; 
-function init() {
-    lenet = LeNet();
+function init(id) {
+
+    graph_container.value = id
+    nextTick(() => {
+        lenet = LeNet("#"+graph_container.value);
+    })
+    
+
+
+    
 }
 function build_graph(data) {
-    
     const graph = new Graph(data.nodes, data.edges);
     if (!graph.hasBranches()) {
         graph.bfs((item) => {
@@ -69,26 +76,7 @@ function build_graph(data) {
         console.log('G');
     
     }
-    let architecture = [{
-        filterHeight: 8,
-        filterWidth: 8,
-        layer: 0,
-        numberOfSquares: 8,
-        op: "Max-Pool",
-        squareHeight: 128,
-        squareWidth: 128,
-    }, {
-        filterHeight: 8,
-        filterWidth: 8,
-        layer: 1,
-        numberOfSquares: 8,
-        op: "Max-Pool",
-        squareHeight: 64,
-        squareWidth: 64,
-    }]
-    let architecture2 = [56, 1]
-
-    let betweenLayers = [100,1,1,1,1,1]
+    console.log('G',lenet);
     lenet.redraw({
     'architecture_': graph.getArchitecture().architecture,
     'architecture2_': graph.getArchitecture().architecture2
@@ -107,13 +95,14 @@ function click_color() {
 
 defineExpose({
     build_graph,
-    init
+    init,
+    graph_container
 })
 </script>
 
 <style type="text/css">
        
-        #graph-container {
+        .graph-container {
             width: 100rem;
             height: 50rem;
             z-index: -100;

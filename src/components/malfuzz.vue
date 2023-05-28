@@ -108,7 +108,7 @@
                   </div>
                 </div>
               </div>
-              <h3 class="form-with-guide--main-part__left--title u-font-f2f2f2">Fuzzing Strategy</h3>
+              <h3 class="form-with-guide--main-part__left--title u-font-f2f2f2">模糊测试策略</h3>
               <div id="1" style="display: grid;grid-template-columns: 48% auto 48%;">
                 <div class="background-image-card u-margin-top-medium">
                 <div class="background-image-card--img-box">

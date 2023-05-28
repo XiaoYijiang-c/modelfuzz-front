@@ -11,7 +11,7 @@
                 <span class="userhub--projectlist--item--text" @click="emits('switch_to_penel',item)">
                     {{ item.name }}
                     <span class="userhub--projectlist--item--text--icon-box">
-                        <el-icon class="userhub--projectlist--item--text--icon-box__icon" @click="open(item)"><DeleteFilled /></el-icon>
+                        <el-icon class="userhub--projectlist--item--text--icon-box__icon" @click.stop="open(item)"><DeleteFilled /></el-icon>
                         <el-icon class="userhub--projectlist--item--text--icon-box__icon" style="transform: rotate(90deg);"><MoreFilled /></el-icon>
                     </span>
                 </span>

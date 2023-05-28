@@ -1,60 +1,14 @@
 <template>
-    <div class="chart_visiable">
-        <div class="chart_visiable--header">
-            <!-- <h3 class="chart_visiable--header__text">Project-ID</h3> -->
-            <div class="chart_visiable--header__left">
-                <el-dropdown class="chart_visiable--header__left--dropdown">
-                <span class="el-dropdown-link chart_visiable--header__text u-menu_list u-font-f2f2f2">
-                    <el-icon class="el-icon--right u-margin-right-1rem" v-if="props.currentProject.type === 'cv'"><Picture /></el-icon>
-                    <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="props.currentProject.type === 'mal'"><Platform /></el-icon>
-                    <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="props.currentProject.type === 'eval'"><DataAnalysis /></el-icon>
-                    {{ props.currentProject.name }}<el-icon class="el-icon--right u-margin-left-1rem"><arrow-down /></el-icon>
-                </span>
-                <template #dropdown>
-                <el-dropdown-menu>
-                        <div class="u-menu_list" v-for="item in props.projectList" :key="item.id">
-                        <el-dropdown-item @click="emits('changeProject',item),emits('chooseProject'),emits('setProjectID',item.id)">{{ item.name }} 
-                          <div  v-if="item.type === 'cv'" class="u-flex-center "><el-icon color="#f2f2f2"><Picture /></el-icon></div>
-                          <div v-else-if="item.type === 'mal'" class="u-flex-center "><el-icon  color="#f2f2f2"><Platform /></el-icon></div>
-                          <div v-else-if="item.type === 'eval'" class="u-flex-center "><el-icon  color="#f2f2f2"><DataAnalysis /></el-icon></div>
-                      </el-dropdown-item>
-                        
-                        </div>
-                </el-dropdown-menu>
-                </template>
-            </el-dropdown>
-            <div></div>
-            <div class="chart_visiable--header__search">
-            <input
-            autocomplete="off"
-                type="text"
-                name="search"
-                v-model="input2"
-                class="input_self u-input-dark"
-            />
-            <div class="chart_visiable--header__search__button " @click="loadChart"><el-icon><Search /></el-icon></div>
-            </div>
-          </div>
-          
+
+        <div :class="{'chart_visiable--bottom': !fullscreenboolean, 'chart_visiable--bottom__fullscreen':fullscreenboolean}">
             
-        </div>
-        <div 
-            class="chart_visiable--bottom" 
-            style="display:flex;align-items: center;justify-content: center;flex-wrap: wrap;"
-            v-if="props.formPartLogin"
-            >
-            <div>
-              <img src="../img/empty.png" alt="">
-               <div style="font-size: 2rem;color: #f2f2f2;">请选择一个项目</div>
-            </div>
-          </div>
-        <div v-else :class="{'chart_visiable--bottom': !fullscreenboolean, 'chart_visiable--bottom__fullscreen':fullscreenboolean}">
           <el-scrollbar>
-            <el-icon class="chart_visiable--fullscreenbutton" @click="fullscreen"><FullScreen /></el-icon>
+            <h2 class="chart_visiable--title">恶意代码检测模型</h2>
+            <el-icon class="chart_visiable--fullscreenbutton" @click="fullscreen()"><FullScreen /></el-icon>
             <div class="chart_visiable--columns-2-3" > 
                 <div class="chart-card">
                     <div class="chart-card__rainbow"></div>
-                    <div class="chart-card--list-title">Result</div>
+                    <div class="chart-card--list-title">对抗样本</div>
                     <div class="chart-card--list-box" ref="ref_4">
                       <!-- <div class="chart-card--list-box--title">res</div> -->
                       <el-auto-resizer>
@@ -73,52 +27,10 @@
                     </div>  
                 </div>
                 <div class="chart-card" >
-                    <!-- <div class="chart-card--title">main</div> -->
-                  
-                  <div ref="ref_5" class="chart-card--chart " >
-                    <!-- <div class="chart-card--list-title">Result </div> -->
-                    <div class="chart_visiable--columns-3 chart-card--list-box" style="height: 100%;">
-                      <div class="statistic-card">
-                        <div class="statistic-card--icon statistic-card--icon__green"><el-icon ><Platform /></el-icon></div>
-                        <span class="statistic-card--text statistic-card--text__up">Perturb adversial per round</span>
-                        <span class="statistic-card--value">{{ perturbAdversial }}</span>
-                        <span class="statistic-card--text statistic-card--text__down">than last round
-                          <span v-if="Number(perturbAdversialRate)>=0" style="color:green">{{ perturbAdversialRate }}%
-                            <el-icon ><CaretTop /></el-icon>
-                          </span>
-                          <span v-else style="color:red">{{ perturbAdversialRate }}%
-                            <el-icon ><CaretBottom /></el-icon>
-                          </span>
-                        </span>
-                      </div>
-                      <div class="statistic-card">
-                        <div class="statistic-card--icon statistic-card--icon__purple"><el-icon><BellFilled /></el-icon></div>
-                        <span class="statistic-card--text statistic-card--text__up">Time cost per round</span>
-                        <span class="statistic-card--value">{{ usedTime }} S</span>
-                        <span class="statistic-card--text statistic-card--text__down">than last round
-                          <span v-if="Number(usedTimeRate)>=0" style="color:green">{{ usedTimeRate }}%
-                            <el-icon ><CaretTop /></el-icon>
-                          </span>
-                          <span v-else style="color:red">{{ usedTimeRate }}%
-                            <el-icon ><CaretBottom /></el-icon>
-                          </span>
-                        </span>
-                      </div>
-                      <div class="statistic-card">
-                        <div class="statistic-card--icon statistic-card--icon__organge"><el-icon><MagicStick /></el-icon></div>
-                        <span class="statistic-card--text statistic-card--text__up">L2 norm per round</span>
-                        <span class="statistic-card--value">{{ L2Norm }}</span>
-                        <span class="statistic-card--text statistic-card--text__down">than last round
-                          <span v-if="Number(L2NormRate)>=0" style="color:green">{{ L2NormRate }}%
-                            <el-icon ><CaretTop /></el-icon>
-                          </span>
-                          <span v-else style="color:red">{{ L2NormRate }}%
-                            <el-icon ><CaretBottom /></el-icon>
-                          </span>
-                        </span>
-                      </div>
-                    </div>
-                  </div>      
+                    <!-- <div class="chart-card--title"></div> -->
+                    <div ref="ref_1"  class="chart-card--chart chart-card--chart--square" style="width:100%;padding-top: 1rem;">
+                      
+                    </div>          
                 </div>
                 <!-- <div class="chart-card" >
                     <div class="chart-card--title">Neuron</div>
@@ -126,19 +38,22 @@
                 </div> -->
                 <!-- <DlfuzzImage ref="dlfuzzImage"></DlfuzzImage> -->
             </div>
-            <div class="chart_visiable--columns-1"><nnsvg ref="nnsvg_ref"></nnsvg></div> 
-            <div class="chart_visiable--columns-1-2"> 
-                <div class="chart-card" >
+            
+            <div class="chart_visiable--columns-1-1"> 
+                <!-- <div class="chart-card" >
                     <div class="chart-card--title"></div>
                     <div class="chart-card--list-title u-fontsize-3rem">Neuron Coverage </div>
                     <div ref="ref_1"  class="chart-card--chart chart-card--chart--square">
                       
                     </div>      
+                </div> -->
+                <div class="chart-card" >
+                    <div class="chart-card--title"></div>
+                    <div ref="ref_2" class="chart-card--chart chart-card--chart--rectangle" style="width:100%;padding-top: 1rem;"></div>      
                 </div>
                 <div class="chart-card" >
                     <div class="chart-card--title"></div>
-                    <div class="chart-card--list-title u-fontsize-3rem">Neuron Coverage </div>
-                    <div ref="ref_2" class="chart-card--chart chart-card--chart--rectangle"></div>      
+                    <div ref="ref_3" class="chart-card--chart chart-card--chart--rectangle" style="width:100%;padding-top: 1rem;"></div>      
                 </div>
                 <!-- <div class="chart-card" >
                     <div class="chart-card--title">Neuron</div>
@@ -146,23 +61,15 @@
                 </div> -->
                 <!-- <DlfuzzImage ref="dlfuzzImage"></DlfuzzImage> -->
             </div>
-            <div class="chart_visiable--columns-1-2"> 
-                <div class="chart-card" >
-        
-                </div>
+            <h2 style="font-size:3rem;color:#f2f2f2;margin-top:3rem">模型可视化</h2>
+            <div class="chart_visiable--columns-1" style="margin-top:4rem"><nnsvg ref="nnsvg_ref" ></nnsvg></div> 
 
-                <!-- <div class="chart-card" >
-                    <div class="chart-card--title">Neuron</div>
-                        <div ref="ref_3" class="chart-card--chart"></div>      
-                </div> -->
-                <!-- <DlfuzzImage ref="dlfuzzImage"></DlfuzzImage> -->
-            </div>
           </el-scrollbar>
       </div>
-    </div>
 </template>
 <script lang="ts" setup>
 import axios from "axios";
+import testImportJson from "../json/malfuzzreturn.json"
 import type { UploadInstance, UploadProps, UploadRawFile } from "element-plus";
 import { Edit, Picture, Upload } from '@element-plus/icons-vue'
 import {
@@ -171,7 +78,7 @@ import {
   CaretTop,
   Warning,
 } from '@element-plus/icons-vue'
-import { ref, reactive,nextTick,Ref,h } from "vue";
+import { ref, onMounted,nextTick,Ref,h } from "vue";
 import * as echarts from "echarts";
 import Cookies from 'js-cookie'
 
@@ -179,7 +86,9 @@ const nnsvg_ref = ref()
 //test
 let fullscreen = async () => {
   fullscreenboolean.value = !fullscreenboolean.value
-
+    nextTick(() =>{
+        loadChart(true)
+    })
   
 }
 const fullscreenboolean:Ref<boolean> = ref(false)
@@ -215,110 +124,229 @@ const columns = [{
   dataKey:'ID',
   key:'ID',
   title: 'ID',
-  width:150
+  width:50
 },{
-  dataKey:'Original label',
-  key:'Original label',
-  title: 'Original label',
+  dataKey:'Original_File',
+  key:'Original_File',
+  title: '原始文件',
   width:100
 },{
-  dataKey:'New label',
-  key:'New label',
-  title: 'New label',
+  dataKey:'mutation_times',
+  key:'mutation_times',
+  title: '变异次数',
   width:100
 },{
-  dataKey:'From Image',
-  key:'From Image',
-  title: 'From Image',
+  dataKey:'mutation',
+  key:'mutation',
+  title: '变异操作',
   width:150
 }]
-console.log("columns",columns)
-const tabledata:Ref<any[]> = ref([])
-
+console.log("columns", columns)
+interface TableData {
+    ID: string;
+    Original_File: string;
+    mutation_times: string;
+    mutation: string;
+}
+const tabledata: any[] =  testImportJson.escape_folder_list.map((value,index) => {
+    let ori_name_list = value.split('/');
+    let ori_name_all = ori_name_list[ori_name_list.length - 1];
+    let ori_name = ''
+    if (ori_name_all && ori_name_all.includes('exe') && !ori_name_all.includes('dll')) {
+        ori_name = ori_name_all.match(/(\S*)exe/)![1]+'exe';
+    } else if (ori_name_all && ori_name_all.includes('dll') && !ori_name_all.includes('exe')) {
+        ori_name = ori_name_all.match(/(\S*)dll/)![1]+'dll';
+    } else {
+        console.warn('error',ori_name)
+    }
+    let mutation_list: string[] = ori_name_all.replace(ori_name, '').split('.');
+    mutation_list.shift()
+    return {
+        ID: index.toString(),
+        Original_File: ori_name,
+        mutation_times: mutation_list.length.toString(),
+        mutation: mutation_list.join('-'),
+    }
+})
+function build_data(list: number[]) {
+    let count = 0
+    return list.filter((value) => {
+        if (value>0) {
+            return true;
+        } else {
+            return false;
+        }
+    }).map((value, index) => {
+        count += 1;
+        return [count, value];
+    })
+}
+let data_list_1 = build_data(testImportJson.approx_distances)
 let option_zhu = {
-  xAxis: {
-    type: 'category',
-    data: ['Original', 'Useless', 'New', 'Valuable'],
-    axisTick: { show: false },
-    splitLine: {
-      show: false,
-    },
-    axisLabel: {                                //坐标轴刻度文字的设置
-      show: true,                                 //是否显示
-      color: '#f2f2f2',                              //坐标轴刻度文字的颜色
-      fontSize:13,                                //坐标轴刻度文字的大小         (用数字表示)
-      fontWeight:'lighter',                        //坐标轴刻度文字的加粗程度    (可选bold   bolder  lighter  normal)
-      fontstyle: 'normal',                        //坐标轴刻度文字的样式          (可选normal  italic   oblique)
-      fontFamily: 'Courier New',
-      rotate: 15,
-      align: 'center',
-      margin:20
+    backgroundColor: '',
+    title:{
+        text: '样本覆盖率KNN距离',
+        textStyle: {
+                color: "#f2f2f2",
+                fontStyle: "normal",
+                fontFamily: "微软雅黑",
+                fontSize: 25,
         },
+        left:'center'
+    },
+    grid: {
+      x: 70,
+      y: 25,
+      x2: 30,
+      y2: 35
+    },
+    textStyle:
+      {
+                fontSize:15,
+                color:'#f2f2f2'
+            },
+  xAxis: {
+      type: 'value',
+      splitLine: { show: false },
+      min: data_list_1.length - 100,
+      max:data_list_1.length-1
+  },
+  yAxis: {
+      type: 'log',
+      splitLine: { show: false },
+  },
+  series: [
+    {
+      data: data_list_1.splice(data_list_1.length-100,data_list_1.length-1),
+      type: 'line',
+      smooth: true
+    }
+    ],
+    tooltip : {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'cross',//指示类型
+            label: {
+                // 横纵坐标指示区块颜色
+                backgroundColor: '#6a7985'
+            }
+        },
+    }
+
+};
+onMounted(() => {
+    nnsvg_ref.value.init('malfuzz_graph')
+})
+let data_list_2 = build_data(testImportJson.nearest_distance)
+let option_zhu2 = {
+    backgroundColor: '',
+    title:{
+        text: '样本覆盖率间最小距离',
+        textStyle: {
+                color: "#f2f2f2",
+                fontStyle: "normal",
+                fontFamily: "微软雅黑",
+                fontSize: 25,
+        },
+        left:'center'
+    },
+    grid: {
+      x: 50,
+      y: 25,
+      x2: 30,
+      y2: 35
+    },
+    textStyle:
+      {
+                fontSize:15,
+                color:'#f2f2f2'
+            },
+  xAxis: {
+      type: 'value',
+      splitLine: { show: false },
+      min: data_list_2.length - 100,
+      max:data_list_2.length-1
+  },
+  yAxis: {
+      type: 'log',
+      splitLine: { show: false },
+    },
+  series: [
+    {
+      data: data_list_2.splice(data_list_2.length-100,data_list_2.length-1),
+      type: 'line',
+      smooth: true
+    }
+    ],
+    tooltip : {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'cross',//指示类型
+            label: {
+                // 横纵坐标指示区块颜色
+                backgroundColor: '#6a7985'
+            }
+        }
+    }
+
+};
+let data_list_3 = build_data(testImportJson.exact_distances)
+let option_zhu3 = {
+    backgroundColor: '',
+    title:{
+        text: '样本覆盖率间欧氏距离',
+        textStyle: {
+                color: "#f2f2f2",
+                fontStyle: "normal",
+                fontFamily: "微软雅黑",
+                fontSize: 25,
+        },
+        left:'center'
+    },
+    grid: {
+      x: 70,
+      y: 25,
+      x2: 30,
+      y2: 35
+    },
+    textStyle:
+      {
+                fontSize:15,
+                color:'#f2f2f2'
+            },
+  xAxis: {
+      type: 'value',
+      splitLine: { show: false },
 
   },
   yAxis: {
-    type: 'value',
-    splitLine: {
-      show: false,
+      type: 'log',
+      splitLine: { show: false },
     },
-    axisLabel: {                                //坐标轴刻度文字的设置
-      show: true,                                 //是否显示
-      color: '#f2f2f2',                              //坐标轴刻度文字的颜色
-      fontSize:13,                                //坐标轴刻度文字的大小         (用数字表示)
-      fontWeight:'lighter',                        //坐标轴刻度文字的加粗程度    (可选bold   bolder  lighter  normal)
-      fontstyle: 'normal',                        //坐标轴刻度文字的样式          (可选normal  italic   oblique)
-      fontFamily: 'Courier New',
-      
-        },
-  },
-  
   series: [
     {
-      data: [
-        {
-          value: 70,
-          itemStyle: {
-            color: '#9F8DA7'
-          }
-        },
-        {
-          value: 20,
-          itemStyle: {
-            color: '#8776A0'
-          }
-        },
-        {
-          value: 30,
-          itemStyle: {
-            color: '#9D89AD'
-          }
-        },
-        {
-          value: 50,
-          itemStyle: {
-            color: '#55406B'
-          }
-        },
-        
-
-      ],
-      type: 'bar',
-      itemStyle: {
-        normal: {
-          label: {
-            show: true, //开启显示数值
-            position: 'top', //数值在上方显示
-            textStyle: {  //数值样式
-              color: '#D1DBFF',   //字体颜色
-              fontSize: 12  //字体大小
-            }
-          }
-        }
-      },
+      data: data_list_3,
+      type: 'line',
+      smooth: true
     }
-  ]
+    ],
+    tooltip : {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'cross',//指示类型
+            label: {
+                // 横纵坐标指示区块颜色
+                backgroundColor: '#6a7985'
+            }
+        }
+    }
+
 };
 
+let dataMap = {
+          nodes: testImportJson.graph,
+          edges: testImportJson.connections
+        }
 interface Project {
     type: string;
     name: string;
@@ -387,174 +415,37 @@ function loadList() {
     let text = row[index].children[0].children[0].innerHTML;
 
     row[index].onclick = () => {
-      alert(text)
+        window.open('http://43.138.12.254:9008/4467c76ef3e34bfebf05a4278294a46de77348e4/'+testImportJson.escape_folder_list[Number(text)],'_blank');
     }
   }
   // console.log(ref_4.value.children[0].children[0].children[0].children[0].children[0].children[0].children)
 }
 
 
-let testlist = generateData(columns, 2000)
 // let ll = 0
-let timer: any = null
-let perturbAdversial:Ref<string> = ref('0')
-let perturbAdversialBefore:Ref<string> = ref('0')
-let perturbAdversialRate: Ref<string> = ref('0')
-let usedTime:Ref<string> = ref('0')
-let usedTimeBefore:Ref<string> = ref('0')
-let usedTimeRate: Ref<string> = ref('0')
-let L2Norm:Ref<string> = ref('0')
-let L2NormBefore:Ref<string> = ref('0')
-let L2NormRate:Ref<string> = ref('0')
-async function loadChart() {
-  
-  console.log("testlist",testlist)
-  let ref_1WH =await getRefCurrentWH(ref_1)
-  myEcharts1 = echarts.init(ref_1.value,'',ref_1WH);
-  myEcharts1.setOption(option_zhu);
-  let ref_2WH =await getRefCurrentWH(ref_2)
-  myEcharts2 = echarts.init(ref_2.value,'',ref_2WH);
-  myEcharts2.setOption(option);
-  nnsvg_ref.value.init()
-  let formDataObject = new FormData();
-  let userID: any = Cookies.get('userID')
-  if (userID) {
-      formDataObject.append('user_id', userID);
-  } else { return }
-  formDataObject.append('project_id', props.currentProjectId)
-  if(timer){return}
-  timer = setInterval(function () {
-    axios.post('http://43.138.12.254:9000/dlfuzz/request', formDataObject).then((response) => {
-      console.log(response.data)
-      console.log(response.data.status)
-      if (response.data.status) {
-        
-        let dataList = []
-        let normdataList = []
-        let perturbdataList = []
-        let dataMap = {
-          nodes: response.data.nodes,
-          edges:response.data.lines
-        }
-        for (let i = 0; i < response.data.neuronsPercentageList.length; i++){
-          let data = {
-            value:[i.toString(),response.data.neuronsPercentageList[i]]
-          }
-          dataList.push(data)
-          let normdata = {
-            value:[i.toString(),response.data.normList[i]]
-          }
-          normdataList.push(normdata)
-          let perturbdata = {
-            value:[i.toString(),response.data.perturbList[i]]
-          }
-          perturbdataList.push(perturbdata)
-        }
-        console.log(dataList, normdataList, perturbdataList)
-        nnsvg_ref.value.build_graph(dataMap)
-        myEcharts2.setOption({
-            legend: {
-              data: ['Neuron Coverage', 'L2norm', 'Perturb Adversial']
-            },
-            series: [
-              {
-                name: 'Neuron Coverage',
-                type: 'line',
-                data: dataList
-              },
-              {
-                name: 'L2norm',
-                type: 'line',
-                data: normdataList
-              },
-              {
-                name: 'Perturb Adversial',
-                type: 'line',
-                data: perturbdataList
-              }
-            ]
-        });
 
-        for (let cnt = 0; cnt < response.data.imgList.length; cnt++){
-          let img_str = response.data.imgList[cnt]
-          let ori = img_str.split('/')
-          let new_label = ori[ori.length-1].split('^')[0]
-          let ori1 = ori[ori.length-1].split('^')[1];
-          let image_name = ori[ori.length-1].split('^')[2];
-          let data_img = {
-            'Original label':ori1,
-            'New label':new_label,
-            'From Image': image_name,
-            'ID':ori[ori.length-1].split('^')[3]
-          }
-          tabledata.value.push(data_img)
-        }
-        perturbAdversialBefore.value = perturbAdversial.value
-        perturbAdversial.value = response.data.perturb_adversial;
-        perturbAdversial.value = perturbAdversial.value.toString().substring(0, 5)
-        perturbAdversialRate.value = ((Number(perturbAdversial.value) -  Number(perturbAdversialBefore.value))/Number(perturbAdversialBefore.value)).toString().substring(0, 5)
-        console.log(perturbAdversialRate.value)
-        usedTimeBefore.value = usedTime.value
-        usedTime.value = response.data.usedTime;
-        usedTime.value = usedTime.value.toString().substring(0, 5)
-        usedTimeRate.value = ((Number(usedTime.value) -  Number(usedTimeBefore.value))/Number(usedTimeBefore.value)).toString().substring(0, 5)
-        console.log(usedTimeRate.value)
-        L2NormBefore.value = L2Norm.value
-        L2Norm.value = response.data.norm;
-        L2Norm.value = L2Norm.value.toString().substring(0, 5)
-        L2NormRate.value = ((Number(L2Norm.value) -  Number(L2NormBefore.value))/Number(L2NormBefore.value)).toString().substring(0, 5)
-        console.log(L2NormRate.value)
-        // option.series[0] = {
-        //     data: response.data.neuronsPercentageList,
-        //     type: 'line',
-        //     smooth: true
-        // }
-        // option.xAxis.data = Object.keys(Array.from(Array(response.data.neuronsPercentageList.length)))
-        // myEcharts.setOption(option);
-        // dlfuzzImage.value.srcList = response.data.imgList;
-        // console.log("dlfuzzImage.value.srcList",dlfuzzImage.value.srcList)
-        
-
-      }
-      else {
-        clearInterval(timer)
-      }
+async function loadChart(flag: boolean = false) {
+    if (flag) {
+        myEcharts1.dispose()
+        myEcharts2.dispose()
+        myEcharts3.dispose()
+        console.log('dispose')
     }
-    ).catch((err) => {
-      console.log(err)
-      clearInterval(timer)
-    });
-            
-        // for (var i = 0; i < 5; i++) {
-        //     data.shift();
-        //     data.push(randomData());
-        // }
+    let ref_1WH = await getRefCurrentWH(ref_1)
+    console.log(myEcharts1)
+    myEcharts1 = echarts.init(ref_1.value,'',ref_1WH);
+    myEcharts1.setOption(option_zhu);
+    let ref_2WH =await getRefCurrentWH(ref_2)
+    myEcharts2 = echarts.init(ref_2.value,'',ref_2WH);
+    myEcharts2.setOption(option_zhu2);
+    let ref_3WH =await getRefCurrentWH(ref_3)
+    myEcharts3 = echarts.init(ref_3.value,'',ref_3WH);
+    myEcharts3.setOption(option_zhu3);
+    console.log(ref_1WH,ref_2WH,ref_3WH)
 
-        // myEcharts2.setOption({
-        //     series: [
-        //     {
-        //         data: data
-        //     }
-        //     ]
-        // });
-
-        // tabledata.value.push(testlist[ll]);
-        // ll<2000?ll+=1:ll=0
-      //       let img_str = "/model_save/luojiale_245719298217/result/9_43279_7_245719299305"
-      // if (img_str) {
-      //   let ori = img_str.split('/')
-      //   let ori1 = ori[ori.length-1].split('_')[0]
-      //   let new_label = ori[ori.length-1].split('_')[2];
-      //   let data = {
-      //         'Original label':ori1,
-      //         'New label':new_label,
-      //         'From Image':'Check',
-      //       }
-      //   tabledata.value.push(data)
-      //       }
-           
-        loadList()
-      }, 1000);
+    // nnsvg_ref.value.init('malfuzz_graph')
+    nnsvg_ref.value.build_graph(dataMap);
+    
 }
 // loadChart()
 // const add = () => {

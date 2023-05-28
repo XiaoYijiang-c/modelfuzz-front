@@ -9,15 +9,55 @@
     <div class="single-page--main-window">
       <div class="single-page--background"></div>
       <div class="aside-tool">
-        <AsideTools ref="asidetools" @show="show" @switchpenal="switchpenal" :newNumber="numberCount.dlfuzz" :openASide="openASide" @switchPage="emits('switchPage', 0)"></AsideTools>
+        <AsideTools ref="asidetools" @show="show" @switchpenal="switchpenal" @switchchart="switchchart" :newNumber="numberCount.dlfuzz" :openASide="openASide" @switchPage="emits('switchPage', 0)"></AsideTools>
       </div>
       <div class="console">
         <Userhub v-show="mainListShow.userhub" :userMessage="props.loginMessage" @show="show"  @switchPage="emits('switchPage', 0)"></Userhub>
         <projectshub ref="projecthub" v-show="mainListShow.projectshub" :userMessage="props.loginMessage" @set_projects="set_projects" @switch_to_penel="switch_to_penel"> </projectshub>
-
-        <DlfuzzChart ref="dlfuzzChart" v-show="mainListShow.dlfuzzImage" :currentProject="currentProject" :projectList="projectList" @changeProject="changeProject" @sendAxios="sendAxios" @chooseProject="choose_project" :formPartLogin="formPartLogin" :currentProjectId="current_project_id" @setProjectID="setProjectID">
+        <div class="chart_visiable" v-show="mainListShow.chart">
+          <div class="chart_visiable--header">
+              <!-- <h3 class="chart_visiable--header__text">Project-ID</h3> -->
+              <div class="chart_visiable--header__left">
+                  <el-dropdown class="chart_visiable--header__left--dropdown">
+                  <span class="el-dropdown-link chart_visiable--header__text u-menu_list u-font-f2f2f2">
+                      <el-icon class="el-icon--right u-margin-right-1rem" v-if="currentProject.type === 'cv'"><Picture /></el-icon>
+                      <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="currentProject.type === 'mal'"><Platform /></el-icon>
+                      <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="currentProject.type === 'eval'"><DataAnalysis /></el-icon>
+                      {{ currentProject.name }}<el-icon class="el-icon--right u-margin-left-1rem"><arrow-down /></el-icon>
+                  </span>
+                  <template #dropdown>
+                  <el-dropdown-menu>
+                          <div class="u-menu_list" v-for="item in projectList" :key="item.id">
+                          <el-dropdown-item @click="changeProject(item),choose_project(),setProjectID(item.id),switchchart()">{{ item.name }} 
+                            <div  v-if="item.type === 'cv'" class="u-flex-center "><el-icon color="#f2f2f2"><Picture /></el-icon></div>
+                            <div v-else-if="item.type === 'mal'" class="u-flex-center "><el-icon  color="#f2f2f2"><Platform /></el-icon></div>
+                            <div v-else-if="item.type === 'eval'" class="u-flex-center "><el-icon  color="#f2f2f2"><DataAnalysis /></el-icon></div>
+                        </el-dropdown-item>
+                          
+                          </div>
+                  </el-dropdown-menu>
+                  </template>
+              </el-dropdown>
+              <div></div>
+              <div class="chart_visiable--header__search">
+              <input
+              autocomplete="off"
+                  type="text"
+                  name="search"
+                  v-model="input2"
+                  class="input_self u-input-dark"
+              />
+              <div class="chart_visiable--header__search__button " ><el-icon><Search /></el-icon></div>
+              </div>
+            </div>
+          </div>
+          <EmptyChart ref="emptyChart" v-show="mainListShow.emptyChart"></EmptyChart>
+          <DlfuzzChart ref="dlfuzzChart" v-show="mainListShow.dlfuzzImage" :currentProject="currentProject" :projectList="projectList" @changeProject="changeProject" @sendAxios="sendAxios" @chooseProject="choose_project" :formPartLogin="formPartLogin" :currentProjectId="current_project_id" @setProjectID="setProjectID">
         </DlfuzzChart>
-
+        <MalfuzzChart ref="malfuzzChart" v-show="mainListShow.malfuzzChart" :currentProject="currentProject" :projectList="projectList" @changeProject="changeProject" @sendAxios="sendAxios" @chooseProject="choose_project" :formPartLogin="formPartLogin" :currentProjectId="current_project_id" @setProjectID="setProjectID">
+        </MalfuzzChart>
+        </div>
+        
         <div class="form-with-guide" v-show="mainListShow.penel">
           <div class="form-with-guide--main-part">
             <div class="form-with-guide--main-part__left">
@@ -219,6 +259,8 @@ const malfuzz = ref();
 const emptypenal = ref();
 const dlfuzzImage = ref();
 const dlfuzzChart = ref();
+const emptyChart = ref();
+const malfuzzChart = ref();
 const headFunction = (tag: string) => {
   if (tag.toUpperCase() == "SUBMIT") {
     submit('http://43.138.12.254:9000/dlfuzz/submit')
@@ -333,13 +375,16 @@ const download = (url: string) => {
 // 控制中心部分显示的结构
 const mainListShow = reactive({
   userhub: true,
+  chart:false,
   penel:false,
   projectshub: false,
   datasetEvaluate: false,
   malfuzz:false,
   emptypenal:false,
   dlfuzzpenel: false,
-  dlfuzzImage: false
+  dlfuzzImage: false,
+  malfuzzChart: false,
+  emptyChart:false,
 });
 // 控制中心部分显示的函数(tools.vue控制)
 const show = (item: string) => {
@@ -377,12 +422,25 @@ const show = (item: string) => {
   else if (item === "activity") {
     closeAllShow()
     mainListShow.dlfuzzImage = true;
-    mainListShow.penel = true;
+    mainListShow.chart = true;
     penel = dlfuzzChart;
     if (projectSubmitState.value) {
       console.log('start.......')
       dlfuzzChart.value.loadChart()
     }
+  }else if (item === "malfuzzchart") {
+    closeAllShow()
+    mainListShow.malfuzzChart = true;
+    mainListShow.chart = true;
+    penel = malfuzzChart;
+   
+    malfuzzChart.value.loadChart()
+    
+  }
+  else if (item === "emptyChart") {
+    closeAllShow()
+    mainListShow.emptyChart = true;
+    mainListShow.chart = true;
   }
 };
 
@@ -393,8 +451,11 @@ const closeAllShow = () => {
   mainListShow.dlfuzzpenel = false;
   mainListShow.malfuzz = false;
   mainListShow.emptypenal = false;
+  mainListShow.chart = false;
+  mainListShow.malfuzzChart = false;
   mainListShow.dlfuzzImage = false;
   mainListShow.datasetEvaluate = false;
+  mainListShow.emptyChart = false;
 }
 const formPartLogin = ref(true)
 function choose_project() {
@@ -420,6 +481,21 @@ function switchpenal() {
     } else if (currentProject.value.type == 'eval') {
       show('datasetEvaluate')
       setStep(datasetEvaluate.value.activeStep,datasetEvaluate.value.stepMessage)
+    }
+  }
+}
+function switchchart() {
+  if (currentProject.value.id == '-1') {
+    show('emptyChart')
+  } else {
+    if (currentProject.value.type == 'cv') {
+      show('activity')
+
+    } else if (currentProject.value.type == 'mal') {
+      show('malfuzzchart')
+
+    } else if (currentProject.value.type == 'eval') {
+      show('datasetEvaluate')
     }
   }
 }

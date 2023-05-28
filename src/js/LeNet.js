@@ -1,4 +1,4 @@
-function LeNet() {
+function LeNet(id) {
 
     /////////////////////////////////////////////////////////////////////////////
     ///////    Variables    ///////
@@ -6,8 +6,8 @@ function LeNet() {
 
     var w = 'window.innerWidth';
     var h = window.innerHeight;
-
-    var svg = d3.select("#graph-container").append("svg").attr("xmlns", "http://www.w3.org/2000/svg");
+    console.log('d3.select(id)', d3.select(id), id)
+    var svg = d3.select(id).append("svg").attr("xmlns", "http://www.w3.org/2000/svg");
     console.log('svg', svg)
 
     var g = svg.append("g");

@@ -1,55 +1,10 @@
 <template>
-    <div class="chart_visiable">
-        <div class="chart_visiable--header">
-            <!-- <h3 class="chart_visiable--header__text">Project-ID</h3> -->
-            <div class="chart_visiable--header__left">
-                <el-dropdown class="chart_visiable--header__left--dropdown">
-                <span class="el-dropdown-link chart_visiable--header__text u-menu_list u-font-f2f2f2">
-                    <el-icon class="el-icon--right u-margin-right-1rem" v-if="props.currentProject.type === 'cv'"><Picture /></el-icon>
-                    <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="props.currentProject.type === 'mal'"><Platform /></el-icon>
-                    <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="props.currentProject.type === 'eval'"><DataAnalysis /></el-icon>
-                    {{ props.currentProject.name }}<el-icon class="el-icon--right u-margin-left-1rem"><arrow-down /></el-icon>
-                </span>
-                <template #dropdown>
-                <el-dropdown-menu>
-                        <div class="u-menu_list" v-for="item in props.projectList" :key="item.id">
-                        <el-dropdown-item @click="emits('changeProject',item),emits('chooseProject'),emits('setProjectID',item.id)">{{ item.name }} 
-                          <div  v-if="item.type === 'cv'" class="u-flex-center "><el-icon color="#f2f2f2"><Picture /></el-icon></div>
-                          <div v-else-if="item.type === 'mal'" class="u-flex-center "><el-icon  color="#f2f2f2"><Platform /></el-icon></div>
-                          <div v-else-if="item.type === 'eval'" class="u-flex-center "><el-icon  color="#f2f2f2"><DataAnalysis /></el-icon></div>
-                      </el-dropdown-item>
-                        
-                        </div>
-                </el-dropdown-menu>
-                </template>
-            </el-dropdown>
-            <div></div>
-            <div class="chart_visiable--header__search">
-            <input
-            autocomplete="off"
-                type="text"
-                name="search"
-                v-model="input2"
-                class="input_self u-input-dark"
-            />
-            <div class="chart_visiable--header__search__button " @click="loadChart"><el-icon><Search /></el-icon></div>
-            </div>
-          </div>
-          
-            
-        </div>
-        <div 
-            class="chart_visiable--bottom" 
-            style="display:flex;align-items: center;justify-content: center;flex-wrap: wrap;"
-            v-if="props.formPartLogin"
-            >
-            <div>
-              <img src="../img/empty.png" alt="">
-               <div style="font-size: 2rem;color: #f2f2f2;">请选择一个项目</div>
-            </div>
-          </div>
-        <div v-else :class="{'chart_visiable--bottom': !fullscreenboolean, 'chart_visiable--bottom__fullscreen':fullscreenboolean}">
+   
+        
+       
+        <div :class="{'chart_visiable--bottom': !fullscreenboolean, 'chart_visiable--bottom__fullscreen':fullscreenboolean}">
           <el-scrollbar>
+            <h2 class="chart_visiable--title">计算机视觉模型</h2>
             <el-icon class="chart_visiable--fullscreenbutton" @click="fullscreen"><FullScreen /></el-icon>
             <div class="chart_visiable--columns-2-3" > 
                 <div class="chart-card">
@@ -159,7 +114,7 @@
             </div>
           </el-scrollbar>
       </div>
-    </div>
+    
 </template>
 <script lang="ts" setup>
 import axios from "axios";
@@ -415,7 +370,7 @@ async function loadChart() {
   let ref_2WH =await getRefCurrentWH(ref_2)
   myEcharts2 = echarts.init(ref_2.value,'',ref_2WH);
   myEcharts2.setOption(option);
-  nnsvg_ref.value.init()
+  nnsvg_ref.value.init('dlfuzz_graph')
   let formDataObject = new FormData();
   let userID: any = Cookies.get('userID')
   if (userID) {

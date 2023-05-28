@@ -23,6 +23,7 @@
                       <el-icon class="el-icon--right u-margin-right-1rem" v-if="currentProject.type === 'cv'"><Picture /></el-icon>
                       <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="currentProject.type === 'mal'"><Platform /></el-icon>
                       <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="currentProject.type === 'eval'"><DataAnalysis /></el-icon>
+                      <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="currentProject.type === 'reinforce'"><svg t="1685245817415"  viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4321" ><path d="M409.6 750.933l34.133 68.267H170.667v136.533h682.666V819.2H580.267l34.133-68.267h238.933A68.267 68.267 0 0 1 921.6 819.2v136.533A68.267 68.267 0 0 1 853.333 1024H170.667a68.267 68.267 0 0 1-68.267-68.267V819.2a68.267 68.267 0 0 1 68.267-68.267H409.6zM273.067 68.267h477.866a68.267 68.267 0 0 1 68.267 68.266V614.4a68.267 68.267 0 0 1-68.267 68.267H273.067A68.267 68.267 0 0 1 204.8 614.4V136.533a68.267 68.267 0 0 1 68.267-68.266z m0 68.266V614.4h477.866V136.533H273.067z m614.4 102.4a34.133 34.133 0 0 1 34.133 34.134v204.8a34.133 34.133 0 1 1-68.267 0v-204.8a34.133 34.133 0 0 1 34.134-34.134z m-750.934 0a34.133 34.133 0 0 1 34.134 34.134v204.8a34.133 34.133 0 0 1-68.267 0v-204.8a34.133 34.133 0 0 1 34.133-34.134zM989.867 307.2A34.133 34.133 0 0 1 1024 341.333V409.6a34.133 34.133 0 1 1-68.267 0v-68.267a34.133 34.133 0 0 1 34.134-34.133z m-955.734 0a34.133 34.133 0 0 1 34.134 34.133V409.6A34.133 34.133 0 0 1 0 409.6v-68.267A34.133 34.133 0 0 1 34.133 307.2z m341.334 102.4a51.2 51.2 0 1 0 0-102.4 51.2 51.2 0 0 0 0 102.4z m273.066 0a51.2 51.2 0 1 0 0-102.4 51.2 51.2 0 0 0 0 102.4zM512 0a34.133 34.133 0 0 1 34.133 34.133V102.4a34.133 34.133 0 0 1-68.266 0V34.133A34.133 34.133 0 0 1 512 0z m-68.267 614.4a34.133 34.133 0 0 1 34.134 34.133v136.534a34.133 34.133 0 1 1-68.267 0V648.533a34.133 34.133 0 0 1 34.133-34.133z m136.534 0a34.133 34.133 0 0 1 34.133 34.133v136.534a34.133 34.133 0 1 1-68.267 0V648.533a34.133 34.133 0 0 1 34.134-34.133z" p-id="4322" ></path></svg></el-icon>
                       {{ currentProject.name }}<el-icon class="el-icon--right u-margin-left-1rem"><arrow-down /></el-icon>
                   </span>
                   <template #dropdown>
@@ -32,6 +33,8 @@
                             <div  v-if="item.type === 'cv'" class="u-flex-center "><el-icon color="#f2f2f2"><Picture /></el-icon></div>
                             <div v-else-if="item.type === 'mal'" class="u-flex-center "><el-icon  color="#f2f2f2"><Platform /></el-icon></div>
                             <div v-else-if="item.type === 'eval'" class="u-flex-center "><el-icon  color="#f2f2f2"><DataAnalysis /></el-icon></div>
+                            <div v-else-if="item.type === 'reinforce'" class="u-flex-center "><el-icon color="#f2f2f2" ><svg t="1685245817415"  viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4321" ><path d="M409.6 750.933l34.133 68.267H170.667v136.533h682.666V819.2H580.267l34.133-68.267h238.933A68.267 68.267 0 0 1 921.6 819.2v136.533A68.267 68.267 0 0 1 853.333 1024H170.667a68.267 68.267 0 0 1-68.267-68.267V819.2a68.267 68.267 0 0 1 68.267-68.267H409.6zM273.067 68.267h477.866a68.267 68.267 0 0 1 68.267 68.266V614.4a68.267 68.267 0 0 1-68.267 68.267H273.067A68.267 68.267 0 0 1 204.8 614.4V136.533a68.267 68.267 0 0 1 68.267-68.266z m0 68.266V614.4h477.866V136.533H273.067z m614.4 102.4a34.133 34.133 0 0 1 34.133 34.134v204.8a34.133 34.133 0 1 1-68.267 0v-204.8a34.133 34.133 0 0 1 34.134-34.134z m-750.934 0a34.133 34.133 0 0 1 34.134 34.134v204.8a34.133 34.133 0 0 1-68.267 0v-204.8a34.133 34.133 0 0 1 34.133-34.134zM989.867 307.2A34.133 34.133 0 0 1 1024 341.333V409.6a34.133 34.133 0 1 1-68.267 0v-68.267a34.133 34.133 0 0 1 34.134-34.133z m-955.734 0a34.133 34.133 0 0 1 34.134 34.133V409.6A34.133 34.133 0 0 1 0 409.6v-68.267A34.133 34.133 0 0 1 34.133 307.2z m341.334 102.4a51.2 51.2 0 1 0 0-102.4 51.2 51.2 0 0 0 0 102.4z m273.066 0a51.2 51.2 0 1 0 0-102.4 51.2 51.2 0 0 0 0 102.4zM512 0a34.133 34.133 0 0 1 34.133 34.133V102.4a34.133 34.133 0 0 1-68.266 0V34.133A34.133 34.133 0 0 1 512 0z m-68.267 614.4a34.133 34.133 0 0 1 34.134 34.133v136.534a34.133 34.133 0 1 1-68.267 0V648.533a34.133 34.133 0 0 1 34.133-34.133z m136.534 0a34.133 34.133 0 0 1 34.133 34.133v136.534a34.133 34.133 0 1 1-68.267 0V648.533a34.133 34.133 0 0 1 34.134-34.133z" p-id="4322" ></path></svg></el-icon></div>
+
                         </el-dropdown-item>
                           
                           </div>
@@ -56,6 +59,8 @@
         </DlfuzzChart>
         <MalfuzzChart ref="malfuzzChart" v-show="mainListShow.malfuzzChart" :currentProject="currentProject" :projectList="projectList" @changeProject="changeProject" @sendAxios="sendAxios" @chooseProject="choose_project" :formPartLogin="formPartLogin" :currentProjectId="current_project_id" @setProjectID="setProjectID">
         </MalfuzzChart>
+        <ReinforcementChart ref="reinforcementChart" v-show="mainListShow.reinforcementChart" :currentProject="currentProject" :projectList="projectList" @changeProject="changeProject" @sendAxios="sendAxios" @chooseProject="choose_project" :formPartLogin="formPartLogin" :currentProjectId="current_project_id" @setProjectID="setProjectID">
+        </ReinforcementChart>
         </div>
         
         <div class="form-with-guide" v-show="mainListShow.penel">
@@ -67,6 +72,7 @@
                   <el-icon class="el-icon--right u-margin-right-1rem" v-if="currentProject.type === 'cv'"><Picture /></el-icon>
                   <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="currentProject.type === 'mal'"><Platform /></el-icon>
                   <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="currentProject.type === 'eval'"><DataAnalysis /></el-icon>
+                  <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="currentProject.type === 'reinforce'"><svg t="1685245817415"  viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4321" ><path d="M409.6 750.933l34.133 68.267H170.667v136.533h682.666V819.2H580.267l34.133-68.267h238.933A68.267 68.267 0 0 1 921.6 819.2v136.533A68.267 68.267 0 0 1 853.333 1024H170.667a68.267 68.267 0 0 1-68.267-68.267V819.2a68.267 68.267 0 0 1 68.267-68.267H409.6zM273.067 68.267h477.866a68.267 68.267 0 0 1 68.267 68.266V614.4a68.267 68.267 0 0 1-68.267 68.267H273.067A68.267 68.267 0 0 1 204.8 614.4V136.533a68.267 68.267 0 0 1 68.267-68.266z m0 68.266V614.4h477.866V136.533H273.067z m614.4 102.4a34.133 34.133 0 0 1 34.133 34.134v204.8a34.133 34.133 0 1 1-68.267 0v-204.8a34.133 34.133 0 0 1 34.134-34.134z m-750.934 0a34.133 34.133 0 0 1 34.134 34.134v204.8a34.133 34.133 0 0 1-68.267 0v-204.8a34.133 34.133 0 0 1 34.133-34.134zM989.867 307.2A34.133 34.133 0 0 1 1024 341.333V409.6a34.133 34.133 0 1 1-68.267 0v-68.267a34.133 34.133 0 0 1 34.134-34.133z m-955.734 0a34.133 34.133 0 0 1 34.134 34.133V409.6A34.133 34.133 0 0 1 0 409.6v-68.267A34.133 34.133 0 0 1 34.133 307.2z m341.334 102.4a51.2 51.2 0 1 0 0-102.4 51.2 51.2 0 0 0 0 102.4z m273.066 0a51.2 51.2 0 1 0 0-102.4 51.2 51.2 0 0 0 0 102.4zM512 0a34.133 34.133 0 0 1 34.133 34.133V102.4a34.133 34.133 0 0 1-68.266 0V34.133A34.133 34.133 0 0 1 512 0z m-68.267 614.4a34.133 34.133 0 0 1 34.134 34.133v136.534a34.133 34.133 0 1 1-68.267 0V648.533a34.133 34.133 0 0 1 34.133-34.133z m136.534 0a34.133 34.133 0 0 1 34.133 34.133v136.534a34.133 34.133 0 1 1-68.267 0V648.533a34.133 34.133 0 0 1 34.134-34.133z" p-id="4322" ></path></svg></el-icon>
                   {{ currentProject.name }}<el-icon class="el-icon--right u-margin-left-1rem"><arrow-down /></el-icon>
                 </span>
                 <template #dropdown>
@@ -77,6 +83,7 @@
                             <div  v-if="item.type === 'cv'" class="u-flex-center "><el-icon color="#f2f2f2"><Picture /></el-icon></div>
                             <div v-else-if="item.type === 'mal'" class="u-flex-center "><el-icon  color="#f2f2f2"><Platform /></el-icon></div>
                             <div v-else-if="item.type === 'eval'" class="u-flex-center "><el-icon  color="#f2f2f2"><DataAnalysis /></el-icon></div>
+                            <div v-else-if="item.type === 'reinforce'" class="u-flex-center "><el-icon color="#f2f2f2" ><svg t="1685245817415"  viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4321" ><path d="M409.6 750.933l34.133 68.267H170.667v136.533h682.666V819.2H580.267l34.133-68.267h238.933A68.267 68.267 0 0 1 921.6 819.2v136.533A68.267 68.267 0 0 1 853.333 1024H170.667a68.267 68.267 0 0 1-68.267-68.267V819.2a68.267 68.267 0 0 1 68.267-68.267H409.6zM273.067 68.267h477.866a68.267 68.267 0 0 1 68.267 68.266V614.4a68.267 68.267 0 0 1-68.267 68.267H273.067A68.267 68.267 0 0 1 204.8 614.4V136.533a68.267 68.267 0 0 1 68.267-68.266z m0 68.266V614.4h477.866V136.533H273.067z m614.4 102.4a34.133 34.133 0 0 1 34.133 34.134v204.8a34.133 34.133 0 1 1-68.267 0v-204.8a34.133 34.133 0 0 1 34.134-34.134z m-750.934 0a34.133 34.133 0 0 1 34.134 34.134v204.8a34.133 34.133 0 0 1-68.267 0v-204.8a34.133 34.133 0 0 1 34.133-34.134zM989.867 307.2A34.133 34.133 0 0 1 1024 341.333V409.6a34.133 34.133 0 1 1-68.267 0v-68.267a34.133 34.133 0 0 1 34.134-34.133z m-955.734 0a34.133 34.133 0 0 1 34.134 34.133V409.6A34.133 34.133 0 0 1 0 409.6v-68.267A34.133 34.133 0 0 1 34.133 307.2z m341.334 102.4a51.2 51.2 0 1 0 0-102.4 51.2 51.2 0 0 0 0 102.4z m273.066 0a51.2 51.2 0 1 0 0-102.4 51.2 51.2 0 0 0 0 102.4zM512 0a34.133 34.133 0 0 1 34.133 34.133V102.4a34.133 34.133 0 0 1-68.266 0V34.133A34.133 34.133 0 0 1 512 0z m-68.267 614.4a34.133 34.133 0 0 1 34.134 34.133v136.534a34.133 34.133 0 1 1-68.267 0V648.533a34.133 34.133 0 0 1 34.133-34.133z m136.534 0a34.133 34.133 0 0 1 34.133 34.133v136.534a34.133 34.133 0 1 1-68.267 0V648.533a34.133 34.133 0 0 1 34.134-34.133z" p-id="4322" ></path></svg></el-icon></div>
                         </el-dropdown-item>
                         </div>
                   
@@ -110,6 +117,11 @@
                   <HeaderTag v-show="mainListShow.malfuzz" :topList="topList" @changeOpenASide="changeOpenASide" @headFunction="malheadFunction" ></HeaderTag>
                 </template>
               </Malfuzz>
+              <Reinforcementfuzz ref="reinforcement" v-show="mainListShow.reinforcement"  :currentProjectId="current_project_id"  @setstep="setStep">
+                <template v-slot:Submit_button>
+                  <HeaderTag v-show="mainListShow.reinforcement" :topList="topList" @changeOpenASide="changeOpenASide" @headFunction="malheadFunction" ></HeaderTag>
+                </template>
+              </Reinforcementfuzz>
               <Emptypenal ref="emptypenal" v-show="mainListShow.emptypenal"  :currentProjectId="current_project_id"  @setstep="setStep">
                 <template v-slot:Submit_button>
                   <HeaderTag v-show="mainListShow.emptypenal" :topList="topList" @changeOpenASide="changeOpenASide" @headFunction="malheadFunction" ></HeaderTag>
@@ -256,11 +268,13 @@ const dlfuzzPenel = ref();
 const datasetEvaluate = ref();
 const introduction = ref();
 const malfuzz = ref();
+const reinforcement = ref()
 const emptypenal = ref();
 const dlfuzzImage = ref();
 const dlfuzzChart = ref();
 const emptyChart = ref();
 const malfuzzChart = ref();
+const reinforcementChart = ref();
 const headFunction = (tag: string) => {
   if (tag.toUpperCase() == "SUBMIT") {
     submit('http://43.138.12.254:9000/dlfuzz/submit')
@@ -379,11 +393,13 @@ const mainListShow = reactive({
   penel:false,
   projectshub: false,
   datasetEvaluate: false,
-  malfuzz:false,
+  malfuzz: false,
+  reinforcement:false,
   emptypenal:false,
   dlfuzzpenel: false,
   dlfuzzImage: false,
   malfuzzChart: false,
+  reinforcementChart: false,
   emptyChart:false,
 });
 // 控制中心部分显示的函数(tools.vue控制)
@@ -414,6 +430,12 @@ const show = (item: string) => {
     mainListShow.penel = true;
     penel = malfuzz;
   }
+  else if (item === "reinforcement") {
+    closeAllShow()
+    mainListShow.reinforcement = true;
+    mainListShow.penel = true;
+    penel = reinforcement;
+  }
   else if (item === "emptypenal") {
     closeAllShow()
     mainListShow.emptypenal = true;
@@ -424,10 +446,10 @@ const show = (item: string) => {
     mainListShow.dlfuzzImage = true;
     mainListShow.chart = true;
     penel = dlfuzzChart;
-    if (projectSubmitState.value) {
+    // if (projectSubmitState.value) {
       console.log('start.......')
       dlfuzzChart.value.loadChart()
-    }
+    // }
   }else if (item === "malfuzzchart") {
     closeAllShow()
     mainListShow.malfuzzChart = true;
@@ -435,6 +457,15 @@ const show = (item: string) => {
     penel = malfuzzChart;
    
     malfuzzChart.value.loadChart()
+    
+  }
+  else if (item === "reinforcementChart") {
+    closeAllShow()
+    mainListShow.reinforcementChart = true;
+    mainListShow.chart = true;
+    penel = reinforcementChart;
+   
+    reinforcementChart.value.loadChart()
     
   }
   else if (item === "emptyChart") {
@@ -450,9 +481,11 @@ const closeAllShow = () => {
   mainListShow.projectshub = false;
   mainListShow.dlfuzzpenel = false;
   mainListShow.malfuzz = false;
+  mainListShow.reinforcement = false;
   mainListShow.emptypenal = false;
   mainListShow.chart = false;
   mainListShow.malfuzzChart = false;
+  mainListShow.reinforcementChart = false;
   mainListShow.dlfuzzImage = false;
   mainListShow.datasetEvaluate = false;
   mainListShow.emptyChart = false;
@@ -481,6 +514,9 @@ function switchpenal() {
     } else if (currentProject.value.type == 'eval') {
       show('datasetEvaluate')
       setStep(datasetEvaluate.value.activeStep,datasetEvaluate.value.stepMessage)
+    } else if (currentProject.value.type == 'reinforce') {
+      show('reinforcement')
+      setStep(reinforcement.value.activeStep,reinforcement.value.stepMessage)
     }
   }
 }
@@ -496,6 +532,8 @@ function switchchart() {
 
     } else if (currentProject.value.type == 'eval') {
       show('datasetEvaluate')
+    }else if (currentProject.value.type == 'reinforce') {
+      show('reinforcementChart')
     }
   }
 }

@@ -42,6 +42,7 @@ declare module '@vue/runtime-core' {
     NavigationButton: typeof import('./src/components/navigationButton.vue')['default']
     Nnsvg: typeof import('./src/components/nnsvg.vue')['default']
     Projectshub: typeof import('./src/components/projectshub.vue')['default']
+    ReinforcementChart: typeof import('./src/components/reinforcementChart.vue')['default']
     Reinforcementfuzz: typeof import('./src/components/reinforcementfuzz.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

@@ -9,7 +9,7 @@
             <div class="chart_visiable--columns-2-3" > 
                 <div class="chart-card">
                     <div class="chart-card__rainbow"></div>
-                    <div class="chart-card--list-title">Result</div>
+                    <div class="chart-card--list-title">对抗样本</div>
                     <div class="chart-card--list-box" ref="ref_4">
                       <!-- <div class="chart-card--list-box--title">res</div> -->
                       <el-auto-resizer>
@@ -35,9 +35,9 @@
                     <div class="chart_visiable--columns-3 chart-card--list-box" style="height: 100%;">
                       <div class="statistic-card">
                         <div class="statistic-card--icon statistic-card--icon__green"><el-icon ><Platform /></el-icon></div>
-                        <span class="statistic-card--text statistic-card--text__up">Perturb adversial per round</span>
+                        <span class="statistic-card--text statistic-card--text__up">对抗样本扰动</span>
                         <span class="statistic-card--value">{{ perturbAdversial }}</span>
-                        <span class="statistic-card--text statistic-card--text__down">than last round
+                        <span class="statistic-card--text statistic-card--text__down">比上一轮
                           <span v-if="Number(perturbAdversialRate)>=0" style="color:green">{{ perturbAdversialRate }}%
                             <el-icon ><CaretTop /></el-icon>
                           </span>
@@ -48,9 +48,9 @@
                       </div>
                       <div class="statistic-card">
                         <div class="statistic-card--icon statistic-card--icon__purple"><el-icon><BellFilled /></el-icon></div>
-                        <span class="statistic-card--text statistic-card--text__up">Time cost per round</span>
+                        <span class="statistic-card--text statistic-card--text__up">产生对抗样本的时间消耗</span>
                         <span class="statistic-card--value">{{ usedTime }} S</span>
-                        <span class="statistic-card--text statistic-card--text__down">than last round
+                        <span class="statistic-card--text statistic-card--text__down">比上一轮
                           <span v-if="Number(usedTimeRate)>=0" style="color:green">{{ usedTimeRate }}%
                             <el-icon ><CaretTop /></el-icon>
                           </span>
@@ -61,9 +61,9 @@
                       </div>
                       <div class="statistic-card">
                         <div class="statistic-card--icon statistic-card--icon__organge"><el-icon><MagicStick /></el-icon></div>
-                        <span class="statistic-card--text statistic-card--text__up">L2 norm per round</span>
+                        <span class="statistic-card--text statistic-card--text__up">扰动的L2范数</span>
                         <span class="statistic-card--value">{{ L2Norm }}</span>
-                        <span class="statistic-card--text statistic-card--text__down">than last round
+                        <span class="statistic-card--text statistic-card--text__down">比上一轮
                           <span v-if="Number(L2NormRate)>=0" style="color:green">{{ L2NormRate }}%
                             <el-icon ><CaretTop /></el-icon>
                           </span>
@@ -85,14 +85,14 @@
             <div class="chart_visiable--columns-1-2"> 
                 <div class="chart-card" >
                     <div class="chart-card--title"></div>
-                    <div class="chart-card--list-title u-fontsize-3rem">Neuron Coverage </div>
+                    <div class="chart-card--list-title u-fontsize-3rem">种子池</div>
                     <div ref="ref_1"  class="chart-card--chart chart-card--chart--square">
                       
                     </div>      
                 </div>
                 <div class="chart-card" >
                     <div class="chart-card--title"></div>
-                    <div class="chart-card--list-title u-fontsize-3rem">Neuron Coverage </div>
+                    <div class="chart-card--list-title u-fontsize-3rem">Fuzz数据</div>
                     <div ref="ref_2" class="chart-card--chart chart-card--chart--rectangle"></div>      
                 </div>
                 <!-- <div class="chart-card" >
@@ -377,6 +377,8 @@ async function loadChart() {
       formDataObject.append('user_id', userID);
   } else { return }
   formDataObject.append('project_id', props.currentProjectId)
+  console.log('loadchart');
+  
   if(timer){return}
   timer = setInterval(function () {
     axios.post('http://43.138.12.254:9000/dlfuzz/request', formDataObject).then((response) => {
@@ -409,7 +411,21 @@ async function loadChart() {
         nnsvg_ref.value.build_graph(dataMap)
         myEcharts2.setOption({
             legend: {
-              data: ['Neuron Coverage', 'L2norm', 'Perturb Adversial']
+              data: ['Neuron Coverage', 'L2norm', 'Perturb Adversial'],
+              orient: 'vertical',
+              x:'left',      //可设定图例在左、右、居中
+              y: 'top',     //可设定图例在上、下、居中
+              textStyle:{
+                fontSize: 12,//字体大小
+                color: '#f2f2f2'//字体颜色
+              },
+          },
+          grid: {
+              left: '3%',
+              right: '4%',
+              bottom: '3%',
+              top:60,
+              containLabel: true
             },
             series: [
               {
@@ -427,7 +443,21 @@ async function loadChart() {
                 type: 'line',
                 data: perturbdataList
               }
-            ]
+          ],
+          xAxis: {
+            type: 'value',
+            splitLine: {
+              show: false
+            }
+          },
+          yAxis: {
+            type: 'log',
+            min: 0.1,
+            logBase: 10,
+            splitLine: {
+              show: false
+            }
+          },
         });
 
         for (let cnt = 0; cnt < response.data.imgList.length; cnt++){
@@ -580,7 +610,7 @@ let option = {
     }
   },
   yAxis: {
-    type: 'value',
+    type: 'log',
     splitLine: {
       show: false
     }

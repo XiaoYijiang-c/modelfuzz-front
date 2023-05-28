@@ -1,6 +1,4 @@
 <template>
-
-        
         <div class="form-with-guide--main-part__left--bottom" >
           <el-scrollbar>
             <el-form 
@@ -10,8 +8,6 @@
             >
             <h3 class="form-with-guide--main-part__left--title u-font-f2f2f2">上传恶意代码检测模型</h3>
               <div class="uploadButton" style="grid-template-columns:repeat(5 ,20%)">
-                <!-- <div style="width: 15%"></div> -->
-                
                   <div class="single-card-two-button">
                     <p>上传模型源码</p>
                     <div class="single-card-two-button--icon-box">
@@ -26,8 +22,6 @@
                       <span class="single-card-two-button--button__right btn">模版</span>
                     </el-upload>
                   </div>
-                  
-                    <!-- <el-card shadow="hover">上传模型源码</el-card> -->
                     <div class="single-card-two-button">
                     <p>上传待测模型</p>
                     <div class="single-card-two-button--icon-box">
@@ -42,7 +36,6 @@
                       <span class="single-card-two-button--button__right btn">模版</span>
                     </el-upload>
                   </div>
-  
                   <div class="single-card-two-button">
                     <p>上传种子集</p>
                     <div class="single-card-two-button--icon-box">
@@ -57,7 +50,6 @@
                       <span class="single-card-two-button--button__right btn">模版</span>
                     </el-upload>
                   </div>
-
                   <div class="single-card-two-button">
                     <p>上传良性字节文件</p>
                     <div class="single-card-two-button--icon-box">
@@ -72,7 +64,6 @@
                       <span class="single-card-two-button--button__right btn">模版</span>
                     </el-upload>
                   </div>
-  
                   <div class="single-card-two-button">
                     <p>上传预处理文件</p>
                     <div class="single-card-two-button--icon-box">
@@ -87,7 +78,6 @@
                       <span class="single-card-two-button--button__right btn">模版</span>
                     </el-upload>
                   </div>
-            
               </div>
               <div class="left-img-card">
                 <div class="left-img-card--img-box">
@@ -125,65 +115,17 @@
                   <div class="input-box u-margin-left-2rem">
                     <span class="input-label">覆盖率阈值</span>
                     <div style="display:grid;grid-template-columns: 65% 5% 30%;width: 100%;"> 
-                      
                       <input type="text" autocomplete="off" name="search" class="input_self u-input-transparent"  v-model="form.value" >
                     </div>
                   </div>
-                    
-                  
                 </div>
               </div>
               <div></div>
-              
             </div>
             <slot name="Submit_button"></slot>
-            <!-- <Header-tag :topList="['submit']"></Header-tag> -->
-              
-              
             </el-form>
           </el-scrollbar>
         </div>
-      
-     
-      <!-- <div class="form-with-guide--main-part__right">
-        <div style="height: 300px;position:sticky;top:2rem">
-          <el-steps direction="vertical" :active="activeStep" finish-status="success">
-            <el-step title="Step 1"  style="background-color: transparent;">
-             <template v-slot:description>
-                <span  class="step-text">Upload the models and seeds to be tested</span>
-             </template>
-             <template v-slot:title>
-                <span  class="step-title">Step 1</span>
-             </template>
-            </el-step>
-            <el-step title="Step 2"  style="background-color: transparent;">
-             <template v-slot:description>
-                <span class="step-text">Provide basic information about the model</span>
-             </template>
-             <template v-slot:title>
-                <span  class="step-title">Step 2</span>
-             </template>
-            </el-step>
-            <el-step title="Step 3"  style="background-color: transparent;">
-             <template v-slot:description>
-                <span class="step-text">Check Fuzz parameters</span>
-             </template>
-             <template v-slot:title>
-                <span  class="step-title">Step 3</span>
-             </template>
-            </el-step>
-            <el-step title="Step 3"  style="background-color: transparent;">
-             <template v-slot:description>
-                <span class="step-text">Submit immediately</span>
-             </template>
-             <template v-slot:title>
-                <span  class="step-title">Step 4</span>
-             </template>
-            </el-step>
-          </el-steps>
-        </div>
-      </div> -->
-
   </template>
   <script lang="ts" setup>
   import { reactive ,Ref} from "vue";
@@ -203,7 +145,6 @@
       name: string;
       id:string
   }
-  // type Type_List = 'cv' | 'mal'
   const props = defineProps<{
     currentProject: Project,
     projectList: Project[],

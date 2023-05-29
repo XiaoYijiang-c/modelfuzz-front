@@ -28,10 +28,19 @@ const Projectshub = {
 }
 
 const skeleton = {
-    prompt_message: 'Select Your Project'
+    prompt_message: 'Select Your Project',
+    step_0: 'step 1',
+    step_1: 'step 2',
+    step_2: 'step 3',
+    step_3: 'step 4',
+    step_message_0: 'Upload the model and dataset to be tested',
+    step_message_1: 'Provide basic model information',
+    step_message_2: 'Confirm fuzzy parameters',
+    step_message_3: 'SUBMIT',
 }
 const empty = {
-    message: 'Please Select Your Project'
+    message: 'Please Select Your Project',
+    step: 'step 1'
 }
 
 const aside_tools = {
@@ -52,6 +61,7 @@ const datasetEvaluate = {
     label_0: 'Model Function Name',
     label_1: 'Preprocessing Function Name',
     label_2: 'Input Dimension',
+    step_0: 'Upload Model Structure Code And Dataset',
 }
 // 按功能模块导出
 export default {

@@ -29,11 +29,20 @@ const Projectshub = {
 }
 
 const skeleton = {
-    prompt_message: '选择你的项目'
+    prompt_message: '选择你的项目',
+    step_0: '第一步',
+    step_1: '第二步',
+    step_2: '第三步',
+    step_3: '第四步',
+    step_message_0: '第一步',
+    step_message_1: '第二步',
+    step_message_2: '第三步',
+    step_message_3: '第四步',
 }
 
 const empty = {
-    message: '请选择你的项目'
+    message: '请选择你的项目',
+    step: '第一步'
 }
 
 const aside_tools = {
@@ -53,6 +62,7 @@ const datasetEvaluate = {
     label_0: '模型函数名',
     label_1: '预处理函数名',
     label_2: '输入维度',
+
 }
 // 按功能模块导出
 export default {

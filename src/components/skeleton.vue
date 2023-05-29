@@ -138,16 +138,50 @@
             </div>
             <div class="form-with-guide--main-part__right">
               <div style="height: 300px;position:sticky;top:2rem">
-                <el-steps direction="vertical" :active="activeStep" finish-status="success">
-                  <el-step :title="item.title"  style="background-color: transparent;" v-for="item in stepMessage" :key="item.title">
+                <el-steps direction="vertical" :active="activeStep" finish-status="success" v-if="currentProject.id == '-1'">
+                  <el-step :title="$t('empty.step')"  style="background-color: transparent;" >
                     <template v-slot:description>
-                        <span  class="step-text">{{ item.message }}</span>
+                        <span  class="step-text">{{ $t('empty.message') }}</span>
                     </template>
                     <template v-slot:title>
-                        <span  class="step-title">{{ item.title }}</span>
+                        <span  class="step-title">{{  $t('empty.step') }}</span>
                     </template>
                   </el-step>
                   
+                </el-steps>
+                <el-steps direction="vertical" :active="activeStep" finish-status="success" v-else>
+                  <el-step :title="$t('skeleton.step_0')"  style="background-color: transparent;" >
+                    <template v-slot:description>
+                        <span  class="step-text">{{ $t('skeleton.step_message_0') }}</span>
+                    </template>
+                    <template v-slot:title>
+                        <span  class="step-title">{{  $t('skeleton.step_0') }}</span>
+                    </template>
+                  </el-step>
+                  <el-step :title="$t('skeleton.step_1')"  style="background-color: transparent;" >
+                    <template v-slot:description>
+                        <span  class="step-text">{{ $t('skeleton.step_message_1') }}</span>
+                    </template>
+                    <template v-slot:title>
+                        <span  class="step-title">{{  $t('skeleton.step_1') }}</span>
+                    </template>
+                  </el-step>
+                  <el-step :title="$t('skeleton.step_2')"  style="background-color: transparent;" >
+                    <template v-slot:description>
+                        <span  class="step-text">{{ $t('skeleton.step_message_2') }}</span>
+                    </template>
+                    <template v-slot:title>
+                        <span  class="step-title">{{  $t('skeleton.step_2') }}</span>
+                    </template>
+                  </el-step>
+                  <el-step :title="$t('skeleton.step_3')"  style="background-color: transparent;" >
+                    <template v-slot:description>
+                        <span  class="step-text">{{ $t('skeleton.step_message_3') }}</span>
+                    </template>
+                    <template v-slot:title>
+                        <span  class="step-title">{{  $t('skeleton.step_3') }}</span>
+                    </template>
+                  </el-step>
                 </el-steps>
               </div>
             </div>

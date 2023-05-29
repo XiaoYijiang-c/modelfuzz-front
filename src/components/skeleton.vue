@@ -185,8 +185,9 @@ import message from "../json/message.json"
 import { Obj } from "@popperjs/core";
 import { useI18n } from "vue-i18n";
 
-const { locale } = useI18n({ useScope: "global" });
+const { locale,t } = useI18n({ useScope: "global" });
 function changeLanguage() {
+   currentProject.value.name = t('skeleton.prompt_message')
     if (locale.value == 'zh-CN') {
         locale.value = "en-US"; // 切换成英文
     } else if (locale.value == 'en-US') {
@@ -231,7 +232,7 @@ const projectSubmitState:Ref<boolean> = ref(false)
 
 const currentProject: Ref<Project> = ref({
   type: '',
-  name: '选择你的项目',
+  name: t('skeleton.prompt_message'),
   id:'-1'
 })
 const projectList: Ref<Project[]> = ref(props.loginMessage.projects)

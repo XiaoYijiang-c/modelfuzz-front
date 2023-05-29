@@ -26,7 +26,12 @@ const Projectshub = {
     warn_confirm: "confirm",
     warn_cancal: "cancel",
 }
+
+const skeleton = {
+    prompt_message: 'Select Your Project'
+}
+
 // 按功能模块导出
 export default {
-    FirstPage, Userhub, Projectshub
+    FirstPage, Userhub, Projectshub, skeleton
 }

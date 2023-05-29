@@ -6,7 +6,7 @@
           >
           <div>
                 <img src="../img/empty.png" alt="">
-                 <div style="font-size: 2rem;color: #f2f2f2;">请选择一个项目</div>
+                 <div style="font-size: 2rem;color: #f2f2f2;">{{ $t('empty.message') }}</div>
               </div>
         </div>
         

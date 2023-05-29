@@ -42,8 +42,25 @@ const aside_tools = {
     item_2: '项目管理',
     item_3: '个人设置',
 }
-
+const datasetEvaluate = {
+    title: '上传模型和数据集',
+    button_0: '选择文件',
+    button_1: '模版',
+    card_title_0: '上传模型结构源码',
+    card_title_1: '上传待测模型',
+    card_title_2: '上传待测数据集',
+    card_title_3: '上传预处理文件',
+    label_0: '模型函数名',
+    label_1: '预处理函数名',
+    label_2: '输入维度',
+}
 // 按功能模块导出
 export default {
-    FirstPage, Userhub, Projectshub, skeleton, empty, aside_tools
+    FirstPage,
+    Userhub,
+    Projectshub,
+    skeleton,
+    empty,
+    aside_tools,
+    datasetEvaluate,
 }

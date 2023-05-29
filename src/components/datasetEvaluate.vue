@@ -4,12 +4,12 @@
         <el-scrollbar>
         
         <el-form :model="form" label-width="30%" ref="formdata" style="padding:3rem;">
-          <h3 class="form-with-guide--main-part__left--title u-font-f2f2f2">上传模型和数据集</h3>
+          <h3 class="form-with-guide--main-part__left--title u-font-f2f2f2">{{ $t('datasetEvaluate.title') }}</h3>
           <div class="uploadButton">
             <!-- <div style="width: 15%"></div> -->
             
               <div class="single-card-two-button">
-                <p>上传模型结构源码</p>
+                <p>{{ $t('datasetEvaluate.card_title_0') }}</p>
                 <div class="single-card-two-button--icon-box">
                   <img src="../img/01fenzi4d3a59.png" alt="fenzi">
                 </div>
@@ -17,15 +17,15 @@
                 <el-upload ref="uploadCode" class="button-box" :limit="1" :on-exceed="handleExceedCode" :auto-upload="false"
               :on-change="codeFileChange" :on-remove="codeFileRemove">
                   <template #trigger>
-                    <span class="single-card-two-button--button__left btn">选择文件</span>
+                    <span class="single-card-two-button--button__left btn">{{ $t('datasetEvaluate.button_0') }}</span>
                   </template>
-                  <span class="single-card-two-button--button__right btn">模版</span>
+                  <span class="single-card-two-button--button__right btn">{{ $t('datasetEvaluate.button_1') }}</span>
                 </el-upload>
               </div>
               
                 <!-- <el-card shadow="hover">上传模型源码</el-card> -->
                 <div class="single-card-two-button">
-                <p>上传待测模型</p>
+                <p>{{ $t('datasetEvaluate.card_title_1') }}</p>
                 <div class="single-card-two-button--icon-box">
                   <img src="../img/07deeplearn4d3a59.png" alt="fenzi">
                 </div>
@@ -33,14 +33,14 @@
                 <el-upload ref="uploadModel" class="button-box" :limit="1" :on-exceed="handleExceedModel" :auto-upload="false"
               :on-change="modelFileChange" :on-remove="modelFileRemove">
                   <template #trigger>
-                    <span class="single-card-two-button--button__left btn">选择文件</span>
+                    <span class="single-card-two-button--button__left btn">{{ $t('datasetEvaluate.button_0') }}</span>
                   </template>
-                  <span class="single-card-two-button--button__right btn">模版</span>
+                  <span class="single-card-two-button--button__right btn">{{ $t('datasetEvaluate.button_1') }}</span>
                 </el-upload>
               </div>
   
               <div class="single-card-two-button">
-                <p>上传待测数据集</p>
+                <p>{{ $t('datasetEvaluate.card_title_2') }}</p>
                 <div class="single-card-two-button--icon-box">
                   <img src="../img/04fangshengxue4d3a59.png" alt="fenzi">
                 </div>
@@ -48,14 +48,14 @@
                 <el-upload ref="uploadSeed" class="button-box" :limit="1" :on-exceed="handleExceedSeed" :auto-upload="false"
               :on-change="seedSetChange" :on-remove="seedSetRemove">
                   <template #trigger>
-                    <span class="single-card-two-button--button__left btn">选择文件</span>
+                    <span class="single-card-two-button--button__left btn">{{ $t('datasetEvaluate.button_0') }}</span>
                   </template>
-                  <span class="single-card-two-button--button__right btn">模版</span>
+                  <span class="single-card-two-button--button__right btn">{{ $t('datasetEvaluate.button_1') }}</span>
                 </el-upload>
               </div>
   
               <div class="single-card-two-button">
-                <p>上传预处理文件</p>
+                <p>{{ $t('datasetEvaluate.card_title_3') }}</p>
                 <div class="single-card-two-button--icon-box">
                   <img src="../img/08yunsuanzhongxing4d3a59.png" alt="fenzi">
                 </div>
@@ -63,9 +63,9 @@
                 <el-upload ref="uploadPreprocess" class="button-box" :limit="1" :on-exceed="handleExceedPreprocess" :auto-upload="false"
               :on-change="preprocessingFunction" :on-remove="preprocessingRemove">
                   <template #trigger>
-                    <span class="single-card-two-button--button__left btn">选择文件</span>
+                    <span class="single-card-two-button--button__left btn">{{ $t('datasetEvaluate.button_0') }}</span>
                   </template>
-                  <span class="single-card-two-button--button__right btn">模版</span>
+                  <span class="single-card-two-button--button__right btn">{{ $t('datasetEvaluate.button_1') }}</span>
                 </el-upload>
               </div>
          
@@ -76,11 +76,11 @@
             </div>
             <div class="left-img-card--right-part">
               <div class="input-box u-margin-left-2rem">
-                <span class="input-label">模型函数名</span>
+                <span class="input-label">{{ $t('datasetEvaluate.label_0') }}</span>
                 <input type="text" autocomplete="off" name="search" class="input_self u-input-transparent" v-model="form.load_model_function" placeholder="Please input" @change="allSteps" />
               </div>
               <div class="input-box u-margin-left-2rem">
-                <span class="input-label">预处理函数名</span>
+                <span class="input-label">{{ $t('datasetEvaluate.label_1') }}</span>
                 <input type="text" autocomplete="off" name="search" class="input_self  u-input-transparent" v-model="form.preprocess_function" placeholder="Please input" @change="allSteps" />
               </div>
               <!-- <div class="input-box u-margin-left-2rem">
@@ -92,7 +92,7 @@
                 <input type="text" autocomplete="off" name="search" class="input_self u-input-transparent" v-model="form.layer_name" placeholder="Please input" @change="allSteps" />
               </div> -->
               <div class="input-box u-margin-left-2rem">
-                <span class="input-label">输入维度</span>
+                <span class="input-label">{{ $t('datasetEvaluate.label_2') }}</span>
                 <input type="text" autocomplete="off" name="search" class="input_self  u-input-transparent" v-model="form.shape" placeholder="Please input" @change="allSteps" />
               </div>
             </div>
@@ -426,7 +426,7 @@ emits('setstep',activeStep.value,stepMessage)
     resetFormWapper,
     formPartShow,
     activeStep,
-  stepMessage
+    stepMessage
   });
   </script>
   

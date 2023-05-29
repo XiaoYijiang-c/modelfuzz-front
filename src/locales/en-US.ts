@@ -40,7 +40,26 @@ const aside_tools = {
     item_2: 'Management',
     item_3: 'Settings',
 }
+
+const datasetEvaluate = {
+    title: 'Upload Model And Dataset',
+    button_0: 'Select',
+    button_1: 'Template',
+    card_title_0: 'Upload Model Structure Code',
+    card_title_1: 'Upload The Model To Be Tested',
+    card_title_2: 'Upload Dataset',
+    card_title_3: 'Upload Preprocessing Files',
+    label_0: 'Model Function Name',
+    label_1: 'Preprocessing Function Name',
+    label_2: 'Input Dimension',
+}
 // 按功能模块导出
 export default {
-    FirstPage, Userhub, Projectshub, skeleton, empty, aside_tools
+    FirstPage,
+    Userhub,
+    Projectshub,
+    skeleton,
+    empty,
+    aside_tools,
+    datasetEvaluate
 }

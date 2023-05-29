@@ -20,13 +20,17 @@
               <!-- <h3 class="chart_visiable--header__text">Project-ID</h3> -->
               <div class="chart_visiable--header__left">
                   <el-dropdown class="chart_visiable--header__left--dropdown">
-                  <span class="el-dropdown-link chart_visiable--header__text u-menu_list u-font-f2f2f2">
+                    <span class="el-dropdown-link chart_visiable--header__text u-menu_list u-font-f2f2f2" v-if="currentProject.id == '-1'">
+                      {{ $t('skeleton.prompt_message') }}
+                    </span>
+                  <span class="el-dropdown-link chart_visiable--header__text u-menu_list u-font-f2f2f2" v-else>
                       <el-icon class="el-icon--right u-margin-right-1rem" v-if="currentProject.type === 'cv'"><Picture /></el-icon>
                       <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="currentProject.type === 'mal'"><Platform /></el-icon>
                       <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="currentProject.type === 'eval'"><DataAnalysis /></el-icon>
                       <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="currentProject.type === 'reinforce'"><svg t="1685245817415"  viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4321" ><path d="M409.6 750.933l34.133 68.267H170.667v136.533h682.666V819.2H580.267l34.133-68.267h238.933A68.267 68.267 0 0 1 921.6 819.2v136.533A68.267 68.267 0 0 1 853.333 1024H170.667a68.267 68.267 0 0 1-68.267-68.267V819.2a68.267 68.267 0 0 1 68.267-68.267H409.6zM273.067 68.267h477.866a68.267 68.267 0 0 1 68.267 68.266V614.4a68.267 68.267 0 0 1-68.267 68.267H273.067A68.267 68.267 0 0 1 204.8 614.4V136.533a68.267 68.267 0 0 1 68.267-68.266z m0 68.266V614.4h477.866V136.533H273.067z m614.4 102.4a34.133 34.133 0 0 1 34.133 34.134v204.8a34.133 34.133 0 1 1-68.267 0v-204.8a34.133 34.133 0 0 1 34.134-34.134z m-750.934 0a34.133 34.133 0 0 1 34.134 34.134v204.8a34.133 34.133 0 0 1-68.267 0v-204.8a34.133 34.133 0 0 1 34.133-34.134zM989.867 307.2A34.133 34.133 0 0 1 1024 341.333V409.6a34.133 34.133 0 1 1-68.267 0v-68.267a34.133 34.133 0 0 1 34.134-34.133z m-955.734 0a34.133 34.133 0 0 1 34.134 34.133V409.6A34.133 34.133 0 0 1 0 409.6v-68.267A34.133 34.133 0 0 1 34.133 307.2z m341.334 102.4a51.2 51.2 0 1 0 0-102.4 51.2 51.2 0 0 0 0 102.4z m273.066 0a51.2 51.2 0 1 0 0-102.4 51.2 51.2 0 0 0 0 102.4zM512 0a34.133 34.133 0 0 1 34.133 34.133V102.4a34.133 34.133 0 0 1-68.266 0V34.133A34.133 34.133 0 0 1 512 0z m-68.267 614.4a34.133 34.133 0 0 1 34.134 34.133v136.534a34.133 34.133 0 1 1-68.267 0V648.533a34.133 34.133 0 0 1 34.133-34.133z m136.534 0a34.133 34.133 0 0 1 34.133 34.133v136.534a34.133 34.133 0 1 1-68.267 0V648.533a34.133 34.133 0 0 1 34.134-34.133z" p-id="4322" ></path></svg></el-icon>
                       {{ currentProject.name }}<el-icon class="el-icon--right u-margin-left-1rem"><arrow-down /></el-icon>
                   </span>
+
                   <template #dropdown>
                   <el-dropdown-menu id="el-dropdown-menu-1">
                           <div class="u-menu_list" v-for="item in projectList" :key="item.id">
@@ -69,7 +73,10 @@
             <div class="form-with-guide--main-part__left">
               <div class="form-with-guide--header ">
               <el-dropdown class="form-with-guide--header--dropdown">
-                <span class="el-dropdown-link form-with-guide--header__text u-menu_list u-font-f2f2f2">
+                <span class="el-dropdown-link chart_visiable--header__text u-menu_list u-font-f2f2f2" v-if="currentProject.id == '-1'">
+                      {{ $t('skeleton.prompt_message') }}
+                    </span>
+                <span class="el-dropdown-link form-with-guide--header__text u-menu_list u-font-f2f2f2" v-else>
                   <el-icon class="el-icon--right u-margin-right-1rem" v-if="currentProject.type === 'cv'"><Picture /></el-icon>
                   <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="currentProject.type === 'mal'"><Platform /></el-icon>
                   <el-icon class="el-icon--right u-margin-right-1rem" v-else-if="currentProject.type === 'eval'"><DataAnalysis /></el-icon>
@@ -187,7 +194,7 @@ import { useI18n } from "vue-i18n";
 
 const { locale,t } = useI18n({ useScope: "global" });
 function changeLanguage() {
-   currentProject.value.name = t('skeleton.prompt_message')
+   
     if (locale.value == 'zh-CN') {
         locale.value = "en-US"; // 切换成英文
     } else if (locale.value == 'en-US') {

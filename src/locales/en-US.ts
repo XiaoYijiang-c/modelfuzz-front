@@ -30,8 +30,17 @@ const Projectshub = {
 const skeleton = {
     prompt_message: 'Select Your Project'
 }
+const empty = {
+    message: 'Please Select Your Project'
+}
 
+const aside_tools = {
+    item_0: 'Home',
+    item_1: 'Statistical',
+    item_2: 'Management',
+    item_3: 'Settings',
+}
 // 按功能模块导出
 export default {
-    FirstPage, Userhub, Projectshub, skeleton
+    FirstPage, Userhub, Projectshub, skeleton, empty, aside_tools
 }

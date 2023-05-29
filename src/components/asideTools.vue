@@ -7,7 +7,7 @@
         <li class="tool--list-item"  @click="emits('switchpenal'),clearActiveList(),activeList._1=true" :class="{'tool--list-item--active':activeList._1}">
           <div class="tool--list-item--icon"><el-icon ><House/></el-icon></div>
           <span class="tool--list-item--text">
-            {{ submenu_project.name }}
+            {{ $t('aside_tools.item_0') }}
             <!-- <el-icon v-if="!submenu_project.status"><CaretBottom /></el-icon>
             <el-icon v-else><CaretTop /></el-icon> -->
           </span>
@@ -21,7 +21,7 @@
         <li class="tool--list-item" @click="emits('switchchart'),clearActiveList(),activeList._2=true" :class="{'tool--list-item--active':activeList._2}">
           <div class="tool--list-item--icon"><el-icon><DataAnalysis /></el-icon></div>
           <span class="tool--list-item--text">
-            统计数据
+            {{ $t('aside_tools.item_1') }}
           </span>
         </li>
 
@@ -30,7 +30,7 @@
         <li class="tool--list-item" @click="emits('show','projectshub'),clearActiveList(),activeList._3=true" :class="{'tool--list-item--active':activeList._3}">
           <div class="tool--list-item--icon"><el-icon><Grid /></el-icon></div>
           <span class="tool--list-item--text">
-            {{ submenu_process.name }}
+            {{ $t('aside_tools.item_2') }}
             <!-- <el-icon v-if="!submenu_process.status"><CaretBottom /></el-icon>
             <el-icon v-else><CaretTop /></el-icon> -->
           </span>
@@ -39,7 +39,7 @@
         <li class="tool--list-item" @click="emits('show','userhub'),clearActiveList(),activeList._4=true" :class="{'tool--list-item--active':activeList._4}">
           <div class="tool--list-item--icon"><el-icon><Setting /></el-icon></div>
           <span class="tool--list-item--text">
-            {{ submenu_personal.name }}
+            {{ $t('aside_tools.item_3') }}
             <!-- <el-icon v-if="!submenu_personal.status"><CaretBottom /></el-icon>
             <el-icon v-else><CaretTop /></el-icon> -->
           </span>

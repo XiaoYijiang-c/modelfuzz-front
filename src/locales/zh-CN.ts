@@ -36,7 +36,14 @@ const empty = {
     message: '请选择你的项目'
 }
 
+const aside_tools = {
+    item_0: '项目设置',
+    item_1: '统计数据',
+    item_2: '项目管理',
+    item_3: '个人设置',
+}
+
 // 按功能模块导出
 export default {
-    FirstPage, Userhub, Projectshub, skeleton, empty
+    FirstPage, Userhub, Projectshub, skeleton, empty, aside_tools
 }

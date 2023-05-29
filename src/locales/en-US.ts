@@ -1,5 +1,5 @@
 const FirstPage = {
-    switchLan: 'ZH-CN',
+    switchLan: '切换为中文',
     AImodelfuzz: 'AI Model Fuzz',
     datasetEvaluate: 'Dataset Evaluation',
     modelRobustness: 'Model Robustness Evaluation',

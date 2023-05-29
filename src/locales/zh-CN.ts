@@ -1,5 +1,5 @@
 const FirstPage = {
-    switchLan: 'EN-US',
+    switchLan: 'SwitchLan',
     AImodelfuzz: '人工智能模型模糊测试',
     datasetEvaluate: '数据集评估',
     modelRobustness: '模型鲁棒性评估',
@@ -34,10 +34,10 @@ const skeleton = {
     step_1: '第二步',
     step_2: '第三步',
     step_3: '第四步',
-    step_message_0: '第一步',
-    step_message_1: '第二步',
-    step_message_2: '第三步',
-    step_message_3: '第四步',
+    step_message_0: '上传待测模型和数据集',
+    step_message_1: '提供模型基础信息',
+    step_message_2: '确认模糊测试参数',
+    step_message_3: '提交',
 }
 
 const empty = {

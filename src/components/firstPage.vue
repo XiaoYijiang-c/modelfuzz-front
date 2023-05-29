@@ -1,30 +1,30 @@
 <template>
     <div class="firstpage" style="scroll-snap-type: y mandatory;overflow: scroll;height: 100vh;overflow-x: hidden;" @scroll="touched">
         <!-- <NavigationButton @login="emits('switchPage', 1)"></NavigationButton> -->
-        <div class="navigation" >
+        <div class="navigation" style="user-select: none;">
             <div class="navigation--logo">
                 <img src="../img/logo.png" alt="logo" class="navigation--logo__logo" >
             </div>
             <ul class="navigation--jump">
                 <li class="navigation--jump--item" :class="{'navigation--jump--item__highlight':navigation_jump[0],'navigation--jump--item__eraserlight':!navigation_jump[0]}">
-                    <a href="#fuzz_page"> 人工智能模型模糊测试</a>
+                    <a href="#fuzz_page"> {{ $t("FirstPage.AImodelfuzz") }}</a>
                 </li>
                 <li class="navigation--jump--item" :class="{'navigation--jump--item__highlight':navigation_jump[1],'navigation--jump--item__eraserlight':!navigation_jump[1]}">
-                    <a href="#dataset_evaluate">数据集评估</a>
+                    <a href="#dataset_evaluate">{{ $t("FirstPage.datasetEvaluate") }}</a>
                 </li>
                 <li class="navigation--jump--item" :class="{'navigation--jump--item__highlight':navigation_jump[2],'navigation--jump--item__eraserlight':!navigation_jump[2]}">
-                    <a href="#model_evaluate">模型鲁棒性评估</a>
+                    <a href="#model_evaluate">{{ $t("FirstPage.modelRobustness") }}</a>
                 </li>
                 <li class="navigation--jump--item" :class="{'navigation--jump--item__highlight':navigation_jump[3],'navigation--jump--item__eraserlight':!navigation_jump[3]}">
-                    <a href="#model_retrain">模型重训练</a>
+                    <a href="#model_retrain">{{ $t("FirstPage.retrain") }}</a>
                 </li>
             </ul>
             <ul class="navigation--user">
                 <li class="navigation--user--head">
                     <router-link replace to="/login" @click="emits('switchPage', 1)"><img src="../img/head.png" alt="logo" class="navigation--user--head__head" ></router-link>
                 </li>
-                <li class="navigation--jump--item" @click="checkLogin">个人中心</li>
-                <li class="navigation--jump--item" @click="checkLogin">消息</li>
+                <li class="navigation--jump--item" @click="checkLogin">{{ $t("FirstPage.user") }}</li>
+                <li class="navigation--jump--item" @click="changeLanguage">{{ $t("FirstPage.switchLan") }}</li>
             </ul>
         </div>
         <div class="header header--img-neural  u-scroll-snap-align" >
@@ -36,7 +36,7 @@
                     <span class="heading-primary__main">{{_languageJson['heading_main'] }}</span>
                     <span class="heading-primary__sub">{{_languageJson['heading_sub'] }}</span>
                     <!-- <router-link replace to="/testnnsvg"><a href="#" @click="checkLogin"><span class="btn btn--white">{{_languageJson['heading_btn']}}</span></a></router-link> -->
-                    <a href="#" @click="checkLogin"><span class="btn btn--white">{{_languageJson['heading_btn']}}</span></a>
+                    <a href="#" @click="checkLogin"><span class="btn btn--white">{{ $t('FirstPage.button') }}</span></a>
                 </h1>
             </div>
         </div>
@@ -272,7 +272,7 @@
                 </ul>
             </div>
             <div class="col-1-of-2">
-                <p class="footer__copyright"><a href="#" class="footer__link">Luojiale</a> build this web.\nCopyright@ by LuoJiale. Email:879373096@qq.com. You are 100% allowed to use this webpage for both personal and commercial use. </p>
+                <p class="footer__copyright"><a href="#" class="footer__link">{{ $t("Settings.settings") }}</a> build this web.\nCopyright@ by LuoJiale. Email:879373096@qq.com. You are 100% allowed to use this webpage for both personal and commercial use. </p>
             </div>
         </div>
     </footer>
@@ -283,6 +283,20 @@ import axios from "axios"
 import { ref,reactive,onMounted,Ref} from 'vue'
 import languageJson from "../json/firstPageText.json"
 import Cookies from 'js-cookie'
+import { useI18n } from "vue-i18n";
+
+const { locale } = useI18n({ useScope: "global" });
+function changeLanguage() {
+    if (locale.value == 'zh-CN') {
+        locale.value = "en-US"; // 切换成英文
+    } else if (locale.value == 'en-US') {
+        locale.value = "zh-CN"; // 切换成中文
+    } else {
+        console.warn('changeLanguage Error')
+    }
+     
+}
+
 
 interface LoginMessage {
   username: string;
@@ -327,7 +341,7 @@ async function checkLogin() {
 const emits = defineEmits(["switchPage","setLogin"]);
 let _languageJson= ref(languageJson.English)
 let languageIsEnglish = true
-const changeLanguage = () => {
+const changeLanguage_ = () => {
     if (languageIsEnglish) {
         _languageJson.value = languageJson.Chinese;
     } else {

@@ -2,8 +2,9 @@
   <div class="single-page">
     <div class="navigation navigation__inside">
       <span class="navigation--name">nerual sentinel</span>
-      <div class="navigation--logo" @click="show('datasetEvaluate')">
+      <div class="navigation--logo" >
         <img src="../img/logo.png" alt="logo" class="navigation--logo__logo" >
+        <span class="navigation--button" @click="changeLanguage">{{ $t("FirstPage.switchLan") }}</span>
       </div>
     </div>
     <div class="single-page--main-window">
@@ -182,6 +183,19 @@ import axios from "axios";
 import { ElMessage } from 'element-plus'
 import message from "../json/message.json"
 import { Obj } from "@popperjs/core";
+import { useI18n } from "vue-i18n";
+
+const { locale } = useI18n({ useScope: "global" });
+function changeLanguage() {
+    if (locale.value == 'zh-CN') {
+        locale.value = "en-US"; // 切换成英文
+    } else if (locale.value == 'en-US') {
+        locale.value = "zh-CN"; // 切换成中文
+    } else {
+        console.warn('changeLanguage Error')
+    }
+     
+}
 // onMounted(() => {
 //   penel = dlfuzzPenel;
 //   console.log("onMounted penel",penel)

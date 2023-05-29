@@ -2,7 +2,7 @@
     <el-scrollbar>
     <div class="userhub">
         <span class="userhub--title">
-            <h2>项目列表</h2>
+            <h2>{{ $t('Projectshub.project_list') }}</h2>
             <el-icon style="position: absolute;right:4rem;top:2rem;font-size:3rem;color: #f2f2f2;" @click="add_project=true"><Plus /></el-icon>
         </span>
         <div class="userhub--projectlist">
@@ -30,41 +30,10 @@
             </span> -->
         </div>
         <div class="userhub--footer">
-            <span class="userhub--footer__left" @click="testlastpage">上一页</span>
+            <span class="userhub--footer__left" @click="testlastpage">{{ $t('Projectshub.last_page') }}</span>
             <span class="userhub--footer__mid">{{currentpage}}/{{ totalPage }}</span>
-            <span class="userhub--footer__right"  @click="testnextpage">下一页</span>
+            <span class="userhub--footer__right"  @click="testnextpage">{{ $t('Projectshub.next_page') }}</span>
         </div>
-        <!-- <div class="userhub--projectlist">
-            <div style="height: 10rem;"></div>
-            <div class="chart-card" style="height:50rem">
-                <div class="chart-card__rainbow_2"></div>
-                <div class="chart-card--list-title">{{ props.userMessage.projects_length }} </div>
-                <div class="chart-card--list-tools"><el-icon @click="add_project=true"><CirclePlus /></el-icon></div>
-                <div class="chart-card--list-box" ref="ref_4">
-                    <el-scrollbar>
-                        <ul class="project-list"> 
-                            <li class="project-list--item" v-for="item in props.userMessage.projects" :key="item.id">
-                                <span class="project-list--item--icon">
-                                    <el-icon v-if="item.type === 'cv' "><Picture /></el-icon>
-                                    <el-icon v-else-if="item.type === 'mal' "><Platform /></el-icon>
-                                </span>
-                                
-                                <span class="project-list--item--name">{{ item.name }}</span>
-                                
-                                <div class="project-list--item--icon-box">
-                                    <span class="project-list--item--delete" @click="open(item)">
-                                        <el-icon> <Delete /></el-icon>
-                                    </span>
-                                    <span class="project-list--item--point">
-                                        <el-icon><MoreFilled /></el-icon>
-                                    </span>
-                                </div>
-                            </li>
-                        </ul>
-                    </el-scrollbar>
-                </div>  
-            </div>
-        </div> -->
         <el-dialog v-model="add_project" title="Shipping address" :modal="false" center>
             <el-form>
                 <el-form-item label="project name" >
@@ -94,6 +63,9 @@ import axios from "axios"
 import Cookies from 'js-cookie'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import type { Action } from 'element-plus'
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n({ useScope: "global" });
 const props = defineProps<{
     userMessage: LoginMessage,
 }>();
@@ -122,7 +94,6 @@ function getCurrentPageData() {
 getCurrentPageData()
 function testnextpage() {
     if (currentpage.value === totalPage.value) {
-        console.log('已经是最后一页了')
         return false
       } else {
         currentpage.value++
@@ -131,7 +102,6 @@ function testnextpage() {
 }
 function testlastpage() {
     if (currentpage.value === 1) {
-        console.log('已经是第一页了')
         return false
       } else {
         currentpage.value--
@@ -224,7 +194,7 @@ async function send_delete_project(item:Project) {
     });
 }
 const open = (item:Project) => {
-  ElMessageBox.alert('是否确认删除项目:'+item.name, '警告', {
+  ElMessageBox.alert(t('Projectshub.warn_text')+item.name, t('Projectshub.warn'), {
     // if you want to disable its autofocus
     // autofocus: false,
     confirmButtonText: 'OK',

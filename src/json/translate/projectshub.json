@@ -1,0 +1,16 @@
+{
+    "chinese": {
+        "last_page": "上一页",
+        "next_page": "下一页",
+        "project_list": "项目列表",
+        "warn": "警告",
+        "warn_text": "是否确认删除项目"
+    },
+    "english": {
+        "last_page": "Previous page",
+        "next_page": "Next page",
+        "project_list": "Project list",
+        "warn": "Warning",
+        "warn_text": "Are you sure you want to delete the project?"
+    }
+}

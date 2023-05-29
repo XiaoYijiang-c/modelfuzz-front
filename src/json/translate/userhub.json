@@ -1,0 +1,14 @@
+{
+    "chinese": {
+        "tool_item_0": "项目数",
+        "tool_item_1": "产生结果",
+        "tool_item_2": "新消息",
+        "hot_picture": "了解热力计算方式"
+    },
+    "english": {
+        "tool_item_0": "Projects",
+        "tool_item_1": "Results",
+        "tool_item_2": "Message",
+        "hot_picture": "Understand the heat calculation method"
+    }
+}

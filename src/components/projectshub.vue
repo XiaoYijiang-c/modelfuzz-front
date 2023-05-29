@@ -34,20 +34,20 @@
             <span class="userhub--footer__mid">{{currentpage}}/{{ totalPage }}</span>
             <span class="userhub--footer__right"  @click="testnextpage">{{ $t('Projectshub.next_page') }}</span>
         </div>
-        <el-dialog v-model="add_project" title="Shipping address" :modal="false" center>
+        <el-dialog v-model="add_project" :title="t('Projectshub.project_add')" :modal="false" center>
             <el-form>
-                <el-form-item label="project name" >
+                <el-form-item :label="t('Projectshub.project_name')" >
                     <el-input v-model="add_form.name" placeholder="Please input" />
                 </el-form-item>
-                <el-form-item label="project type" >
+                <el-form-item :label="t('Projectshub.project_type')" >
                     <el-cascader v-model="add_form.type" :options="options"  @change="handleChange"/>
                 </el-form-item>
             </el-form>
         <template #footer>
         <span class="dialog-footer">
-            <el-button @click="add_project = false">Cancel</el-button>
+            <el-button @click="add_project = false">{{ $t('Projectshub.warn_cancal') }}</el-button>
             <el-button type="primary" @click="send_add_project(),add_project = false">
-            Confirm
+                {{ $t('Projectshub.warn_confirm') }}
             </el-button>
         </span>
         </template>
@@ -70,8 +70,6 @@ const props = defineProps<{
     userMessage: LoginMessage,
 }>();
 const emits = defineEmits(["set_projects","switch_to_penel"]);
-const name:Ref<string> = ref('肆夕')
-const titleList: Ref<string[]> = ref(['Student', 'SCU'])
 const testprojectlist: Ref<any[]> = ref(props.userMessage.projects.map((value, index) => {
     value['status'] = false;
     return value

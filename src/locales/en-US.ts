@@ -18,8 +18,13 @@ const Projectshub = {
     last_page: "PreviousPage",
     next_page: "NextPage",
     project_list: "Project List",
+    project_add: "Add Project",
+    project_name: "Project Name",
+    project_type: "Project Type",
     warn: "Warning",
-    warn_text: "Are you sure you want to delete the project:"
+    warn_text: "Are you sure you want to delete the project:",
+    warn_confirm: "confirm",
+    warn_cancal: "cancel",
 }
 // 按功能模块导出
 export default {

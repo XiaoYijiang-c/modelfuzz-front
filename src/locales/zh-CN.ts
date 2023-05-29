@@ -16,11 +16,16 @@ const Userhub = {
 }
 
 const Projectshub = {
-    "last_page": "上一页",
-    "next_page": "下一页",
-    "project_list": "项目列表",
-    "warn": "警告",
-    "warn_text": "是否确认删除项目:"
+    last_page: "上一页",
+    next_page: "下一页",
+    project_list: "项目列表",
+    project_add: "项目列表",
+    project_name: "项目名称",
+    project_type: "项目类型",
+    warn: "警告",
+    warn_text: "是否确认删除项目:",
+    warn_confirm: "确认",
+    warn_cancal: "取消",
 }
 
 // 按功能模块导出

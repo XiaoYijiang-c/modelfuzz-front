@@ -28,9 +28,9 @@
                       {{ currentProject.name }}<el-icon class="el-icon--right u-margin-left-1rem"><arrow-down /></el-icon>
                   </span>
                   <template #dropdown>
-                  <el-dropdown-menu>
+                  <el-dropdown-menu id="el-dropdown-menu-1">
                           <div class="u-menu_list" v-for="item in projectList" :key="item.id">
-                          <el-dropdown-item @click="changeProject(item),choose_project(),setProjectID(item.id),switchchart()">{{ item.name }} 
+                          <el-dropdown-item  @click="changeProject(item),choose_project(),setProjectID(item.id),switchchart()">{{ item.name }} 
                             <div  v-if="item.type === 'cv'" class="u-flex-center "><el-icon color="#f2f2f2"><Picture /></el-icon></div>
                             <div v-else-if="item.type === 'mal'" class="u-flex-center "><el-icon  color="#f2f2f2"><Platform /></el-icon></div>
                             <div v-else-if="item.type === 'eval'" class="u-flex-center "><el-icon  color="#f2f2f2"><DataAnalysis /></el-icon></div>
@@ -77,10 +77,10 @@
                   {{ currentProject.name }}<el-icon class="el-icon--right u-margin-left-1rem"><arrow-down /></el-icon>
                 </span>
                 <template #dropdown>
-                  <el-dropdown-menu>
+                  <el-dropdown-menu id="el-dropdown-menu-2">
                         <div class="u-menu_list" v-for="item in projectList" :key="item.id">
                           
-                          <el-dropdown-item @click="changeProject(item),choose_project(),setProjectID(item.id),switchpenal()">{{ item.name }} 
+                          <el-dropdown-item  @click="changeProject(item),choose_project(),setProjectID(item.id),switchpenal()">{{ item.name }} 
                             <div  v-if="item.type === 'cv'" class="u-flex-center "><el-icon color="#f2f2f2"><Picture /></el-icon></div>
                             <div v-else-if="item.type === 'mal'" class="u-flex-center "><el-icon  color="#f2f2f2"><Platform /></el-icon></div>
                             <div v-else-if="item.type === 'eval'" class="u-flex-center "><el-icon  color="#f2f2f2"><DataAnalysis /></el-icon></div>

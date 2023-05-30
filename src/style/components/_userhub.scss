@@ -10,7 +10,7 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: 20vh;
+        height: 15vh;
         // clip-path: polygon(0 0, 100% 0, 100% 65%, 0 50%);
         background-image: linear-gradient(to right bottom, rgba($console-light, 0.5), rgba($console-dark, 0.8)), url('../img/xp.png');
         background-size: cover;
@@ -18,22 +18,33 @@
     }
     &--head_sculpture {
         position: absolute;
-        top: 15vh;
-        left: 3vw;
+        top: 10vh;
+        left: 1vw;
         background-color: $console-light;
         border-top-left-radius: 1rem;
         border-top-right-radius: 1rem;
+        // width: 23vw;
+        // height: 30vh;
         width: 25vw;
-        height: 68vh;
+        height: 70vh;
         background-image: linear-gradient(to bottom, rgba($console-light, 1), rgba($console-dark, 1));
         // padding: 0 10%;
         display: flex;
-        justify-content: center;
+        justify-content: start;
+        box-shadow: 1px -3px 10px rgba(0, 0, 0, 0.3);
+        &--name {
+            position: absolute;
+            left: 55%;
+            top: 5%;
+            font-size: 3rem;
+            color: #f2f2f2;
+        }
         &--image {
-            width: 20rem;
-            height: 20rem;
+            width: 13rem;
+            height: 13rem;
             // margin: 10rem 5rem;
             margin-top: 2rem;
+            margin-left: 2rem;
             display: flex;
             justify-content: center;
             img {
@@ -42,12 +53,12 @@
                 border-radius: 50%;
                 background-clip: content-box;
                 outline: .5rem solid $console-light;
-                transform: translateY(-15vh);
+                transform: translateY(-10vh);
             }
         }
         &--tools {
             position: absolute;
-            top: 12rem;
+            top: 12vh;
             height: 50vh;
             width: 100%;
             // display: grid;
@@ -175,8 +186,16 @@
         color: #f2f2f2;
         position: absolute;
         bottom: 6vh;
-        right: 5vw;
-        height: 55vh;
-        width: 45vw;
+        left: 0vw;
+        height: 35vh;
+        width: 35vw;
+    }
+    &--bing {
+        color: #f2f2f2;
+        position: absolute;
+        bottom: 6vh;
+        left: 1vw;
+        height: 40vh;
+        width: 25vw;
     }
 }

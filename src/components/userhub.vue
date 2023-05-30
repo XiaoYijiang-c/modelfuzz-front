@@ -1,6 +1,6 @@
 <template>
     
-    <el-scrollbar>
+    
     <div class="userhub">
 
         <div class="userhub--header_image"></div>
@@ -68,7 +68,7 @@
                   <div class="collapse--item--main--item--body">118010</div>
                 </div>
               </div>
-              <span class="collapse--item--main--button btn" v-if="collapse.item_0">查看详情</span>
+              <span class="collapse--item--main--button btn" v-if="collapse.item_0" @click="update_showModal(true)">查看详情</span>
 
             </li>
             <li class="collapse--item">
@@ -102,8 +102,29 @@
             <span style="font-size: 1.3rem;color: #f2f2f2;position: absolute;top: 7%;right: 7%;">{{ $t('Userhub.hot_picture')}}</span>
           </div> -->
           <div class="userhub--bing" ref="bingchart"></div>
+          
     </div>
-    </el-scrollbar>
+    
+    <modal v-if="showModal" @update_showModal="update_showModal">
+      
+        <div class="row">
+          <h2 style="font-size: 3.5rem;color: #f2f2f2;">计算机视觉模型模糊测试项目统计</h2>
+        </div>
+        <div class="row">
+          <div class="col-1-of-3">
+            <div style="height: 40vh;width: 25vw;" ref="bingchart2"></div>
+          </div>
+          <div class="col-2-of-3">
+            <div style="height: 40vh;width: 45vw;" ref="zhuchart4"></div>
+          </div>
+        </div>
+        <div class="row">
+            <div style="height: 65vh;width: 75vw;" ref="zhuchart3"></div>
+        </div>
+        <div class="row">
+            <div style="height: 65vh;width: 75vw;" ref="zhuchart5"></div>
+        </div>
+    </modal>
 </template>
 
 <script lang="ts" setup>
@@ -119,6 +140,24 @@ const toPagePath = (url: string) => {
     router.push({
         path: url,
     });
+}
+const showModal = ref(false);
+async function update_showModal(status:boolean) {
+  showModal.value = status;
+  if (status) {
+    let ref_2WH =  await getRefCurrentWH(bingchart2)
+    myEcharts3 = echarts.init(bingchart2.value,'',ref_2WH);
+    myEcharts3.setOption(option_bing2);
+    let ref_3WH =  await getRefCurrentWH(zhuchart3)
+    myEcharts4 = echarts.init(zhuchart3.value,'',ref_3WH);
+    myEcharts4.setOption(option);
+    let ref_5WH =  await getRefCurrentWH(zhuchart5)
+    myEcharts6 = echarts.init(zhuchart5.value,'',ref_5WH);
+    myEcharts6.setOption(option2);
+    let ref_4WH =  await getRefCurrentWH(zhuchart4)
+    myEcharts5 = echarts.init(zhuchart4.value,'',ref_4WH);
+    myEcharts5.setOption(option_zhu2);
+  }
 }
 const emits = defineEmits(["show",'switchPage']);
 const name:Ref<string> = ref('肆夕')
@@ -181,6 +220,14 @@ let hatchart = ref()
 let myEcharts1 = null
 let bingchart = ref()
 let myEcharts2 = null
+let bingchart2 = ref()
+let myEcharts3 = null
+let zhuchart3 = ref()
+let myEcharts4 = null
+let zhuchart4 = ref()
+let myEcharts5 = null
+let zhuchart5 = ref()
+let myEcharts6 = null
 async function loadChart() {
   //   let ref_1WH =  await getRefCurrentWH(hatchart)
   //   myEcharts1 = echarts.init(hatchart.value,'',ref_1WH);
@@ -204,8 +251,338 @@ function getVirtualData(year: string) {
   }
   return data;
 }
+function generateName(length: number, str:string) {
+  return Array(length).fill(str).map((value, index) => { return value+index.toString() });
+}
+function generateRandomNumbers(length:number, min:number, max:number, decimal:boolean=true) {
+    let result = [];
+  for (let i = 0; i < length; i++) {
+      if(decimal)
+        result.push(Math.floor(Math.random() * (max - min + 1)) + min);
+      else
+        result.push(Math.random() * (max - min) + min);
+      
+    }
+    return result;
+}
 
+let obama_budget_2012 = {
+  names:generateName(100,'project_'),
+  budget2011List:generateRandomNumbers(100,1,10),
+  budget2012List:generateRandomNumbers(100,1,10),
+  budget2013List:generateRandomNumbers(100,0,1,false),
+  budget2014List_1:generateRandomNumbers(100,0,1),
+  budget2014List_2:generateRandomNumbers(100,0,1),
+  budget2014List_3:generateRandomNumbers(100,0,1),
+  budget2014List_4:generateRandomNumbers(100,0,1),
+}
+let obama_budget_2013 = {
+  names:generateName(100,'project_'),
+  average_usedTime:generateRandomNumbers(100,1,10,false),
+  average_perturb_adversial:generateRandomNumbers(100,1,10,false),
+  average_norm:generateRandomNumbers(100,0,1,false),
+  average_neurons_coverage:generateRandomNumbers(100,0,1,false),
+  neurons_coverage_number:generateRandomNumbers(100,0,1000),
+}
 let option = {
+      title:{
+        text: '项目提交的参数',
+        textStyle: {
+          color: "#f2f2f2",
+          fontStyle: "normal",
+          fontFamily: "微软雅黑",
+          fontSize: 20,
+        },
+        left:'center'
+      },
+      tooltip: {
+        trigger: 'axis',
+        textStyle: {
+            borderColor: '#f2f2f2'
+        },
+        axisPointer: {
+          type: 'shadow',
+          label: {
+            show: true
+          }
+        }
+      },
+      toolbox: {
+        show: true,
+        iconStyle: {
+            borderColor: '#f2f2f2'
+        },
+        feature: {
+          mark: { show: true },
+          dataView: { show: true, readOnly: false },
+          magicType: { show: true, type: ['line', 'bar'] },
+          restore: { show: true },
+          saveAsImage: { show: true }
+        }
+      },
+      calculable: true,
+      legend: {
+        data: ['Growth', '神经元覆盖数', '每个种子迭代数', '神经元阈值', '策略1', '策略2', '策略3', '策略4'],
+        itemGap: 5,
+        top: '5%',
+
+        textStyle: {
+          color: "#f2f2f2",
+          fontStyle: "normal",
+          fontFamily: "微软雅黑",
+          fontSize: 15,
+        },
+      },
+      grid: {
+        top: '12%',
+        left: '1%',
+        right: '10%',
+        containLabel: true
+      },
+      xAxis: [
+        {
+          type: 'category',
+          data: obama_budget_2012.names,
+          axisLabel: {                                //坐标轴刻度文字的设置
+            show: true,                                 //是否显示
+            color: '#f2f2f2',                              //坐标轴刻度文字的颜色
+            fontSize:10,                                //坐标轴刻度文字的大小         (用数字表示)
+            fontWeight:'lighter',                        //坐标轴刻度文字的加粗程度    (可选bold   bolder  lighter  normal)
+            fontstyle: 'normal',                        //坐标轴刻度文字的样式          (可选normal  italic   oblique)
+            fontFamily: 'Courier New',
+            rotate: 25,
+            align: 'center',
+            margin:20
+          },
+        }
+      ],
+      yAxis: [
+        {
+          type: 'value',
+          axisLabel: {
+            // formatter: function (a: number) {
+            //   a = +a;
+            //   return isFinite(a) ? echarts.format.addCommas(+a / 1000) : '';
+            // },
+            show: true,                                 
+            color: '#f2f2f2',                              //坐标轴刻度文字的颜色
+            fontSize:13,                                //坐标轴刻度文字的大小         (用数字表示)
+            fontWeight:'lighter',                        //坐标轴刻度文字的加粗程度    (可选bold   bolder  lighter  normal)
+            fontstyle: 'normal',                        //坐标轴刻度文字的样式          (可选normal  italic   oblique)
+            fontFamily: 'Courier New',
+            align: 'center',
+          },
+          splitLine: {
+            show: false,
+          },
+        }
+      ],
+      dataZoom: [
+        {
+          show: true,
+          start: 0,
+          end: 100
+        },
+        {
+          type: 'inside',
+          start: 0,
+          end: 100
+        },
+        {
+          show: true,
+          yAxisIndex: 0,
+          filterMode: 'empty',
+          width: 30,
+          height: '80%',
+          showDataShadow: false,
+          left: '93%'
+        }
+      ],
+      series: [
+        {
+          name: '神经元覆盖数',
+          type: 'bar',
+          data: obama_budget_2012.budget2011List
+        },
+        {
+          name: '每个种子迭代数',
+          type: 'bar',
+          data: obama_budget_2012.budget2012List
+        },
+        {
+          name: '神经元阈值',
+          type: 'bar',
+          data: obama_budget_2012.budget2013List
+        },
+        {
+          name: '策略:Select neurons covered frequently',
+          stack:'one',
+          type: 'bar',
+          data: obama_budget_2012.budget2014List_1
+        },
+        {
+          name: '策略:Select neurons covered rarely',
+          stack:'one',
+          type: 'bar',
+          data: obama_budget_2012.budget2014List_2
+        },
+        {
+          name: '策略:Select neurons with top weights',
+          stack:'one',
+          type: 'bar',
+          data: obama_budget_2012.budget2014List_3
+        },
+        {
+          name: '策略:Select neurons near the activation threshold',
+          stack:'one',
+          type: 'bar',
+          data: obama_budget_2012.budget2014List_4
+        }
+      ]
+};
+let option2 = {
+  title:{
+    text: '项目产生的数据',
+    textStyle: {
+      color: "#f2f2f2",
+      fontStyle: "normal",
+      fontFamily: "微软雅黑",
+      fontSize: 20,
+    },
+    left:'center'
+  },
+  tooltip: {
+    trigger: 'axis',
+    textStyle: {
+        borderColor: '#f2f2f2'
+    },
+    axisPointer: {
+      type: 'shadow',
+      label: {
+        show: true
+      }
+    }
+  },
+  toolbox: {
+    show: true,
+    iconStyle: {
+        borderColor: '#f2f2f2'
+    },
+    feature: {
+      mark: { show: true },
+      dataView: { show: true, readOnly: false },
+      magicType: { show: true, type: ['line', 'bar'] },
+      restore: { show: true },
+      saveAsImage: { show: true }
+    }
+  },
+  calculable: true,
+  legend: {
+    data: ['Growth', '对抗样本平均生成时间', '扰动与原始图像的平均差异', '扰动的平均L2范数', '平均神经元覆盖率', '神经元覆盖数'],
+    itemGap: 5,
+    top: '5%',
+
+    textStyle: {
+      color: "#f2f2f2",
+      fontStyle: "normal",
+      fontFamily: "微软雅黑",
+      fontSize: 15,
+    },
+  },
+  grid: {
+    top: '12%',
+    left: '1%',
+    right: '10%',
+    containLabel: true
+  },
+  xAxis: [
+    {
+      type: 'category',
+      data: obama_budget_2013.names,
+      axisLabel: {                                //坐标轴刻度文字的设置
+        show: true,                                 //是否显示
+        color: '#f2f2f2',                              //坐标轴刻度文字的颜色
+        fontSize:10,                                //坐标轴刻度文字的大小         (用数字表示)
+        fontWeight:'lighter',                        //坐标轴刻度文字的加粗程度    (可选bold   bolder  lighter  normal)
+        fontstyle: 'normal',                        //坐标轴刻度文字的样式          (可选normal  italic   oblique)
+        fontFamily: 'Courier New',
+        rotate: 25,
+        align: 'center',
+        margin:20
+      },
+    }
+  ],
+  yAxis: [
+    {
+      type: 'log',
+      axisLabel: {
+        // formatter: function (a: number) {
+        //   a = +a;
+        //   return isFinite(a) ? echarts.format.addCommas(+a / 1000) : '';
+        // },
+        show: true,                                 
+        color: '#f2f2f2',                              //坐标轴刻度文字的颜色
+        fontSize:13,                                //坐标轴刻度文字的大小         (用数字表示)
+        fontWeight:'lighter',                        //坐标轴刻度文字的加粗程度    (可选bold   bolder  lighter  normal)
+        fontstyle: 'normal',                        //坐标轴刻度文字的样式          (可选normal  italic   oblique)
+        fontFamily: 'Courier New',
+        align: 'center',
+      },
+      splitLine: {
+        show: false,
+      },
+    }
+  ],
+  dataZoom: [
+    {
+      show: true,
+      start: 0,
+      end: 100
+    },
+    {
+      type: 'inside',
+      start: 0,
+      end: 100
+    },
+    {
+      show: true,
+      yAxisIndex: 0,
+      filterMode: 'empty',
+      width: 30,
+      height: '80%',
+      showDataShadow: false,
+      left: '93%'
+    }
+  ],
+  series: [
+    {
+      name: '对抗样本平均生成时间',
+      type: 'bar',
+      data: obama_budget_2013.average_usedTime
+    },
+    {
+      name: '扰动与原始图像的平均差异',
+      type: 'bar',
+      data: obama_budget_2013.average_perturb_adversial
+    },
+    {
+      name: '扰动的平均L2范数',
+      type: 'bar',
+      data: obama_budget_2013.average_norm
+    },
+    {
+      name: '平均神经元覆盖率',
+      type: 'bar',
+      data: obama_budget_2013.average_neurons_coverage
+    },
+    {
+      name: '神经元覆盖数',
+      type: 'bar',
+      data: obama_budget_2013.neurons_coverage_number
+    },
+  ]
+};
+let option_hot = {
   title: {
     top: 30,
     left: 'center',
@@ -329,6 +706,235 @@ let option_bing = {
       animationDelay: function (idx:any) {
         return Math.random() * 200;
       }
+    }
+  ]
+};
+let option_bing2 = {
+  backgroundColor: '',
+  title: {
+    text: '所有计算机视觉模型模糊测试项目',
+    left: 'center',
+    top: 0,
+    textStyle: {
+      color: '#f2f2f2'
+    }
+  },
+
+  tooltip: {
+    trigger: 'item'
+  },
+
+  visualMap: {
+    show: false,
+    min: 0,
+    max: 100,
+    inRange: {
+      colorLightness: [0, 1]
+    }
+  },
+  series: [
+    {
+      name: 'Number Of',
+      type: 'pie',
+      radius: '70%',
+      center: ['50%', '50%'],
+      data: [
+        { value: 30, name: '活跃项目' },
+        { value: 11, name: '停止项目' },
+        { value: 1, name: '异常项目' },
+      ].sort(function (a, b) {
+        return a.value - b.value;
+      }),
+      roseType: 'radius',
+      label: {
+        color: 'rgba(255, 255, 255, 0.7)'
+      },
+      labelLine: {
+        lineStyle: {
+          color: 'rgba(255, 255, 255, 0.7)'
+        },
+        smooth: 0.2,
+        length: 1,
+        length2: 20
+      },
+      itemStyle: {
+        color: '#769D80',
+        shadowBlur: 20,
+        shadowColor: 'rgba(0, 0, 0, 0.5)'
+      },
+
+      animationType: 'scale',
+      animationEasing: 'elasticOut',
+      animationDelay: function (idx:any) {
+        return Math.random() * 200;
+      }
+    }
+  ]
+};
+let option_zhu1 = {
+  title:{
+    text: '各项目产生对抗样本数',
+    textStyle: {
+            color: "#f2f2f2",
+            fontStyle: "normal",
+            fontFamily: "微软雅黑",
+            fontSize: 25,
+    },
+    left:'center'
+  },
+  legend: {
+    top: '5%',
+    left: '5%',
+    textStyle: {
+      color: "#f2f2f2",
+      fontStyle: "normal",
+      fontFamily: "微软雅黑",
+      fontSize: 15,
+    },
+  },
+  tooltip: {},
+  dataset: {
+    source: [
+      ['product', '2015', '2016', '2017'],
+      ['Matcha Latte', 43.3, 85.8, 93.7],
+      ['Milk Tea', 83.1, 73.4, 55.1],
+      ['Cheese Cocoa', 86.4, 65.2, 82.5],
+      ['Cheese Cocoa1', 86.4, 65.2, 82.5],
+      ['Cheese Cocoa2', 86.4, 65.2, 82.5],
+      ['Cheese Cocoa3', 86.4, 65.2, 82.5],
+      ['Cheese Cocoa4', 86.4, 65.2, 82.5],
+      ['Cheese Cocoa5', 86.4, 65.2, 82.5],
+      ['Cheese Cocoa6', 86.4, 65.2, 82.5],
+      ['Cheese Cocoa7', 86.4, 65.2, 82.5],
+      ['Cheese Cocoa', 86.4, 65.2, 82.5],
+      ['Cheese Cocoa', 86.4, 65.2, 82.5],
+      ['Cheese Cocoa', 86.4, 65.2, 82.5],
+      ['Cheese Cocoa', 86.4, 65.2, 82.5],
+      ['Cheese Cocoa', 86.4, 65.2, 82.5],
+      ['Cheese Cocoa', 86.4, 65.2, 82.5],
+      ['Cheese Cocoa', 86.4, 65.2, 82.5],
+      ['Cheese Cocoa', 86.4, 65.2, 82.5],
+      ['Cheese Cocoa', 86.4, 65.2, 82.5],
+      ['Cheese Cocoa', 86.4, 65.2, 82.5],
+      ['Cheese Cocoa', 86.4, 65.2, 82.5],
+      ['Cheese Cocoa', 86.4, 65.2, 82.5],
+      ['Cheese Cocoa', 86.4, 65.2, 82.5],
+      ['Cheese Cocoa', 86.4, 65.2, 82.5],
+      ['Walnut Brownie', 72.4, 53.9, 39.1]
+    ]
+  },
+  xAxis: {
+    type: 'category',
+    axisLabel: {                                //坐标轴刻度文字的设置
+      show: true,                                 //是否显示
+      color: '#f2f2f2',                              //坐标轴刻度文字的颜色
+      fontSize:10,                                //坐标轴刻度文字的大小         (用数字表示)
+      fontWeight:'lighter',                        //坐标轴刻度文字的加粗程度    (可选bold   bolder  lighter  normal)
+      fontstyle: 'normal',                        //坐标轴刻度文字的样式          (可选normal  italic   oblique)
+      fontFamily: 'Courier New',
+      rotate: 25,
+      align: 'center',
+      margin:20
+    },
+  },
+  yAxis: {
+    splitLine: {
+      show: false,
+    },
+    axisLabel: {                                //坐标轴刻度文字的设置
+      show: true,                                 //是否显示
+      color: '#f2f2f2',                              //坐标轴刻度文字的颜色
+      fontSize:13,                                //坐标轴刻度文字的大小         (用数字表示)
+      fontWeight:'lighter',                        //坐标轴刻度文字的加粗程度    (可选bold   bolder  lighter  normal)
+      fontstyle: 'normal',                        //坐标轴刻度文字的样式          (可选normal  italic   oblique)
+      fontFamily: 'Courier New',
+      align: 'center',
+    },
+  },
+  // Declare several bar series, each will be mapped
+  // to a column of dataset.source by default.
+  series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
+};
+
+let option_zhu2 = {
+  title:{
+    text: '各项目产生对抗样本数',
+    textStyle: {
+      color: "#f2f2f2",
+      fontStyle: "normal",
+      fontFamily: "微软雅黑",
+      fontSize: 25,
+    },
+    left:'center'
+  },
+  
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'shadow'
+    },
+  },
+  legend: {
+    top: '5%',
+    left: '5%',
+    textStyle: {
+      color: "#f2f2f2",
+      fontStyle: "normal",
+      fontFamily: "微软雅黑",
+      fontSize: 15,
+    },
+  },
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+  },
+  xAxis: [
+    {
+      type: 'category',
+      data: generateName(100,'project_'),
+      splitLine: {
+      show: false,
+    },
+      axisLabel: {                                //坐标轴刻度文字的设置
+        show: true,                                 //是否显示
+        color: '#f2f2f2',                              //坐标轴刻度文字的颜色
+        fontSize:13,                                //坐标轴刻度文字的大小         (用数字表示)
+        fontWeight:'lighter',                        //坐标轴刻度文字的加粗程度    (可选bold   bolder  lighter  normal)
+        fontstyle: 'normal',                        //坐标轴刻度文字的样式          (可选normal  italic   oblique)
+        fontFamily: 'Courier New',
+        rotate: 15,
+        align: 'center',
+        margin:20
+      },
+    }
+  ],
+  yAxis: [
+    {
+      type: 'log',
+      splitLine: {
+        show: false,
+      },
+      axisLabel: {                                //坐标轴刻度文字的设置
+        show: true,                                 //是否显示
+        color: '#f2f2f2',                              //坐标轴刻度文字的颜色
+        fontSize:13,                                //坐标轴刻度文字的大小         (用数字表示)
+        fontWeight:'lighter',                        //坐标轴刻度文字的加粗程度    (可选bold   bolder  lighter  normal)
+        fontstyle: 'normal',                        //坐标轴刻度文字的样式          (可选normal  italic   oblique)
+        fontFamily: 'Courier New',
+        align: 'center',
+      },
+    }
+  ],
+  series: [
+    {
+      name: 'Direct',
+      type: 'bar',
+      emphasis: {
+        focus: 'series'
+      },
+      data: generateRandomNumbers(100,1,1000)
     }
   ]
 };

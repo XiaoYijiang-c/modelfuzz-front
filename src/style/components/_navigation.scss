@@ -12,7 +12,8 @@
     &--button {
         font-size: 2rem;
         text-align: center;
-        display: inline-block;
+        display: flex;
+        align-items: center;
         height: 100%;
         user-select: none;
         color: #93AAC9;
@@ -22,7 +23,7 @@
     &--logo {
         height: 100%;
         margin-left: 5rem;
-        margin-right: 7rem;
+        margin-right: 5rem;
         display: flex;
         &__logo {
             height: 100%;

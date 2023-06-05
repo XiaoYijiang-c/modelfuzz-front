@@ -65,6 +65,8 @@
         </MalfuzzChart>
         <ReinforcementChart ref="reinforcementChart" v-show="mainListShow.reinforcementChart" :currentProject="currentProject" :projectList="projectList" @changeProject="changeProject" @sendAxios="sendAxios" @chooseProject="choose_project" :formPartLogin="formPartLogin" :currentProjectId="current_project_id" @setProjectID="setProjectID">
         </ReinforcementChart>
+        <DatasetEvaluateChart ref="datasetEvaluateChart" v-show="mainListShow.datasetEvaluateChart" :currentProject="currentProject" :projectList="projectList" @changeProject="changeProject" @sendAxios="sendAxios" @chooseProject="choose_project" :formPartLogin="formPartLogin" :currentProjectId="current_project_id" @setProjectID="setProjectID">
+        </DatasetEvaluateChart>
         </div>
         
         <div class="form-with-guide" v-show="mainListShow.penel">
@@ -330,6 +332,7 @@ const dlfuzzChart = ref();
 const emptyChart = ref();
 const malfuzzChart = ref();
 const reinforcementChart = ref();
+const datasetEvaluateChart = ref();
 const headFunction = (tag: string) => {
   if (tag.toUpperCase() == "SUBMIT") {
     submit('http://43.138.12.254:9000/dlfuzz/submit')
@@ -455,6 +458,7 @@ const mainListShow = reactive({
   dlfuzzImage: false,
   malfuzzChart: false,
   reinforcementChart: false,
+  datasetEvaluateChart: false,
   emptyChart:false,
 });
 // 控制中心部分显示的函数(tools.vue控制)
@@ -516,11 +520,20 @@ const show = (item: string) => {
   }
   else if (item === "reinforcementChart") {
     closeAllShow()
-    mainListShow.reinforcementChart = true;
     mainListShow.chart = true;
+    mainListShow.reinforcementChart = true;
     penel = reinforcementChart;
    
     reinforcementChart.value.loadChart()
+    
+  }
+  else if (item === "datasetEvaluateChart") {
+    closeAllShow()
+    mainListShow.chart = true;
+    mainListShow.datasetEvaluateChart = true;
+    penel = datasetEvaluateChart;
+   
+    datasetEvaluateChart.value.loadChart()
     
   }
   else if (item === "emptyChart") {
@@ -541,6 +554,7 @@ const closeAllShow = () => {
   mainListShow.chart = false;
   mainListShow.malfuzzChart = false;
   mainListShow.reinforcementChart = false;
+  mainListShow.datasetEvaluateChart = false;
   mainListShow.dlfuzzImage = false;
   mainListShow.datasetEvaluate = false;
   mainListShow.emptyChart = false;
@@ -551,6 +565,7 @@ function choose_project() {
 
 }
 function switchpenal() {
+  console.log("switchPenal")
   if (currentProject.value.id == '-1') {
     console.log('currentProject.value',currentProject.value)
     show('emptypenal')
@@ -576,6 +591,8 @@ function switchpenal() {
   }
 }
 function switchchart() {
+  console.log(currentProject.value.type);
+  
   if (currentProject.value.id == '-1') {
     show('emptyChart')
   } else {
@@ -585,10 +602,11 @@ function switchchart() {
     } else if (currentProject.value.type == 'mal') {
       show('malfuzzchart')
 
-    } else if (currentProject.value.type == 'eval') {
-      show('datasetEvaluate')
-    }else if (currentProject.value.type == 'reinforce') {
+    } else if (currentProject.value.type == 'reinforce') {
       show('reinforcementChart')
+    } else if (currentProject.value.type == 'eval') {
+      console.log(currentProject.value.id);
+      show('datasetEvaluateChart')
     }
   }
 }

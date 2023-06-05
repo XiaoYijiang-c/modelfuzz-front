@@ -29,8 +29,8 @@ $rainbow2-color5:#FDFCEA;
         &--rectangle {
             width: 75rem;
         }
-        background-color: rgba($color: $card-background, $alpha: 1);
-        border-radius: 1rem;
+        background-color: rgba($color: $console-dark, $alpha: 1);
+        // border-radius: 1rem;
         box-shadow: 0 .5rem 1rem rgba(#000000, .3);
     }
     &--list-title {

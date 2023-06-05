@@ -8,12 +8,16 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AsideTools: typeof import('./src/components/asideTools.vue')['default']
+    Carousel: typeof import('./src/components/Carousel.vue')['default']
     DatasetEvaluate: typeof import('./src/components/datasetEvaluate.vue')['default']
+    DatasetEvaluateChart: typeof import('./src/components/datasetEvaluateChart.vue')['default']
     DlfuzzChart: typeof import('./src/components/dlfuzzChart.vue')['default']
     DlfuzzImage: typeof import('./src/components/dlfuzzImage.vue')['default']
     DlfuzzPenel: typeof import('./src/components/dlfuzzPenel.vue')['default']
     ElAutoResizer: typeof import('element-plus/es')['ElAutoResizer']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElCarousel: typeof import('element-plus/es')['ElCarousel']
+    ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
     ElCascader: typeof import('element-plus/es')['ElCascader']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElCheckboxGroup: typeof import('element-plus/es')['ElCheckboxGroup']

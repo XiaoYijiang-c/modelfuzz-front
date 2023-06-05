@@ -9,7 +9,7 @@
     <span></span>
     <span></span>
     <span></span>
-    <span class="backward" @click="emits('switchPage', 0)"><el-icon size="5rem" ><Back /></el-icon></span>
+    <router-link replace to="/" style="color:#f2f2f2"><span class="backward"><router-link replace to="/" style="color:#f2f2f2"><el-icon size="5rem" ><Back /></el-icon></router-link></span></router-link>
     <span></span>
     <span></span>
     <span></span>
@@ -339,7 +339,7 @@ const usernameSignup = ref('')
 const passwordSignup = ref('')
 const passwordSignupTwice = ref('')
 const loginInOrUp = ref(true)
-const emits = defineEmits(["switchPage","setLogin"]);
+// const emits = defineEmits(["switchPage","setLogin"]);
 // 提交axios信息
 const sendAxios = (url: string,  callback:Function) => {
   let formDataObject = new FormData();
@@ -378,10 +378,12 @@ const consoleLogData = (data: any) => {
         projects: data.projects,
         projects_length: data.projects_length
       }
-      Cookies.set('username', data.userName, { expires: 7 })
-      Cookies.set('userID', data.userID, { expires: 7 })
-      emits('setLogin', loginMessage)
-      emits('switchPage', 0)
+      sessionStorage.setItem('username',  data.userName)
+      sessionStorage.setItem('userID', data.userID)
+      // Cookies.set('username', data.userName, { expires: 7 })
+      // Cookies.set('userID', data.userID, { expires: 7 })
+      // emits('setLogin', loginMessage)
+      // emits('switchPage', 0)
     }
    
   }

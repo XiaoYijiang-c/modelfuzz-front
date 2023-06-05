@@ -12,8 +12,8 @@
         <AsideTools ref="asidetools" @show="show" @switchpenal="switchpenal" @switchchart="switchchart" :newNumber="numberCount.dlfuzz" :openASide="openASide" @switchPage="emits('switchPage', 0)"></AsideTools>
       </div>
       <div class="console">
-        <Userhub v-if="mainListShow.userhub" :userMessage="props.loginMessage" @show="show"  @switchPage="emits('switchPage', 0)"></Userhub>
-        <projectshub ref="projecthub" v-show="mainListShow.projectshub" :userMessage="props.loginMessage" @set_projects="set_projects" @switch_to_penel="switch_to_penel"> </projectshub>
+        <Userhub v-if="mainListShow.userhub" :userMessage="projectList" @show="show"  @switchPage="emits('switchPage', 0)"></Userhub>
+        <projectshub ref="projecthub" v-show="mainListShow.projectshub" :userMessage="projectList" @set_projects="set_projects" @switch_to_penel="switch_to_penel"> </projectshub>
         <div class="chart_visiable" v-show="mainListShow.chart">
           <div class="chart_visiable--header">
               <!-- <h3 class="chart_visiable--header__text">Project-ID</h3> -->
@@ -220,7 +220,7 @@
 //   modelFile: File;
 //   codeFile: File;
 // }
-import { reactive, ref, watch, h,Ref,onMounted } from "vue";
+import { reactive, ref, watch, h,Ref,onBeforeMount } from "vue";
 import axios from "axios";
 import { ElMessage } from 'element-plus'
 import message from "../json/message.json"
@@ -261,13 +261,10 @@ interface LoginMessage {
   projects: Array<Project>;
   projects_length: number;
 }
-const props = defineProps<{
-  loginMessage: LoginMessage,
-}>();
-console.log(props.loginMessage)
+
 function set_projects(projects:Project[]) {
-  props.loginMessage.projects = projects
-  props.loginMessage.projects_length = projects.length
+  // props.loginMessage.projects = projects
+  // props.loginMessage.projects_length = projects.length
   projectList.value = projects
 }
 const projectSubmitState:Ref<boolean> = ref(false)
@@ -277,7 +274,16 @@ const currentProject: Ref<Project> = ref({
   name: t('skeleton.prompt_message'),
   id:'-1'
 })
-const projectList: Ref<Project[]> = ref(props.loginMessage.projects)
+onBeforeMount(() => {
+  let formdata = new FormData();
+  formdata.append('userID', sessionStorage.getItem('userID') as string)
+  axios.post('http://43.138.12.254:9000/get_projects', formdata).then((res) => {
+    projectList.value = res.data
+  })
+});
+
+
+const projectList: Ref<Project[]> = ref([])
 function changeProject(projectName : Project) {
   currentProject.value = projectName
 }
@@ -646,7 +652,7 @@ const options = [{
 const projecthub = ref()
 async function send_add_project() {
     let formDataObject = new FormData();
-  let userID: any = props.loginMessage.userID;
+  let userID: any = sessionStorage.getItem('userID');
     if (userID) {
         formDataObject.append('userID', userID);
     } else { return }

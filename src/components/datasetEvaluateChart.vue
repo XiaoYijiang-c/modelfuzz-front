@@ -4,43 +4,14 @@
        
     <div :class="{'chart_visiable--bottom': !fullscreenboolean, 'chart_visiable--bottom__fullscreen':fullscreenboolean}">
       <el-scrollbar>
-        <h2 class="chart_visiable--title">数据集评估</h2>
+        <h2 class="chart_visiable--title-img"><span style="font-size: 4rem;">数据集评估</span><span style="position: absolute;right: 2rem;"><span style="font-size: 2.5rem;">score:</span>78</span></h2>
         <el-icon class="chart_visiable--fullscreenbutton" @click="fullscreen"><FullScreen /></el-icon>
-        <!-- <div class="chart_visiable--columns-2-3" > 
-            <div class="chart-card">
-                <div class="chart-card__rainbow" style="height:40rem"></div>
-                <div class="chart-card--list-title">特殊激活样本</div>
-                <div class="chart-card--list-box" style="height:40rem" ref="ref_4">
-                  <el-auto-resizer>
-                    <template #default="{ height, width }">
-                      <el-table-v2
-                        :columns="columns"
-                        :data="tabledata"
-                        :width="width"
-                        :height="height"
-                        @scroll="loadList"
-                        fixed
-                      />
-                      
-                    </template>
-                  </el-auto-resizer>
-                </div>  
-            </div>
-            <div class="chart-card" >
-                <el-carousel trigger="click"  style="width: 100%;height: 100%;">
-                    <el-carousel-item v-for="item in images" :key="item" style="width: 100%;height: 100%;">
-                        <img :src="item.src" alt="img" style="width: 100%;height: 100%;">
-                    </el-carousel-item>
-                </el-carousel>
 
-            </div>
-
-        </div> -->
         <div class="chart_visiable--columns-2-3"> 
             <div class="chart-card" >
-                <div class="chart-card__rainbow" style="height:40rem"></div>
+                <div class="chart-card__rainbow" ></div>
                 <div class="chart-card--list-title">神经元信息</div>
-                <div class="chart-card--list-box" style="height:40rem" ref="ref_4">
+                <div class="chart-card--list-box"  ref="ref_4">
                   <!-- <div class="chart-card--list-box--title">res</div> -->
                   <el-auto-resizer>
                     <template #default="{ height, width }">
@@ -61,12 +32,7 @@
                 <div ref="ref_2" class="chart-card--chart chart-card--chart--rectangle"></div>      
             </div>
         </div>
-        <div class="chart_visiable--columns-1-2"> 
-            <div class="chart-card" >
-    
-            </div>
-
-        </div>
+      
       </el-scrollbar>
   </div>
 
@@ -178,7 +144,6 @@ const filepath = ref('')
 const loading = ref(true)
 const tableData = ref([
 ])
-// const ref_1 = ref()
 const dlfuzzImage = ref()
 let myEcharts1: any = null;
 let myEcharts2: any = null;
@@ -356,17 +321,42 @@ let option_zhu2 = {
     datasetIndex: 1
   }
 };
-// type EChartsOption = echarts.EChartsOption;
-// echarts.registerTransform(ecStat.transform.clustering);
-
+type EChartsOption = echarts.EChartsOption;
+echarts.registerTransform(ecStat.transform.clustering);
+let option = {
+  tooltip: {
+    formatter: '{a} <br/>{b} : {c}%'
+  },
+  series: [
+    {
+      name: 'Pressure',
+      type: 'gauge',
+      detail: {
+        formatter: '{value}'
+      },
+      data: [
+        {
+          value: 50,
+          name: 'SCORE'
+        }
+      ],
+      textStyle:{
+        fontSize:10,
+        color:'#f2f2f2'
+      },
+    }
+  ]
+};
 async function loadChart() {
     // let ref_1WH = await getRefCurrentWH(ref_1)
     // console.log(myEcharts1)
     // myEcharts1 = echarts.init(ref_1.value,'',ref_1WH);
-    // myEcharts1.setOption(option_zhu);
+    // myEcharts1.setOption(option);
     let ref_2WH =await getRefCurrentWH(ref_2)
     myEcharts2 = echarts.init(ref_2.value,'',ref_2WH);
-    myEcharts2.setOption(option_zhu2);
+    nextTick(() => {
+      myEcharts2.setOption(option_zhu2);
+    })
 
        
     loadList()

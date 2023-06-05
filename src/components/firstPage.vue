@@ -21,7 +21,7 @@
             </ul>
             <ul class="navigation--user">
                 <li class="navigation--user--head">
-                    <router-link replace to="/login" @click="emits('switchPage', 1)"><img src="../img/head.png" alt="logo" class="navigation--user--head__head" ></router-link>
+                    <router-link replace to="/login"><img src="../img/head.png" alt="logo" class="navigation--user--head__head" ></router-link>
                 </li>
                 <li class="navigation--jump--item" @click="checkLogin">{{ $t("FirstPage.user") }}</li>
                 <li class="navigation--jump--item" @click="changeLanguage">{{ $t("FirstPage.switchLan") }}</li>
@@ -36,7 +36,7 @@
                     <span class="heading-primary__main">{{_languageJson['heading_main'] }}</span>
                     <span class="heading-primary__sub">{{_languageJson['heading_sub'] }}</span>
                     <!-- <router-link replace to="/testnnsvg"><a href="#" @click="checkLogin"><span class="btn btn--white">{{_languageJson['heading_btn']}}</span></a></router-link> -->
-                    <a href="#" @click="checkLogin"><span class="btn btn--white">{{ $t('FirstPage.button') }}</span></a>
+                    <router-link replace to="/penel" style="color:#f2f2f2" @click="checkLogin"><span class="btn btn--white">{{ $t('FirstPage.button') }}</span></router-link>
                 </h1>
             </div>
         </div>
@@ -307,6 +307,7 @@ const props = defineProps<{
   loginMessage: LoginMessage,
 }>();
 async function checkLogin() {
+    console.log('checkLogin')
      if (Cookies.get('username') && Cookies.get('userID')) {
     //     let loginMessage = {
     //     username: Cookies.get('username'),

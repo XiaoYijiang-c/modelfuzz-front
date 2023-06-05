@@ -11,7 +11,7 @@
             <div class="userhub--head_sculpture--name">肆夕</div>
             <div class="userhub--head_sculpture--tools">
                <span class="userhub--head_sculpture--tools__uptool">
-                   <span class="userhub--head_sculpture--tools__uptool--item"><p>{{ props.userMessage.projects_length }}</p><h3>{{ $t('Userhub.tool_item_0')}}</h3></span>
+                   <span class="userhub--head_sculpture--tools__uptool--item"><p>{{ props.userMessage.length }}</p><h3>{{ $t('Userhub.tool_item_0')}}</h3></span>
                    <span class="userhub--head_sculpture--tools__uptool--item"><p>1047</p><h3>{{ $t('Userhub.tool_item_1')}}</h3></span>
                    <span class="userhub--head_sculpture--tools__uptool--item"><p>1</p><h3>{{ $t('Userhub.tool_item_2')}}</h3></span>
                 </span>
@@ -174,21 +174,9 @@ interface Project {
     name: string;
     id:string
 }
-interface ProjectList {
-    project: Project[];
-    length: number;
-}
-interface LoginMessage {
-  username: string;
-  userID: string;
-  loginState: boolean;
-  projects: Array<Project>;
-  projects_length: number;
-}
 const props = defineProps<{
-    userMessage: LoginMessage,
+    userMessage: Project[],
 }>();
-console.log(props.userMessage)
 function logout() {
     ElMessageBox.alert('是否确认登出:'+name.value, '警告', {
     // if you want to disable its autofocus

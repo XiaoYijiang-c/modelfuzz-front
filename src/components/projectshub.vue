@@ -67,10 +67,10 @@ import { useI18n } from "vue-i18n";
 
 const { t } = useI18n({ useScope: "global" });
 const props = defineProps<{
-    userMessage: LoginMessage,
+    userMessage: ProjectPlus[],
 }>();
 const emits = defineEmits(["set_projects","switch_to_penel"]);
-const testprojectlist: Ref<any[]> = ref(props.userMessage.projects.map((value, index) => {
+const testprojectlist: Ref<any[]> = ref(props.userMessage.map((value, index) => {
     value['status'] = false;
     return value
 }))

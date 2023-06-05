@@ -63,6 +63,20 @@ const datasetEvaluate = {
     label_2: 'Input Dimension',
     step_0: 'Upload Model Structure Code And Dataset',
 }
+
+const modelEvaluate = {
+    title: 'Upload Model',
+    button_0: 'Select',
+    button_1: 'Template',
+    card_title_0: 'Upload Model Structure Code',
+    card_title_1: 'Upload The Model To Be Tested',
+    card_title_2: 'Upload Dataset',
+    card_title_3: 'Upload Preprocessing Files',
+    label_0: 'Model Function Name',
+    label_1: 'Preprocessing Function Name',
+    label_2: 'Input Dimension',
+    step_0: 'Upload Model Structure Code And Dataset',
+}
 // 按功能模块导出
 export default {
     FirstPage,
@@ -71,5 +85,6 @@ export default {
     skeleton,
     empty,
     aside_tools,
-    datasetEvaluate
+    datasetEvaluate,
+    modelEvaluate
 }

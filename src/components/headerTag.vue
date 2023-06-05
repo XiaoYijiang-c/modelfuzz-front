@@ -1,6 +1,6 @@
 <template>
   <div class="head-tool--list">
-    <div class="head-tool--part">
+    <div class="head-tool--part" style="margin-top: 10rem;">
       <div class="head-tool--item item__litter btn" :body-style="{ padding: '10px' }" v-for="i in props.topList" :key="i"
         @click="emits('headFunction', i)"><span>{{ i }}</span><el-icon v-if="i=='submit'"><DArrowRight /></el-icon></div>
     </div>

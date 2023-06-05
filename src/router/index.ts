@@ -15,8 +15,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../components/skeleton.vue"),
         children: [
             {
-                path: "/cvfuzz", // 重定向到 /register 页面或 /register/confirm 页面不做任何操作。这是 vue-router 的一个特征。 在你的语言中是可以接受的，但不是必需的。 （请参见讨论页面） 这个页面应该是可变的，并且将来会添加一个更多重定向到 /register/recovery 的页面。 有关属性的更多信息，请参见
+                path: "/cvfuzz",
                 component: () => import("../components/dlfuzzPenel.vue"),
+            }, {
+                path: "/userhub",
+                component: () => import("../components/userhub.vue"),
             }
         ]
     },

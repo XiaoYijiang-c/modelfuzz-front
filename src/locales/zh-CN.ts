@@ -64,6 +64,20 @@ const datasetEvaluate = {
     label_2: '输入维度',
 
 }
+
+const modelEvaluate = {
+    title: '上传待测模型',
+    button_0: '选择文件',
+    button_1: '模版',
+    card_title_0: '上传模型结构源码',
+    card_title_1: '上传待测模型',
+    card_title_2: '上传待测数据集',
+    card_title_3: '上传预处理文件',
+    label_0: '模型函数名',
+    label_1: '预处理函数名',
+    label_2: '输入维度',
+
+}
 // 按功能模块导出
 export default {
     FirstPage,
@@ -73,4 +87,5 @@ export default {
     empty,
     aside_tools,
     datasetEvaluate,
+    modelEvaluate
 }

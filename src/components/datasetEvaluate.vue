@@ -83,14 +83,6 @@
                 <span class="input-label">{{ $t('datasetEvaluate.label_1') }}</span>
                 <input type="text" autocomplete="off" name="search" class="input_self  u-input-transparent" v-model="form.preprocess_function" placeholder="Please input" @change="allSteps" />
               </div>
-              <!-- <div class="input-box u-margin-left-2rem">
-                <span class="input-label">Deprocess Function Name</span>
-                <input type="text" autocomplete="off" name="search" class="input_self  u-input-transparent" v-model="form.deprocess_function" placeholder="Please input" @change="allSteps" />
-              </div>
-              <div class="input-box u-margin-left-2rem">
-                <span class="input-label">Layer name</span>
-                <input type="text" autocomplete="off" name="search" class="input_self u-input-transparent" v-model="form.layer_name" placeholder="Please input" @change="allSteps" />
-              </div> -->
               <div class="input-box u-margin-left-2rem">
                 <span class="input-label">{{ $t('datasetEvaluate.label_2') }}</span>
                 <input type="text" autocomplete="off" name="search" class="input_self  u-input-transparent" v-model="form.shape" placeholder="Please input" @change="allSteps" />
@@ -101,38 +93,6 @@
         </el-form>
       </el-scrollbar>
       </div>
-      
-      <!-- <div class="form-with-guide--main-part__right">
-        <div style="height: 300px;position:sticky;top:2rem">
-          <el-steps direction="vertical" :active="activeStep" finish-status="success">
-            <el-step title="Step 1"  style="background-color: transparent;">
-             <template v-slot:description>
-                <span  class="step-text">上传待测模型和数据集</span>
-             </template>
-             <template v-slot:title>
-                <span  class="step-title">Step 1</span>
-             </template>
-            </el-step>
-            <el-step title="Step 2"  style="background-color: transparent;">
-             <template v-slot:description>
-                <span class="step-text">提供模型基础信息</span>
-             </template>
-             <template v-slot:title>
-                <span  class="step-title">Step 2</span>
-             </template>
-            </el-step>
-            <el-step title="Step 3"  style="background-color: transparent;">
-             <template v-slot:description>
-                <span class="step-text">点击上传</span>
-             </template>
-             <template v-slot:title>
-                <span  class="step-title">Step 3</span>
-             </template>
-            </el-step>
-          </el-steps>
-        </div>
-      </div> -->
-
   </template>
   <script lang="ts" setup>
   import { reactive ,Ref} from "vue";

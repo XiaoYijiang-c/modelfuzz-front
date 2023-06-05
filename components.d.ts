@@ -44,6 +44,7 @@ declare module '@vue/runtime-core' {
     Malfuzz: typeof import('./src/components/malfuzz.vue')['default']
     MalfuzzChart: typeof import('./src/components/malfuzzChart.vue')['default']
     Modal: typeof import('./src/components/modal.vue')['default']
+    ModelEvaluate: typeof import('./src/components/modelEvaluate.vue')['default']
     NavigationButton: typeof import('./src/components/navigationButton.vue')['default']
     Nnsvg: typeof import('./src/components/nnsvg.vue')['default']
     Projectshub: typeof import('./src/components/projectshub.vue')['default']

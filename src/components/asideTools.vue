@@ -4,7 +4,7 @@
     
       <ul class="tool--list">
         <el-scrollbar>
-        <li class="tool--list-item"  @click="emits('switchpenal'),clearActiveList(),activeList._1=true" :class="{'tool--list-item--active':activeList._1}">
+        <li class="tool--list-item"  @click="emits('switchpanel'),clearActiveList(),activeList._1=true" :class="{'tool--list-item--active':activeList._1}">
           <div class="tool--list-item--icon"><el-icon ><House/></el-icon></div>
           <span class="tool--list-item--text">
             {{ $t('aside_tools.item_0') }}
@@ -112,7 +112,7 @@ function openSubmenus(item:ToolOpenSetting) {
   item.status= !item.status
 }
 
-const emits = defineEmits(["show", "switchPage", "switchpenal","switchchart"]);
+const emits = defineEmits(["show", "switchPage", "switchpanel","switchchart"]);
 defineExpose({
   clearActiveList,
   activeList

@@ -16,7 +16,7 @@ const routes: Array<RouteRecordRaw> = [
         children: [
             {
                 path: "/cvfuzz",
-                component: () => import("../components/dlfuzzPenel.vue"),
+                component: () => import("../components/dlfuzzPanel.vue"),
             }, {
                 path: "/userhub",
                 component: () => import("../components/userhub.vue"),

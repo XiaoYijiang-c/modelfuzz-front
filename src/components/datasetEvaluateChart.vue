@@ -1,7 +1,4 @@
 <template>
-   
-        
-       
     <div :class="{'chart_visiable--bottom': !fullscreenboolean, 'chart_visiable--bottom__fullscreen':fullscreenboolean}">
       <el-scrollbar>
         <h2 class="chart_visiable--title-img"><span style="font-size: 4rem;">数据集评估</span><span style="position: absolute;right: 2rem;"><span style="font-size: 2.5rem;">score:</span>78</span></h2>

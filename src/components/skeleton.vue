@@ -70,6 +70,8 @@
         </ReinforcementChart>
         <DatasetEvaluateChart ref="datasetEvaluateChart" v-show="mainListShow.datasetEvaluateChart" :currentProject="currentProject" :projectList="projectList" @changeProject="changeProject" @sendAxios="sendAxios" @chooseProject="choose_project" :formPartLogin="formPartLogin" :currentProjectId="current_project_id" @setProjectID="setProjectID">
         </DatasetEvaluateChart>
+        <RetrainChart ref="retrainChart" v-show="mainListShow.retrainChart" :currentProject="currentProject" :projectList="projectList" @changeProject="changeProject" @sendAxios="sendAxios" @chooseProject="choose_project" :formPartLogin="formPartLogin" :currentProjectId="current_project_id" @setProjectID="setProjectID">
+        </RetrainChart>
         <ModelEvaluateChart ref="modelEvaluateChart" v-show="mainListShow.modelEvaluateChart" :currentProject="currentProject" :projectList="projectList" @changeProject="changeProject" @sendAxios="sendAxios" @chooseProject="choose_project" :formPartLogin="formPartLogin" :currentProjectId="current_project_id" @setProjectID="setProjectID">
         </ModelEvaluateChart>
         </div>
@@ -145,6 +147,11 @@
                   <HeaderTag v-show="mainListShow.reinforcement" :topList="topList" @changeOpenASide="changeOpenASide" @headFunction="malheadFunction" ></HeaderTag>
                 </template>
               </Reinforcementfuzz>
+              <Retrainpanel ref="retrainpanel" v-show="mainListShow.retrainpanel"  :currentProjectId="current_project_id"  @setstep="setStep">
+                <template v-slot:Submit_button>
+                  <HeaderTag v-show="mainListShow.retrainpanel" :topList="topList" @changeOpenASide="changeOpenASide" @headFunction="malheadFunction" ></HeaderTag>
+                </template>
+              </Retrainpanel>
               <Emptypanel ref="emptypanel" v-show="mainListShow.emptypanel"  :currentProjectId="current_project_id"  @setstep="setStep">
                 <template v-slot:Submit_button>
                   <HeaderTag v-show="mainListShow.emptypanel" :topList="topList" @changeOpenASide="changeOpenASide" @headFunction="malheadFunction" ></HeaderTag>
@@ -347,6 +354,7 @@ const modelEvaluate = ref();
 const introduction = ref();
 const malfuzz = ref();
 const reinforcement = ref()
+const retrainpanel = ref()
 const emptypanel = ref();
 const dlfuzzImage = ref();
 const dlfuzzChart = ref();
@@ -354,6 +362,7 @@ const emptyChart = ref();
 const malfuzzChart = ref();
 const reinforcementChart = ref();
 const datasetEvaluateChart = ref();
+const retrainChart = ref();
 const modelEvaluateChart = ref();
 const headFunction = (tag: string) => {
   if (tag.toUpperCase() == "SUBMIT") {
@@ -476,12 +485,14 @@ const mainListShow = reactive({
   modelEvaluate:false,
   malfuzz: false,
   reinforcement:false,
+  retrainpanel:false,
   emptypanel:false,
   dlfuzzpanel: false,
   dlfuzzImage: false,
   malfuzzChart: false,
   reinforcementChart: false,
   datasetEvaluateChart: false,
+  retrainChart: false,
   modelEvaluateChart: false,
   emptyChart:false,
 });
@@ -527,6 +538,12 @@ const show = (item: string) => {
       mainListShow.panel = true;
       panel = reinforcement;
     },
+    retrainpanel: () => {
+      closeAllShow();
+      mainListShow.retrainpanel = true;
+      mainListShow.panel = true;
+      panel = retrainpanel;
+    },
     emptypanel: () => {
       closeAllShow();
       mainListShow.emptypanel = true;
@@ -561,6 +578,13 @@ const show = (item: string) => {
       panel = datasetEvaluateChart;
       datasetEvaluateChart.value.loadChart();
     },
+    retrainChart: () => {
+      closeAllShow();
+      mainListShow.chart = true;
+      mainListShow.retrainChart = true;
+      panel = retrainChart;
+      retrainChart.value.loadChart();
+    },
     modelEvaluateChart: () => {
       closeAllShow();
       mainListShow.chart = true;
@@ -588,11 +612,13 @@ const closeAllShow = () => {
   mainListShow.dlfuzzpanel = false;
   mainListShow.malfuzz = false;
   mainListShow.reinforcement = false;
+  mainListShow.retrainpanel = false;
   mainListShow.emptypanel = false;
   mainListShow.chart = false;
   mainListShow.malfuzzChart = false;
   mainListShow.reinforcementChart = false;
   mainListShow.datasetEvaluateChart = false;
+  mainListShow.retrainChart = false;
   mainListShow.modelEvaluateChart = false;
   mainListShow.dlfuzzImage = false;
   mainListShow.datasetEvaluate = false;
@@ -631,8 +657,11 @@ function switchpanel() {
       show('reinforcement');
       setStep(reinforcement.value.activeStep, reinforcement.value.stepMessage);
       break;
+    case 'retrain':
+      show('retrainpanel');
+      setStep(retrainpanel.value.activeStep, retrainpanel.value.stepMessage);
+      break;
     default:
-    console.log(currentProject.value.type);
       show('emptypanel');
       setStep(emptypanel.value.activeStep, emptypanel.value.stepMessage);
       break;
@@ -654,6 +683,9 @@ function switchchart() {
       break;
     case 'eval':
       chartType = 'datasetEvaluateChart';
+      break;
+    case 'retrain':
+      chartType = 'retrainChart';
       break;
     case 'modeleval':
       chartType = 'modelEvaluateChart';
